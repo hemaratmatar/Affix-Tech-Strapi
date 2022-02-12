@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Signup = () => {
   return (
-    <div className="flex overflow-auto h-screen p-4 bg-gray-100  md:items-center lg:justify-center">
+    <div className="flex overflow-auto min-h-screen p-4 bg-gray-100  md:items-center lg:justify-center">
       <div className="  w-full lg:overflow-hidden overflow-auto bg-white rounded-md shadow-lg   lg:max-w-screen-md">
         {/*<div className="lg:flex lg:flex-1 lg:max-w-screen-xl p-4 py-6 text-white bg-red-400 md:w-80 md:flex-1 md:flex-shrink-0 md:flex md:flex-col md:items-center ">
            <div className="my-3 text-4xl font-bold tracking-wider text-center">
@@ -68,7 +68,7 @@ const Signup = () => {
               <input
                 type="text"
                 id="text"
-                name="fullname"
+                name="username"
                 //   value={username}
                 //   onChange={(e) => onChange(e)}
                 required
@@ -84,10 +84,10 @@ const Signup = () => {
                 Username
               </label>
               <input
-                type="text"
-                id="text"
-                name="username"
-                //   value={username}
+                type="email"
+                id="email"
+                name="email"
+                //   value={email}
                 //   onChange={(e) => onChange(e)}
                 required
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"
@@ -104,7 +104,7 @@ const Signup = () => {
                 type="password"
                 id="password"
                 name="password"
-                //   value={username}
+                //   value={password}
                 //   onChange={(e) => onChange(e)}
                 required
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"

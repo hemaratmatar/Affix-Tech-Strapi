@@ -1,85 +1,50 @@
-/* eslint-disable no-duplicate-case */
-/* eslint-disable no-fallthrough */
-/* eslint-disable import/no-anonymous-default-export */
 import {
-    USER_LOADED,
-    USER_LOADFAIL,
-    CLEAR_USER,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    LOGOUT,
-  } from "../action/types";
-  
-  const initialState = {
-    isAuthenticated: false,
-    loading: false,
-    status: null,
-  };
-  
-  export default function (state = initialState, action) {
-    const { type, payload } = action;
-    switch (type) {
-      
-      case USER_LOADED:
-          return {
-          ...state,
-          isAuthenticated: true,
-          loading: false,
-          ...payload
-        };
-      case USER_LOADFAIL:      
-      localStorage.removeItem("success",null);
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  USER_LOADED,
+  LOGOUT,
+} from "../action/types";
+
+const initialState = {
+  token: localStorage.getItem("token"),
+  isAuthenticated: false,
+  loading: false,
+  user: null,
+};
+
+export default function auth(state = initialState, action) {
+  const { type, payload } = action;
+
+  switch (type) {
+    case USER_LOADED:
+      // console.log(payload);
+      var b = JSON.stringify(payload);
+      var c = b.substring(1, b.length - 1);
       return {
         ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: JSON.parse(c),
+      };
+    case LOGIN_SUCCESS:
+      localStorage.setItem("token", payload.jwt);
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+    case LOGIN_FAIL:
+    case LOGOUT:
+      localStorage.removeItem("token",null);
+      return {
+        ...state,
+        token: null,
         isAuthenticated: false,
         loading: false,
-        ...payload
+        user: null,
       };
-  
-      case CLEAR_USER:
-        return {
-          ...state,
-          isAuthenticated: false,
-          loading: false
-        };
-      case LOGIN_SUCCESS:
-        localStorage.setItem("success", payload.success);
-        return {
-          ...state,
-          isAuthenticated: true,
-          loading: false,
-          ...payload
-        };
-      case LOGIN_FAIL:
-        return {
-          ...state,
-          isAuthenticated:false,
-          loading:false,
-          ...payload
-        }
-  
-      case REGISTER_SUCCESS:
-        return {
-          ...state,
-          isAuthenticated: true,
-          loading: false,
-          ...payload
-        };
-  
-      case REGISTER_FAIL:
-  
-      case LOGOUT:
-        localStorage.removeItem("success",null);
-        return {
-          ...state,
-          isAuthenticated: false,
-          loading: false,
-          ...payload
-        };
-      default:
-        return state;
-    }
+    default:
+      return state;
   }
-  
+}
