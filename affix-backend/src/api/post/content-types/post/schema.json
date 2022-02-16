@@ -28,6 +28,15 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "reports": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::report.report",
+      "mappedBy": "post"
+    },
+    "Catagory": {
+      "type": "string"
     }
   }
 }
