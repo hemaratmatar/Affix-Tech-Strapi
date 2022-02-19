@@ -1,8 +1,57 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
-const Signup = () => {
+//React Router Dom
+import { Redirect,Link } from "react-router-dom";
+
+
+
+// Redux
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { signup } from "../../Redux/action/auth";
+
+const Signup = ({signup,isAuthenticated,loading}) => {
+  const [signupData, setsignupData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    passwordCheck: "",
+    role: 1,
+
+  });
+//https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg
+  const { username, email, password,role, passwordCheck } = signupData;
+  // if (signupData.ImageUrl === "" || null) {
+  //   const image = normalize(
+  //     gravatar.url(email, {
+  //       s: '200',
+  //       r: 'pg',
+  //       d: 'mm'
+  //     }),
+  //     { forceHttps: true }
+  //   );
+  //   setsignupData({...signupData,ImageUrl:image})
+  // }      
+  
+  const onChange = (e) =>{
+    setsignupData({ ...signupData, [e.target.name]: e.target.value })};
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== passwordCheck ) {
+      // setAlert('Passwords do not match', 'danger');
+      console.log("Passwords don't match");
+    } else {
+      // setsignupData({ confirmed: true });
+      // signup({username, email, password,confirmed,role,ImageUrl, passwordCheck})
+      signup(username, email, password,role);
+    }
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to="/home" />;
+  }
+
   return (
     <div className="flex overflow-auto min-h-screen p-4 bg-gray-100  md:items-center lg:justify-center">
       <div className="  w-full lg:overflow-hidden overflow-auto bg-white rounded-md shadow-lg   lg:max-w-screen-md">
@@ -51,12 +100,10 @@ const Signup = () => {
 
         </div> */}
         <div className="items-center p-5 bg-red-400 h-full ">
-        <div className="my-3 text-4xl font-bold tracking-wider text-white text-center">
+          <div className="my-3 text-4xl font-bold tracking-wider text-white text-center">
             <p>Affix Tech</p>
           </div>
-          <h3 className="my-4 text-2xl font-semibold text-white">
-            Register
-          </h3>
+          <h3 className="my-4 text-2xl font-semibold text-white">Register</h3>
           <form action="#" className="flex flex-col space-y-5">
             <div className="flex flex-col space-y-1">
               <label
@@ -69,8 +116,8 @@ const Signup = () => {
                 type="text"
                 id="text"
                 name="username"
-                //   value={username}
-                //   onChange={(e) => onChange(e)}
+                value={username}
+                onChange={(e) => onChange(e)}
                 required
                 autoFocus
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"
@@ -87,8 +134,8 @@ const Signup = () => {
                 type="email"
                 id="email"
                 name="email"
-                //   value={email}
-                //   onChange={(e) => onChange(e)}
+                value={email}
+                onChange={(e) => onChange(e)}
                 required
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"
               />
@@ -104,8 +151,8 @@ const Signup = () => {
                 type="password"
                 id="password"
                 name="password"
-                //   value={password}
-                //   onChange={(e) => onChange(e)}
+                value={password}
+                onChange={(e) => onChange(e)}
                 required
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"
               />
@@ -122,9 +169,9 @@ const Signup = () => {
               <input
                 type="password"
                 id="password"
-                name="password"
-                //   value={password}
-                //   onChange={(e) => onChange(e)}
+                name="passwordCheck"
+                value={passwordCheck}
+                onChange={(e) => onChange(e)}
                 required
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"
               />
@@ -145,15 +192,13 @@ const Signup = () => {
                 <label htmlFor="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
                 </div> */}
             <div className="py-4">
-           
-                <button
-                  type="submit"
-                  //   onClick={(e) => onSubmit(e)}
-                  className="w-full px-4 py-2 text-lg font-semibold text-red-400 transition-colors duration-300 bg-white rounded-md shadow hover:bg-red-300 hover:text-white focus:outline-none focus:ring-red-200 focus:ring-4"
-                >
-                  Sign Up
-                </button>
-         
+              <button
+                type="submit"
+                  onClick={(e) => onSubmit(e)}
+                className="w-full px-4 py-2 text-lg font-semibold text-red-400 transition-colors duration-300 bg-white rounded-md shadow hover:bg-red-300 hover:text-white focus:outline-none focus:ring-red-200 focus:ring-4"
+              >
+                Sign Up
+              </button>
             </div>
             <div>
               <p className=" text-white text-center">
@@ -194,4 +239,15 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+Signup.propTypes = {
+  signup: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { signup })(Signup);;
+
+// export default Signup;

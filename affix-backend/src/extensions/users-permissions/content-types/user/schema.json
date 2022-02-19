@@ -64,7 +64,9 @@
       "configurable": false
     },
     "imageUrl": {
-      "type": "text"
+      "type": "text",
+      "default": "https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg",
+      "required": false
     }
   }
 }

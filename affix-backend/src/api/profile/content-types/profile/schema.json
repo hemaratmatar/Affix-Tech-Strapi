@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profiles",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "Profile"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Tel": {
+      "type": "string"
+    },
+    "shotbio_tech": {
+      "type": "richtext"
+    }
+  }
+}

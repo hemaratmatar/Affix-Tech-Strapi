@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-//Route
+
+//React Router Dom
 import { Redirect, Link } from "react-router-dom";
 
 //Redux
@@ -21,13 +22,14 @@ const Login = ({ login, isAuthenticated, loading }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     login(identifier, password);
+    console.log(formData.identifier);
   };
 
   if (isAuthenticated) {
     return <Redirect to="/home" />;
   }
 
-  const backendurl = "http://localhost:1337/admin";
+  // const backendurl = "http://localhost:1337/admin";
 
   return (
     <div className="flex overflow-auto min-h-screen p-4 bg-gray-100  md:items-center lg:justify-center">
@@ -109,20 +111,12 @@ const Login = ({ login, isAuthenticated, loading }) => {
               />
             </div>
             <div className="flex flex-col space-y-1">
-              <div className="flex items-center justify-between">
-                <label
+            <label
                   for="password"
                   className="text-sm font-semibold text-gray-500"
                 >
                   Password
                 </label>
-                <a
-                  href="#"
-                  className="text-sm text-red-400 hover:underline focus:text-blue-800"
-                >
-                  Forgot Password?
-                </a>
-              </div>
               <input
                 type="password"
                 id="password"
@@ -142,7 +136,15 @@ const Login = ({ login, isAuthenticated, loading }) => {
               />
               <label for="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
             </div> */}
-            <div className="py-4">
+              <div className="flex items-center justify-end">
+                <a
+                  href="#"
+                  className="text-sm text-red-400 hover:underline focus:text-blue-800"
+                >
+                  Forgot Password?
+                </a>
+              </div>
+            
               <button
                 type="submit"
                 onClick={(e) => onSubmit(e)}
@@ -150,14 +152,13 @@ const Login = ({ login, isAuthenticated, loading }) => {
               >
                 Log in
               </button>
-            </div>
-            <div>
+
               <Link to="/signup">
                 <button className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-red-400 rounded-md shadow hover:bg-red-400 focus:outline-none focus:ring-red-200 focus:ring-4">
                   Sign Up
                 </button>
               </Link>
-            </div>
+            {/*Google Authen with SSO */}
             {/* <div className="flex flex-col space-y-5">
                 <span className="flex items-center justify-center space-x-2">
                   <span className="h-px bg-gray-400 w-14"></span>
@@ -182,11 +183,33 @@ const Login = ({ login, isAuthenticated, loading }) => {
                   </a>
                 </div>
               </div> */}
-            <p className="flex flex-col items-center justify-center text-sm  mt-10 text-center">
+            {/* <p className="flex flex-col items-center justify-center text-sm  mt-10 text-center">
               <a href={backendurl} className="">
                 Go To Admin
               </a>
-            </p>
+            </p> */}
+            {/* Alert Sucessfuly */}
+            <div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-emerald-500">
+              <span className="text-xl inline-block mr-5 align-middle">
+                
+              </span>
+              <span className="inline-block align-middle mr-8">
+                <b className="capitalize">Login is Sucessfuly</b>
+              </span>
+            </div>
+            {/* Alert Error */}
+            <div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+              <span className="text-xl inline-block mr-5 align-middle">
+                <i className="fas fa-bell" />
+              </span>
+              <span className="inline-block align-middle mr-8">
+                <b className="capitalize">red!</b> This is a red alert - check
+                it out!
+              </span>
+              {/*<button className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
+                <span>×</span>
+            </button>*/}
+            </div>
           </form>
         </div>
       </div>

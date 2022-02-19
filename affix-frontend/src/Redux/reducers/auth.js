@@ -3,6 +3,8 @@ import {
   LOGIN_FAIL,
   USER_LOADED,
   LOGOUT,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL
 } from "../action/types";
 
 const initialState = {
@@ -16,6 +18,7 @@ export default function auth(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    //User Loaded
     case USER_LOADED:
       // console.log(payload);
       var b = JSON.stringify(payload);
@@ -26,7 +29,18 @@ export default function auth(state = initialState, action) {
         loading: false,
         user: JSON.parse(c),
       };
+    // Login
     case LOGIN_SUCCESS:
+      localStorage.setItem("token", payload.jwt);
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+    case LOGIN_FAIL:
+      //Sign UP
+    case SIGNUP_SUCCESS:
       localStorage.setItem("token", payload.jwt);
       return {
         ...state,

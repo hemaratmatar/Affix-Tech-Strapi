@@ -7,4 +7,7 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const USER_LOADED = 'USER_LOADED';
 export const LOADER_FAIL = 'LOADER_FAIL';
 
+export const SIGNUP_SUCCESS= 'SIGNUP_SUCCESS';
+export const SIGNUP_FAIL= 'SIGNUP_FAIL';
+
 export const LOGOUT= 'LOGOUT';

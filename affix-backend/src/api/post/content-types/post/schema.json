@@ -37,6 +37,19 @@
     },
     "Catagory": {
       "type": "string"
+    },
+    "Cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "publish_date": {
+      "type": "datetime"
     }
   }
 }
