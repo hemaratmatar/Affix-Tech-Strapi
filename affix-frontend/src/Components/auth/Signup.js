@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 //React Router Dom
-import { Redirect,Link } from "react-router-dom";
+import { Navigate , Link } from "react-router-dom";
 import Alert from "./Alert";
 
 
@@ -50,7 +50,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/home" />;
+    return  <Navigate to="/home" />;
   }
 
   return (

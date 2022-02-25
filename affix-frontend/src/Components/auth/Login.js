@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 //React Router Dom
-import { Redirect, Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 //Redux
 import { connect } from "react-redux";
@@ -23,12 +23,12 @@ const Login = ({ login, isAuthenticated, loading, }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     login(identifier, password);
-    console.log(formData.identifier);
+    // console.log(formData.identifier);
   };
-
+  // const navigate = useNavigate();
 
   if (isAuthenticated) {
-    return <Redirect to="/home" />;
+    return <Navigate to="/home" />;
   }
 
   // const backendurl = "http://localhost:1337/admin";
@@ -98,23 +98,23 @@ const Login = ({ login, isAuthenticated, loading, }) => {
           </h3>
           <form  className="flex flex-col space-y-5" onSubmit={(e) => onSubmit(e)}>
             <div className="flex flex-col space-y-1">
-              <label for="text" className="text-sm font-semibold text-gray-500">
+              <label htmlFor="text" className="text-sm font-semibold text-gray-500">
                 Email
               </label>
               <input
                 type="email"
-                id="email"
+                // id="email"
                 name="identifier"
                 value={identifier}
                 onChange={(e) => onChange(e)}
                 required
-                autofocus
+                autoFocus
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"
               />
             </div>
             <div className="flex flex-col space-y-1">
             <label
-                  for="password"
+                  htmlFor="password"
                   className="text-sm font-semibold text-gray-500"
                 >
                   Password
@@ -136,7 +136,7 @@ const Login = ({ login, isAuthenticated, loading, }) => {
                 id="remember"
                 className="w-4 h-4 transition duration-300 rounded focus:ring-2 focus:ring-offset-0 focus:outline-none focus:ring-blue-200"
               />
-              <label for="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
+              <label htmlFor="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
             </div> */}
               <div className="flex items-center justify-end">
                 <a
@@ -220,7 +220,6 @@ const Login = ({ login, isAuthenticated, loading, }) => {
 };
 
 Login.propTypes = {
-
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };

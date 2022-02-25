@@ -34,8 +34,8 @@ export const login = (identifier, password) => async (dispatch) => {
     },
   };
 
-  // const body = JSON.stringify({ identifier, password });
-  const body = { identifier, password };
+  const body = JSON.stringify({ identifier, password });
+  // const body = { identifier, password };
 
   // await axios
   //   .post("http://localhost:1337/api/auth/local", body, config)
@@ -57,7 +57,6 @@ export const login = (identifier, password) => async (dispatch) => {
       body,
       config
     );
-    console.log(res);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,

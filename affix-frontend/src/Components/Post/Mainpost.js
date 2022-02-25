@@ -8,7 +8,7 @@ const Mainpost = () => {
         <div>
           <Link to="/post/singlepost/:id" className=" p-3 bg-slate-800 text-white rounded-lg" > Post Single Page </Link> </div>
         <div>
-          <Link to="/post/add" className="p-3 bg-slate-800 text-white rounded-lg" > Add Post </Link>
+          <Link to="/post/add" className="p-3 bg-slate-800 text-white rounded-lg" >Add Post </Link>
         </div>
 
         {/* <div className="bg-red-200 rounded mx-auto p-4 h-full">

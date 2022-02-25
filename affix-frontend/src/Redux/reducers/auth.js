@@ -32,6 +32,7 @@ export default function auth(state = initialState, action) {
         user:payload
       };
     case LOADER_FAIL:
+      break
     // Login
     
     case LOGIN_SUCCESS:
@@ -43,6 +44,7 @@ export default function auth(state = initialState, action) {
         loading: false,
       };
     case LOGIN_FAIL:
+      break
       //Sign UP
       
     case SIGNUP_SUCCESS:

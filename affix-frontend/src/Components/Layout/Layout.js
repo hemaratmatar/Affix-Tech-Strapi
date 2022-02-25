@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 
 //Component Page
-import { Link,Switch } from "react-router-dom";
-import PrivateRouter from "../router/PrivateRouter";
-import Home from "../Home/Home";
-import Mainpost from "../Post/Mainpost";
+import { Link ,Outlet} from "react-router-dom";
+// import PrivateRouter from "../router/PrivateRouter";
+// import Home from "../Home/Home";
+// import Mainpost from "../Post/Mainpost";
+// import Addpost from "../Post/Addpost";
 
 //Redux Action
 import { connect } from "react-redux";
@@ -274,10 +275,12 @@ const Layout = ({ logout, auth: { user } }) => {
                 {/* <div className="bg-red-200 rounded mx-auto p-4 h-full">
                     <p className="text-black">Hello</p>
                     </div> */}
-                <Switch>
+                    <Outlet />
+                {/* <Switch>
                   <PrivateRouter exact path="/home" component={Home} />
                   <PrivateRouter paht="/post" component={Mainpost}/>
-                </Switch>
+                  <Route path="/add" component={Addpost}/>
+                </Switch> */}
               </div>
             </div>
             {/* /End replace */}

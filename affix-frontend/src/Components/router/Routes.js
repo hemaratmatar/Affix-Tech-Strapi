@@ -1,19 +1,16 @@
-import React from "react";
-import { Switch } from "react-router-dom";
+// import React from "react";
+// import { Switch } from "react-router-dom";
 
-import Layout from "../Layout/Layout";
-import Mainpost from "../Post/Mainpost";
-import PrivateRouter from './PrivateRouter'
+// import Layout from "../Layout/Layout";
+// import PrivateRouter from './PrivateRoute'
 
 
-const Routes = () => {
-  return (
-    <section>
-    <Switch>
-      <PrivateRouter path="/" component={Layout}/>
-    </Switch>
-    </section>
-  )
-}
+// const Routes = () => {
+//   return (
+//     <section>
+//       <PrivateRouter path="/" component={Layout}/>
+//     </section>
+//   )
+// }
 
-export default Routes;
+// export default Routes;
