@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import { Switch } from "react-router-dom";
 
 //Component Page
-import { Link } from "react-router-dom";
+import { Link,Switch } from "react-router-dom";
 import PrivateRouter from "../router/PrivateRouter";
 import Home from "../Home/Home";
+import Mainpost from "../Post/Mainpost";
 
 //Redux Action
 import { connect } from "react-redux";
@@ -15,10 +15,11 @@ import { logout } from "../../Redux/action/auth";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
+
 //Menu Link
 const navigation = [
   { name: "Home", to: "home", current: false },
-  { name: "Problem", to: "problem", current: false },
+  { name: "Problem", to: "/post", current: false },
   { name: "Review", to: "reviews", current: false },
   //   { name: "Calendar", to: "#", current: false },
   { name: "Chat", to: "chats", current: false },
@@ -274,7 +275,8 @@ const Layout = ({ logout, auth: { user } }) => {
                     <p className="text-black">Hello</p>
                     </div> */}
                 <Switch>
-                  <PrivateRouter path="/home" component={Home} />
+                  <PrivateRouter exact path="/home" component={Home} />
+                  <PrivateRouter paht="/post" component={Mainpost}/>
                 </Switch>
               </div>
             </div>
