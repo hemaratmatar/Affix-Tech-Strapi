@@ -8,8 +8,9 @@ import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../Redux/action/auth";
+import Alert from "./Alert";
 
-const Login = ({ login, isAuthenticated, loading }) => {
+const Login = ({ login, isAuthenticated, loading, }) => {
   const [formData, setFormData] = useState({
     identifier: "",
     password: "",
@@ -24,6 +25,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
     login(identifier, password);
     console.log(formData.identifier);
   };
+
 
   if (isAuthenticated) {
     return <Redirect to="/home" />;
@@ -94,7 +96,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
           <h3 className="my-4 text-2xl font-semibold text-gray-700">
             Account Login
           </h3>
-          <form action="#" className="flex flex-col space-y-5">
+          <form  className="flex flex-col space-y-5" onSubmit={(e) => onSubmit(e)}>
             <div className="flex flex-col space-y-1">
               <label for="text" className="text-sm font-semibold text-gray-500">
                 Email
@@ -147,7 +149,6 @@ const Login = ({ login, isAuthenticated, loading }) => {
             
               <button
                 type="submit"
-                onClick={(e) => onSubmit(e)}
                 className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-red-400 rounded-md shadow hover:bg-red-400 focus:outline-none focus:ring-red-200 focus:ring-4"
               >
                 Log in
@@ -188,17 +189,18 @@ const Login = ({ login, isAuthenticated, loading }) => {
                 Go To Admin
               </a>
             </p> */}
+            <Alert/>
             {/* Alert Sucessfuly */}
-            <div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-emerald-500">
+            {/*<div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-emerald-500">
               <span className="text-xl inline-block mr-5 align-middle">
                 
               </span>
               <span className="inline-block align-middle mr-8">
                 <b className="capitalize">Login is Sucessfuly</b>
               </span>
-            </div>
+          </div>*/}
             {/* Alert Error */}
-            <div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+            {/*<div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
               <span className="text-xl inline-block mr-5 align-middle">
                 <i className="fas fa-bell" />
               </span>
@@ -208,8 +210,8 @@ const Login = ({ login, isAuthenticated, loading }) => {
               </span>
               {/*<button className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
                 <span>×</span>
-            </button>*/}
-            </div>
+            </button>
+            </div>*/}
           </form>
         </div>
       </div>
@@ -218,6 +220,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
 };
 
 Login.propTypes = {
+
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
@@ -226,5 +229,5 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, })(Login);
 // export default Login

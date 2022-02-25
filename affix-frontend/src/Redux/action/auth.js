@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAlert } from "./alert";
 import {
   USER_LOADED,
   LOGIN_SUCCESS,
@@ -14,7 +15,7 @@ import {
 
 export const loadUser = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:1337/api/users");
+    const res = await axios.get("http://localhost:1337/api/users/me");
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -33,21 +34,46 @@ export const login = (identifier, password) => async (dispatch) => {
     },
   };
 
-  const body = JSON.stringify({ identifier, password });
-  console.log(body);
+  // const body = JSON.stringify({ identifier, password });
+  const body = { identifier, password };
+
+  // await axios
+  //   .post("http://localhost:1337/api/auth/local", body, config)
+  //   .then((res) => {
+  //     dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+  //     dispatch(loadUser());
+  //   })
+  //   .catch((err) => {
+  //     const errors = err.response.data.error;
+  //     console.log(errors);
+  //     if (errors) {
+  //       dispatch(setAlert(errors.message,"danger"))
+  //     }
+  //     dispatch({ type: LOGIN_FAIL });
+  //   });
   try {
     const res = await axios.post(
       "http://localhost:1337/api/auth/local",
       body,
       config
     );
-      console.log(res);
+    console.log(res);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    // dispatch(loadUser());
+    dispatch(loadUser());
   } catch (err) {
+    console.log(err.response.status);
+    const errors = err.response.data.error;
+
+
+    if (err.response.status === 400) {
+      // errors.forEach((error) => dispatch(setAlert(error.message, "danger")));
+      dispatch(setAlert(null,errors.message,"danger"));
+    }else {
+      dispatch(setAlert("Status Code :"+err.response.status,err.message,"danger"))
+    }
     dispatch({
       type: LOGIN_FAIL,
     });
@@ -73,7 +99,7 @@ export const signup = (username, email, password, role) => async (dispatch) => {
   const body = JSON.stringify({
     username,
     email,
-    password, 
+    password,
     // confirmed,
     // provider,
     role,

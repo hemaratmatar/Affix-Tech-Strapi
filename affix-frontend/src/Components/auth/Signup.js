@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 //React Router Dom
 import { Redirect,Link } from "react-router-dom";
+import Alert from "./Alert";
 
 
 
@@ -10,17 +11,17 @@ import { Redirect,Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { signup } from "../../Redux/action/auth";
+import { setAlert } from "../../Redux/action/alert";
 
-const Signup = ({signup,isAuthenticated,loading}) => {
+const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
   const [signupData, setsignupData] = useState({
     username: "",
     email: "",
     password: "",
     passwordCheck: "",
     role: 1,
-
   });
-//https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg
+ // https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg
   const { username, email, password,role, passwordCheck } = signupData;
   // if (signupData.ImageUrl === "" || null) {
   //   const image = normalize(
@@ -32,15 +33,15 @@ const Signup = ({signup,isAuthenticated,loading}) => {
   //     { forceHttps: true }
   //   );
   //   setsignupData({...signupData,ImageUrl:image})
-  // }      
+  // }
   
   const onChange = (e) =>{
     setsignupData({ ...signupData, [e.target.name]: e.target.value })};
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== passwordCheck ) {
-      // setAlert('Passwords do not match', 'danger');
-      console.log("Passwords don't match");
+      setAlert('Passwords do not match', 'danger');
+        console.log("Passwords don't match");
     } else {
       // setsignupData({ confirmed: true });
       // signup({username, email, password,confirmed,role,ImageUrl, passwordCheck})
@@ -104,7 +105,7 @@ const Signup = ({signup,isAuthenticated,loading}) => {
             <p>Affix Tech</p>
           </div>
           <h3 className="my-4 text-2xl font-semibold text-white">Register</h3>
-          <form action="#" className="flex flex-col space-y-5">
+          <form  className="flex flex-col space-y-5" onSubmit={(e) => onSubmit(e)}>
             <div className="flex flex-col space-y-1">
               <label
                 htmlFor="text"
@@ -194,7 +195,6 @@ const Signup = ({signup,isAuthenticated,loading}) => {
             <div className="py-4">
               <button
                 type="submit"
-                  onClick={(e) => onSubmit(e)}
                 className="w-full px-4 py-2 text-lg font-semibold text-red-400 transition-colors duration-300 bg-white rounded-md shadow hover:bg-red-300 hover:text-white focus:outline-none focus:ring-red-200 focus:ring-4"
               >
                 Sign Up
@@ -208,6 +208,7 @@ const Signup = ({signup,isAuthenticated,loading}) => {
                     Log in
                     </button> */}
             </div>
+            <Alert/>
             {/* <div className="flex flex-col space-y-5">
                     <span className="flex items-center justify-center space-x-2">
                     <span className="h-px bg-gray-400 w-14"></span>
@@ -240,6 +241,7 @@ const Signup = ({signup,isAuthenticated,loading}) => {
 };
 
 Signup.propTypes = {
+  setAlert: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
@@ -248,6 +250,6 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { signup })(Signup);;
+export default connect(mapStateToProps, { signup,setAlert })(Signup);
 
 // export default Signup;

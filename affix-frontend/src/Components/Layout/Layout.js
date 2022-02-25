@@ -45,7 +45,7 @@ const Layout = ({ logout, auth: { user } }) => {
             <body class="h-full">
             ```
         */}
-      <div className="min-h-full">
+      <div className="min-h-screen">
         {/* bg-gray-900 */}
         <Disclosure as="nav" className="bg-red-400">
           {({ open }) => (
@@ -246,10 +246,10 @@ const Layout = ({ logout, auth: { user } }) => {
                       <Link to="/profile">Your Profile</Link>
                     </Disclosure.Button>
                     <Disclosure.Button
-                      // onClick={logout}
+                      
                       className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:text-white hover:bg-red-300"
                     >
-                      <button>Sign Out</button>
+                      <button onClick={logout}>Sign Out</button>
                     </Disclosure.Button>
                   </div>
                 </div>

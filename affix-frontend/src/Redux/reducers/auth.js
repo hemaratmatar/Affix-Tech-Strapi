@@ -4,7 +4,8 @@ import {
   USER_LOADED,
   LOGOUT,
   SIGNUP_SUCCESS,
-  SIGNUP_FAIL
+  SIGNUP_FAIL,
+  LOADER_FAIL
 } from "../action/types";
 
 const initialState = {
@@ -21,15 +22,18 @@ export default function auth(state = initialState, action) {
     //User Loaded
     case USER_LOADED:
       // console.log(payload);
-      var b = JSON.stringify(payload);
-      var c = b.substring(1, b.length - 1);
+      // var b = JSON.stringify(payload);
+      // var c = b.substring(1, b.length - 1);
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: JSON.parse(c),
+        // user: JSON.parse(c),
+        user:payload
       };
+    case LOADER_FAIL:
     // Login
+    
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.jwt);
       return {
@@ -40,6 +44,7 @@ export default function auth(state = initialState, action) {
       };
     case LOGIN_FAIL:
       //Sign UP
+      
     case SIGNUP_SUCCESS:
       localStorage.setItem("token", payload.jwt);
       return {
@@ -48,7 +53,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-    case LOGIN_FAIL:
+    case SIGNUP_FAIL:
     case LOGOUT:
       localStorage.removeItem("token",null);
       return {
@@ -57,6 +62,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null,
+        jwt:null
       };
     default:
       return state;
