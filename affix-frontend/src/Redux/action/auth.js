@@ -63,7 +63,7 @@ export const login = (identifier, password) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (err) {
-    console.log(err.response.status);
+    // console.log(err.response.status);
     const errors = err.response.data.error;
 
 
@@ -117,7 +117,7 @@ export const signup = (username, email, password, role) => async (dispatch) => {
     });
     // dispatch(loadUser());
   } catch (err) {
-    console.log(err.response.status);
+    // console.log(err.response.status);
     const errors = err.response.data.error;
 
 

@@ -41,7 +41,6 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
     e.preventDefault();
     if (password !== passwordCheck ) {
       setAlert('Passwords do not match', 'danger');
-        console.log("Passwords don't match");
     } else {
       // setsignupData({ confirmed: true });
       // signup({username, email, password,confirmed,role,ImageUrl, passwordCheck})
