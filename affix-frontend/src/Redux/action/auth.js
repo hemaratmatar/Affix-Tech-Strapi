@@ -118,7 +118,16 @@ export const signup = (username, email, password, role) => async (dispatch) => {
     });
     // dispatch(loadUser());
   } catch (err) {
-    console.log(err);
+    console.log(err.response.status);
+    const errors = err.response.data.error;
+
+
+    if (err.response.status === 400) {
+      // errors.forEach((error) => dispatch(setAlert(error.message, "danger")));
+      dispatch(setAlert(null,errors.message,"danger"));
+    }else {
+      dispatch(setAlert("Status Code :"+err.response.status,err.message,"danger"))
+    }
     dispatch({
       type: SIGNUP_FAIL,
     });
