@@ -17,6 +17,7 @@ import Addpost from "./Components/Post/Addpost";
 import Mainpost from "./Components/Post/Mainpost";
 import Postpage from './Components/Post/Postpage';
 import Profile from './Components/Porfile/Profile'
+import Report from "./Components/Report/Report";
 
 const App = () => {
   useEffect(() => {
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="post/add" element={<PrivateRoute component={Addpost} />} />
             <Route path="/post/singlepost/:id" element={<PrivateRoute component={Postpage} />} />
             <Route path="/profile" element={<PrivateRoute component={Profile}/>}/>
+            <Route path="reports" element={<PrivateRoute component={Report}/>}/>
             {/* ยังไม่ต้องแอด Chat Page */}
           </Route>
         </Routes>

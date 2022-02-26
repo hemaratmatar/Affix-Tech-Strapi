@@ -21,7 +21,7 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 const navigation = [
   { name: "Home", to: "home", current: false },
   { name: "Problem", to: "/post", current: false },
-  { name: "Review", to: "reviews", current: false },
+  { name: "Review", to: "reports", current: false },
   //   { name: "Calendar", to: "#", current: false },
   { name: "Chat", to: "chats", current: false },
 ];
