@@ -2,6 +2,10 @@ import React, { Fragment, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import api from "../../Redux/utils/api";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { uploadImage } from "../../Redux/action/post";
 
 const people = [
   {
@@ -70,7 +74,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Addpost = () => {
+const Addpost = ({ uploadImage }) => {
   const editorRef = useRef(null);
   const log = () => {
     if (editorRef.current) {
@@ -78,8 +82,19 @@ const Addpost = () => {
     }
   };
   const [selected, setSelected] = useState(people[3]);
+
+  const [files, setFiles] = useState();
+
+  const uploadImages = async (e) => {
+    //posting logic will go here
+
+    const formData = new FormData()
+
+    formData.append('files', files[0])
+    uploadImage(formData);
+  };
+
   return (
-   
     <div>
       <div className="mt-5 md:mt-0 md:col-span-2">
         <form>
@@ -90,7 +105,7 @@ const Addpost = () => {
                   htmlFor="first-name"
                   className="block text-xl font-medium text-gray-700"
                 >
-                    Post Add
+                  Post Add
                   {/* เพิ่มเนื้อหา */}
                 </label>
                 <div className="col-span-6">
@@ -183,15 +198,78 @@ const Addpost = () => {
                       height: 500,
                       menubar: false,
                       plugins: [
-                        "advlist autolink lists link image charmap print preview anchor",
+                        "advlist autolink lists image charmap print preview anchor",
                         "searchreplace visualblocks code fullscreen",
                         "insertdatetime media table paste code help wordcount",
                       ],
                       toolbar:
                         "undo redo | formatselect | " +
                         "bold italic backcolor | alignleft aligncenter " +
-                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "image media |alignright alignjustify | bullist numlist outdent indent | " +
                         "removeformat | code | help",
+                      file_picker_types: "file image media",
+                      file_picker_callback: async function (cb, value, meta) {
+
+
+                        // try {
+                        //   const file = this.files[0];
+                        //   //upload now to backend
+                        //   //Response path from cloudinary
+                        //   console.log(file);
+                        //   const formData = new FormData()
+  
+                        //   formData.append('files', file);
+                        //   const config = {
+                        //   headers: {
+                        //     "content-type": "multipart/form-data"
+                        //   }
+                        // };
+                        // console.log(formData);
+                        // const res = await api.post('/upload',formData,config);
+                        // console.log(res.data[0].url);
+                        // cb(res.data[0].url);
+                        // } catch (err) {
+                        //   console.log(err);
+                        // }
+                        
+                        var input = document.createElement("input");
+                        input.setAttribute("type", "file");
+                        input.setAttribute("accept", "image/*");
+
+                        input.onchange = async function () {
+                          
+                          var file = this.files[0];
+                          //upload now to backend
+                          //Response path from cloudinary
+                          console.log(file);
+                          const formData = new FormData()
+
+                          formData.append('files', file);
+                          const config = {
+                            headers: {
+                              "content-type": "multipart/form-data"
+                            }
+                          };
+                          console.log(formData);
+                          const res = await api.post('/upload',formData,config);
+                          console.log(res.data[0].url);
+                          cb(res.data[0].url);
+                          // var reader = new FileReader();
+                          // reader.onload = function () {
+                          //   var id = 'blobid' + (new Date()).getTime();
+                          //   var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                          //   var base64 = reader.result.split(',')[1];
+                          //   var blobInfo = blobCache.create(id, file, base64);
+                          //   blobCache.add(blobInfo);
+                          //   cb(blobInfo.blobUri(), { title: file.name });
+                          // };
+                          // reader.readAsDataURL(file);
+                          console.log(file);
+                        };
+
+                        input.click()
+                      },
+
                       content_style:
                         "body { font-family:Helvetica,Arial,sans-serif; font-size:15px }",
                     }}
@@ -328,14 +406,34 @@ const Addpost = () => {
             </div>
           </div>
         </form>
+        <form onSubmit={uploadImages}>
+          <input
+            type="file"
+            className="block w-full text-sm text-slate-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-violet-50 file:text-violet-700
+                    hover:file:bg-violet-100"
+            onChange={(e) => setFiles(e.target.files)}
+          />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
 
       <button onClick={log}>Log editor content</button>
     </div>
-
   );
 };
+Addpost.propTypes = {
+  uploadImage: PropTypes.func.isRequired,
+  imagetext: PropTypes.object.isRequired,
+};
 
-export default Addpost;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
+export default connect(mapStateToProps, { uploadImage })(Addpost);
 
+// export default Addpost;

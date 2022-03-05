@@ -11,3 +11,12 @@ export const SIGNUP_SUCCESS= 'SIGNUP_SUCCESS';
 export const SIGNUP_FAIL= 'SIGNUP_FAIL';
 
 export const LOGOUT= 'LOGOUT';
+
+
+export const post_sucessfuly = "post_sucessfuly";
+export const post_error = "post_error";
+
+
+export const uploadImage_complete = "uploadImage_complete";
+export const uploadImage_error = "uploadImage_error";
+

@@ -9,27 +9,27 @@ const Profile = () => {
             <p>Your Profile</p>
           </div>
           <div className=" bg-white h-auto p-4 rounded-b-md">
-            {/* <div class="bg-white p-3 border-t-4 border-green-400"> */}
-              <div class="image overflow-hidden">
+            {/* <div className="bg-white p-3 border-t-4 border-green-400"> */}
+              <div className="image overflow-hidden">
                 <img
-                  class="h-30 w-30 mx-auto rounded-md"
+                  className="h-30 w-30 mx-auto rounded-md"
                   src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
                   alt=""
                 />
               </div>
-              <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">
+              <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">
                 ข้อมูลส่วนตัว
               </h1>
-              <h3 class="text-gray-600 font-lg text-semibold leading-6">
+              <h3 className="text-gray-600 font-lg text-semibold leading-6">
                 ชื่อ-นามสกุล
               </h3>
-              <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
+              <p className="text-sm text-gray-500 hover:text-gray-600 leading-6">
                 วัน/เดือน/ปีเกิด
               </p>
-              <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
+              <p className="text-sm text-gray-500 hover:text-gray-600 leading-6">
                 อายุ
               </p>
-              <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">
+              <p className="text-sm text-gray-500 hover:text-gray-600 leading-6">
                 University
               </p>
             {/* </div> */}
