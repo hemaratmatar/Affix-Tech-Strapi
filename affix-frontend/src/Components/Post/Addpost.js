@@ -254,6 +254,7 @@ const Addpost = ({ uploadImage }) => {
                           const res = await api.post('/upload',formData,config);
                           console.log(res.data[0].url);
                           cb(res.data[0].url);
+                          
                           // var reader = new FileReader();
                           // reader.onload = function () {
                           //   var id = 'blobid' + (new Date()).getTime();
@@ -264,6 +265,7 @@ const Addpost = ({ uploadImage }) => {
                           //   cb(blobInfo.blobUri(), { title: file.name });
                           // };
                           // reader.readAsDataURL(file);
+
                           console.log(file);
                         };
 
@@ -406,7 +408,7 @@ const Addpost = ({ uploadImage }) => {
             </div>
           </div>
         </form>
-        <form onSubmit={uploadImages}>
+        <form >
           <input
             type="file"
             className="block w-full text-sm text-slate-500
@@ -417,7 +419,7 @@ const Addpost = ({ uploadImage }) => {
                     hover:file:bg-violet-100"
             onChange={(e) => setFiles(e.target.files)}
           />
-          <input type="submit" value="Submit" />
+          <input type="submit" onClick={uploadImages} />
         </form>
       </div>
 

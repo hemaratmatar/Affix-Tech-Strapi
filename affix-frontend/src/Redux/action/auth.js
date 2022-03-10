@@ -28,11 +28,11 @@ export const loadUser = () => async (dispatch) => {
 };
 
 export const login = (identifier, password) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // };
 
   const body = JSON.stringify({ identifier, password });
   // const body = { identifier, password };
@@ -55,7 +55,7 @@ export const login = (identifier, password) => async (dispatch) => {
     const res = await api.post(
       "/auth/local",
       body,
-      config
+      // config
     );
     dispatch({
       type: LOGIN_SUCCESS,

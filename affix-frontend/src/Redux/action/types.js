@@ -12,6 +12,14 @@ export const SIGNUP_FAIL= 'SIGNUP_FAIL';
 
 export const LOGOUT= 'LOGOUT';
 
+//Post System
+export const post_hl_loaded="post_hl_loaded";
+export const post_hl_load_error="post_hl_load_error";
+
+
+export const post_loaded = "post_loaded";
+export const post_load_error = "post_load_error";
+
 
 export const post_sucessfuly = "post_sucessfuly";
 export const post_error = "post_error";

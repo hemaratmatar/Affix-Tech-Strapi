@@ -2,14 +2,17 @@ import {
     post_sucessfuly,
     post_error,
     uploadImage_complete,
-    uploadImage_error
+    uploadImage_error,
+    post_load_error,
+    post_loaded
 } from "../action/types";
 
 
 const initialState = {
+    highlights:null,
     posts:null,
     post:null,
-    loading:false,
+    loading:true,
     imagetext:null,
     error:{}
 }
@@ -24,6 +27,16 @@ function postReducer(state = initialState,action) {
                 loading:false
             }
         case post_error:
+            return{
+                error:payload,
+                loading:false
+            }
+        case post_loaded:
+            return{
+                posts:payload,
+                loading:false
+            }
+        case post_load_error:
             return{
                 error:payload,
                 loading:false

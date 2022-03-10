@@ -50,6 +50,15 @@
     },
     "publish_date": {
       "type": "datetime"
+    },
+    "discription": {
+      "type": "text",
+      "required": true
+    },
+    "highlights": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

@@ -44,19 +44,23 @@
 
    
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate,Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loadingpage from '../Layout/Loadingpage';
 
 const PrivateRoute = ({
   component: Component,
-  auth: { isAuthenticated, loading }
+  auth: { isAuthenticated, loading },
 }) => {
+
+
+  console.log(isAuthenticated);
   if (loading) return <Loadingpage />;
   if (isAuthenticated) return <Component />;
 
   return <Navigate to="/" />;
+
 };
 
 PrivateRoute.propTypes = {
