@@ -20,7 +20,7 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 //Menu Link
 const navigation = [
   { name: "Home", to: "home", current: false },
-  { name: "Problem", to: "/post", current: false },
+  { name: "Problem", to: "posts", current: false },
   { name: "Review", to: "reports", current: false },
   //   { name: "Calendar", to: "#", current: false },
   { name: "Chat", to: "chats", current: false },
@@ -198,7 +198,7 @@ const Layout = ({ logout, auth: { user } }) => {
                     <Link to="/home">Home</Link>
                   </Disclosure.Button>
                   <Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
-                    <Link to="/problem">Problem</Link>
+                    <Link to="/posts">Problem</Link>
                   </Disclosure.Button>
                   <Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
                     <Link to="/review">Review</Link>

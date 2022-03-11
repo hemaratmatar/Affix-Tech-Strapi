@@ -4,13 +4,15 @@ import {
     uploadImage_complete,
     uploadImage_error,
     post_load_error,
-    post_loaded
+    post_loaded,
+    post_hl_loaded,
+    post_hl_load_error
 } from "../action/types";
 
 
 const initialState = {
-    highlights:null,
-    posts:null,
+    highlights:[],
+    posts:[],
     post:null,
     loading:true,
     imagetext:null,
@@ -19,6 +21,7 @@ const initialState = {
 
 function postReducer(state = initialState,action) {
     const {type,payload} =action;
+
     switch (type) {
         case post_sucessfuly:
             return{
@@ -28,26 +31,43 @@ function postReducer(state = initialState,action) {
             }
         case post_error:
             return{
+                ...state,
+                error:payload,
+                loading:false
+        }
+        case post_hl_loaded:
+            return{
+                ...state,
+                highlights:payload,
+                loading:false
+            }
+        case post_hl_load_error:
+            return{
+                ...state,
                 error:payload,
                 loading:false
             }
         case post_loaded:
             return{
+                ...state,
                 posts:payload,
                 loading:false
             }
         case post_load_error:
             return{
+                ...state,
                 error:payload,
                 loading:false
             }
         case uploadImage_complete:
             return{
+                ...state,
                 imagetext:payload,
                 loading:false
             }
         case uploadImage_error:
             return{
+                ...state,
                 error:payload,
                 loading:false
             }

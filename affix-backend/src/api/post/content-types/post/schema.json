@@ -26,7 +26,7 @@
     },
     "content_private": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "required": true
     },
     "reports": {
@@ -34,9 +34,6 @@
       "relation": "oneToMany",
       "target": "api::report.report",
       "mappedBy": "post"
-    },
-    "Catagory": {
-      "type": "string"
     },
     "Cover": {
       "type": "media",
@@ -58,6 +55,15 @@
     "highlights": {
       "type": "boolean",
       "default": false,
+      "required": true
+    },
+    "Catagory": {
+      "type": "enumeration",
+      "enum": [
+        "Post",
+        "Review"
+      ],
+      "default": "Post",
       "required": true
     }
   }

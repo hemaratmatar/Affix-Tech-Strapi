@@ -18,7 +18,7 @@ import Mainpost from "./Components/Post/Mainpost";
 import Postpage from './Components/Post/Postpage';
 import Profile from './Components/Porfile/Profile'
 import Report from "./Components/Report/Report";
-import { loadedPost } from "./Redux/action/post";
+// import { hightlightPost, loadedPost } from "./Redux/action/post";
 
 const App = () => {
   useEffect(() => {
@@ -29,40 +29,48 @@ const App = () => {
     }
     // try to fetch a user, if no token or invalid token we
     // will get a 401 response from our API
+    // store.dispatch(loadedPost());
+    // store.dispatch(hightlightPost());
     store.dispatch(loadUser());
-    store.dispatch(loadedPost());
+
     // log user out from all tabs if they log out in one tab
     window.addEventListener('storage', () => {
       if (!localStorage.token) store.dispatch({ type: LOGOUT });
     });
-  }, [loadUser()]);
+  }, []);
 
   return (
     <Provider store={store}>
       {/* <Router> */}
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route index path="/" element={<Login />} />
            <Route path="/signup" element={<Signup />} />
-          {/*<Route path="/load" element={<Loadingpage/>} /> */}
+          <Route path="/load" element={<Loadingpage/>} />
 
 
-          {/* <Route index path="/" element={<PrivateRoute/>}>
+          <Route  path="/" element={<PrivateRoute/>}>
             <Route  element={<Layout/>}>
-              <Route  path="home" element={<Home/>}  />
-              <Route index path="post" element={<Mainpost/>} />
-            </Route>
-            </Route>   */}
+              <Route path="home" element={<Home/>}  />
+              <Route path="posts" element={<Mainpost/>} />
+              <Route path="posts/:id" element={<Postpage/>}/>
+              <Route path="posts/add" element={<Addpost />} />
+              <Route path="/profile" element={<Profile/>}/>
+              <Route path="reports" element={<Report/>}/> 
 
-          <Route  path="/" element={<PrivateRoute component={Layout}/>}>
-            <Route  path="home" element={<PrivateRoute component={Home}/>}  />
+            </Route>
+            </Route>  
+
+            {/* Router V1 เพิ่ม Component Tag ใน PrivateRoute*/}
+          {/* <Route  path="/" element={<PrivateRoute component={Layout}/>}>
+            <Route  path="home" element={<PrivateRoute component={Home}/>}  /> */}
             {/* <Route path="reviews" element={<Review />} /> */}
-            <Route  path="post" element={<PrivateRoute component={Mainpost} />} />
-            <Route path="post/add" element={<PrivateRoute component={Addpost} />} />
+            {/* <Route  path="posts" element={<PrivateRoute component={Mainpost} />} />
+            <Route path="posts/add" element={<PrivateRoute component={Addpost} />} />
             <Route path="/post/singlepost/:id" element={<PrivateRoute component={Postpage} />} />
             <Route path="/profile" element={<PrivateRoute component={Profile}/>}/>
-            <Route path="reports" element={<PrivateRoute component={Report}/>}/>
+            <Route path="reports" element={<PrivateRoute component={Report}/>}/> */}
             {/* ยังไม่ต้องแอด Chat Page  */}
-          </Route>
+          {/* </Route> */}
         </Routes>
       {/* </Router> */}
     </Provider>

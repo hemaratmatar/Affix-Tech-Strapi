@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { login } from "../../Redux/action/auth";
 import Alert from "./Alert";
 
-const Login = ({ login, isAuthenticated, loading, }) => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     identifier: "",
     password: "",
@@ -96,9 +96,15 @@ const Login = ({ login, isAuthenticated, loading, }) => {
           <h3 className="my-4 text-2xl font-semibold text-gray-700">
             Account Login
           </h3>
-          <form  className="flex flex-col space-y-5" onSubmit={(e) => onSubmit(e)}>
+          <form
+            className="flex flex-col space-y-5"
+            onSubmit={(e) => onSubmit(e)}
+          >
             <div className="flex flex-col space-y-1">
-              <label htmlFor="text" className="text-sm font-semibold text-gray-500">
+              <label
+                htmlFor="text"
+                className="text-sm font-semibold text-gray-500"
+              >
                 Email
               </label>
               <input
@@ -113,12 +119,12 @@ const Login = ({ login, isAuthenticated, loading, }) => {
               />
             </div>
             <div className="flex flex-col space-y-1">
-            <label
-                  htmlFor="password"
-                  className="text-sm font-semibold text-gray-500"
-                >
-                  Password
-                </label>
+              <label
+                htmlFor="password"
+                className="text-sm font-semibold text-gray-500"
+              >
+                Password
+              </label>
               <input
                 type="password"
                 id="password"
@@ -138,27 +144,27 @@ const Login = ({ login, isAuthenticated, loading, }) => {
               />
               <label htmlFor="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
             </div> */}
-              <div className="flex items-center justify-end">
-                <a
-                  href="#"
-                  className="text-sm text-red-400 hover:underline focus:text-blue-800"
-                >
-                  Forgot Password?
-                </a>
-              </div>
-            
-              <button
-                type="submit"
-                className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-red-400 rounded-md shadow hover:bg-red-400 focus:outline-none focus:ring-red-200 focus:ring-4"
+            <div className="flex items-center justify-end">
+              <a
+                href="#"
+                className="text-sm text-red-400 hover:underline focus:text-blue-800"
               >
-                Log in
-              </button>
+                Forgot Password?
+              </a>
+            </div>
 
-              <Link to="/signup">
-                <button className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-red-400 rounded-md shadow hover:bg-red-400 focus:outline-none focus:ring-red-200 focus:ring-4">
-                  Sign Up
-                </button>
-              </Link>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-red-400 rounded-md shadow hover:bg-red-400 focus:outline-none focus:ring-red-200 focus:ring-4"
+            >
+              Log in
+            </button>
+
+            <Link to="/signup">
+              <button className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-red-400 rounded-md shadow hover:bg-red-400 focus:outline-none focus:ring-red-200 focus:ring-4">
+                Sign Up
+              </button>
+            </Link>
             {/*Google Authen with SSO */}
             {/* <div className="flex flex-col space-y-5">
                 <span className="flex items-center justify-center space-x-2">
@@ -189,7 +195,7 @@ const Login = ({ login, isAuthenticated, loading, }) => {
                 Go To Admin
               </a>
             </p> */}
-            <Alert/>
+            <Alert />
             {/* Alert Sucessfuly */}
             {/*<div className="text-white px-6 py-4 border-0 rounded relative mb-4 bg-emerald-500">
               <span className="text-xl inline-block mr-5 align-middle">
@@ -228,5 +234,5 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login, })(Login);
+export default connect(mapStateToProps, { login })(Login);
 // export default Login

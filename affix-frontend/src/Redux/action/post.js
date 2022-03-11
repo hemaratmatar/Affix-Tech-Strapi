@@ -27,26 +27,26 @@ export const addPost = (formPost) => async (dispatch) =>{
     }
 }
 
-// export const hightlightPost =()=> async (dispatch)=>{
-//     try {
-//         const res = await api.get('/posts?populate[0]=users_permissions_user');
+export const hightlightPost =()=> async (dispatch)=>{
+    try {
+        const res = await api.get('/posts?populate[0]=users_permissions_user&filters[highlights][$eq]=true&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
 
-//         dispatch({
-//             type: post_hl_loaded,
-//             payload:res.data.data
-//         });
-//     } catch (err) {
-//         dispatch({
-//             type: post_hl_load_error,
-//             payload: { msg: err.response.statusText, status: err.response.status }
-//           });
-//     }
-// }
+        dispatch({
+            type: post_hl_loaded,
+            payload:res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: post_hl_load_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}
 
 export const loadedPost = () => async (dispatch) =>{
     try {
-        const res = await api.get('/posts?populate[0]=users_permissions_user&filters[Catagory][$eq]=Problem');
-
+        const res = await api.get('/posts?populate[0]=users_permissions_user&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
+ 
         dispatch({
             type: post_loaded,
             payload:res.data.data
