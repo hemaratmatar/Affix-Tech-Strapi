@@ -1,2 +1,2 @@
 build:
-	docker build -t strapi/strapi:latest .
+	docker build -t strapi-backend .
