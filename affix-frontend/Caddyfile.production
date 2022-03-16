@@ -1,0 +1,9 @@
+cloud.affix-tech.com:443 {
+  tls hemarat.mat@gmail.com
+  root * /srv
+  route {
+    reverse_proxy /api* strapi-backend:1337
+    try_files {path} {path}/ /index.html
+    file_server
+  }
+}
