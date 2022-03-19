@@ -1,13 +1,15 @@
-FROM node:16-slim
+FROM node:16-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /usr/srv/app
+
+COPY . .
 
 COPY ./package.json ./
 COPY ./yarn.lock ./
 
-RUN yarn
+RUN yarn install
 
-COPY . .
+
 
 EXPOSE 1337
 
