@@ -40,6 +40,7 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         ...payload,
+        token:payload.jwt,
         isAuthenticated: true,
         loading: false,
       };
@@ -52,6 +53,7 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         ...payload,
+        token:payload.jwt,
         isAuthenticated: true,
         loading: false,
       };
