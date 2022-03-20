@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     ports: 
       - "80:80"
-      # - "443:443"
+      - "443:443"
     volumes:
       - caddy-data:/data
       - caddy-config:/config
@@ -64,6 +64,8 @@ networks:
   mern-app:
     driver: bridge
 volumes:
+  data:
+    driver: local
   caddy-data:
     driver: local
   caddy-config:
