@@ -28,3 +28,8 @@ export const post_error = "post_error";
 export const uploadImage_complete = "uploadImage_complete";
 export const uploadImage_error = "uploadImage_error";
 
+
+export const Profile_loaded ="Profile_loaded";
+export const Profile_load_error ="Profile_load_error";
+
+
