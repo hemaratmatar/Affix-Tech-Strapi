@@ -41,7 +41,8 @@ const Login = ({ login, isAuthenticated }) => {
             <p>Affix Tech</p>
           </div>
           <p className="flex flex-col text-xl items-center justify-center mt-10 text-center">
-            <span>See You The Answer</span>
+            {/* <span>See You The Answer</span> */}
+            <span>Now In Development v.0.2.2</span> 
           </p>
 
           <div className=" my-8 p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 md:justify-center">
@@ -75,7 +76,7 @@ const Login = ({ login, isAuthenticated }) => {
             </div>
           </div>
 
-          <p className="flex flex-col items-center justify-center text-gray-300 mt-10 text-center">
+          <p className="flex flex-col items-center justify-center text-white mt-10 text-center">
             <span>Create by Hemarat & Natthakit</span>
             {/* <a href="#" className="underline">
                 Get Started!
