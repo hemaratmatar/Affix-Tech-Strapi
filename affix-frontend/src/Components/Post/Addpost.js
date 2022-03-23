@@ -1,103 +1,141 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, {
+  // Fragment, 
+  // useRef, 
+  useState
+} from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+
+// Redux
 import api from "../../Redux/utils/api";
 import { connect } from "react-redux";
+import { addPost } from "../../Redux/action/post";
 import PropTypes from "prop-types";
-import { uploadImage } from "../../Redux/action/post";
+// import { uploadImage } from "../../Redux/action/post";
 
-const people = [
-  {
-    id: 1,
-    name: "Wade Cooper",
-    avatar:
-      "https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 2,
-    name: "Arlene Mccoy",
-    avatar:
-      "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 3,
-    name: "Devon Webb",
-    avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80",
-  },
-  {
-    id: 4,
-    name: "Tom Cook",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 5,
-    name: "Tanya Fox",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 6,
-    name: "Hellen Schmidt",
-    avatar:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 7,
-    name: "Caroline Schultz",
-    avatar:
-      "https://images.unsplash.com/photo-1568409938619-12e139227838?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 8,
-    name: "Mason Heaney",
-    avatar:
-      "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 9,
-    name: "Claudie Smitham",
-    avatar:
-      "https://images.unsplash.com/photo-1584486520270-19eca1efcce5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 10,
-    name: "Emil Schaefer",
-    avatar:
-      "https://images.unsplash.com/photo-1561505457-3bcad021f8ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-];
+// const catagory = [ { id: 1, name: "Post" }, { id: 2, name: "Review" }, ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
-const Addpost = ({ uploadImage }) => {
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+const Addpost = ({ addPost, user: { id }, history }) => {
+  // const editorRef = useRef(null);
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     setFormpost(editorRef.current.getContent());
+  //   }
+  // };
+  const people = [
+    { id: 1, name: 'Post' },
+    { id: 2, name: 'Review' },
+  ]
+
+
+
+  const [selectedPerson, setSelectedPerson] = useState(people[0])
+  const [formPost, setFormpost] = useState({
+    data: {
+      Title: "",
+      Content: "",
+      content_private: false,
+      Catagory: selectedPerson.name,
+      discription: "",
+      highlights: false,
+      users_permissions_user: id
     }
+  });
+  const { Title, discription, Content, highlights, content_private, Catagory, users_permissions_user } = formPost.data;
+  const onChange = e =>
+    setFormpost({ data: { ...formPost.data, [e.target.name]: e.target.value } });
+
+  const handleEditorChange = e => {
+    console.log("Content was updated:");
+    setFormpost({
+      data: {
+        Title: Title,
+        discription: discription,
+        Content: e.target.getContent(),
+        Catagory: Catagory,
+        highlights: highlights,
+        content_private: content_private,
+        users_permissions_user: users_permissions_user
+      }
+    });
   };
-  const [selected, setSelected] = useState(people[3]);
 
-  const [files, setFiles] = useState();
 
-  const uploadImages = async (e) => {
-    //posting logic will go here
 
-    const formData = new FormData()
+  // const selectdata = e => {
+  //   setSelectedPerson();
+  //   // setFormpost({
+  //   //   data: {
+  //   //     Title: Title,
+  //   //     discription: discription,
+  //   //     Content: Content,
+  //   //     Catagory: selectedPerson.name,
+  //   //     highlights: highlights,
+  //   //     content_private: content_private,
+  //   //     users_permissions_user: users_permissions_user
+  //   //   }
+  //   // });
+  // };
 
-    formData.append('files', files[0])
-    uploadImage(formData);
+
+  console.log(selectedPerson.name);
+  if (selectedPerson.name === "Post" && Catagory !== "Post") {
+    // console.log(selectedPerson.name);
+    setFormpost({
+      data: {
+        Title: Title,
+        discription: discription,
+        Content: Content,
+        Catagory: selectedPerson.name,
+        highlights: highlights,
+        content_private: content_private,
+        users_permissions_user: users_permissions_user
+      }
+    });
+  } else if (selectedPerson.name === "Review" && Catagory !== "Review") {
+    setFormpost({
+      data: {
+        Title: Title,
+        discription: discription,
+        Content: Content,
+        Catagory: selectedPerson.name,
+        highlights: highlights,
+        content_private: content_private,
+        users_permissions_user: users_permissions_user
+      }
+    });
+    // console.log(Catagory);
+  } else {
+    console.log("You selected");
+  }
+
+  const submitdata = e => {
+    e.preventDefault();
+    console.log(formPost);
+    addPost(formPost, history);
   };
+
+  console.log(formPost);
+  // const [files, setFiles] = useState();
+
+  // const uploadImages = async (e) => {
+  //   //posting logic will go here
+
+  //   const formData = new FormData()
+
+  //   formData.append('files', files[0])
+  //   uploadImage(formData);
+  // };
 
   return (
     <div>
       <div className="mt-5 md:mt-0 md:col-span-2">
-        <form>
+        <form onSubmit={e => submitdata(e)}>
           <div className="shadow overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6">
               <div className="grid grid-cols-6 gap-6">
@@ -110,77 +148,46 @@ const Addpost = ({ uploadImage }) => {
                 </label>
                 <div className="col-span-6">
                   <label
-                    htmlFor="title"
+                    htmlFor="Title"
                     className="block text-md font-medium text-gray-700"
                   >
                     Title
                   </label>
                   <input
                     type="text"
-                    name="title"
-                    id="title"
+                    name="Title"
+                    id="Title"
                     autoComplete="given-name"
+                    onChange={e => onChange(e)}
+                    value={Title}
                     className="mt-1 focus:ring-red-400 focus:border-red-400 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
 
-                {/* <div className="col-span-6">
-                    <label
-                      htmlFor="last-name"
-                      className="block text-md font-medium text-gray-700"
-                    >
-                      Last name
-                    </label>
-                    <input
-                      type="text"
-                      name="last-name"
-                      id="last-name"
-                      autoComplete="family-name"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
-
-                  <div className="col-span-6 sm:col-span-4">
-                    <label
-                      htmlFor="email-address"
-                      className="block text-md font-medium text-gray-700"
-                    >
-                      Email address
-                    </label>
-                    <input
-                      type="text"
-                      name="email-address"
-                      id="email-address"
-                      autoComplete="email"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
-
-                  <div className="col-span-6 sm:col-span-3">
-                    <label
-                      htmlFor="country"
-                      className="block text-md font-medium text-gray-700"
-                    >
-                      Country
-                    </label>
-                    <select
-                      id="country"
-                      name="country"
-                      autoComplete="country-name"
-                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div> */}
+                <div className="col-span-6">
+                  <label
+                    htmlFor="discription"
+                    className="block text-md font-medium text-gray-700"
+                  >
+                    Discription
+                  </label>
+                  <input
+                    type="text"
+                    name="discription"
+                    id="discription"
+                    onChange={e => onChange(e)}
+                    value={discription}
+                    autoComplete="family-name"
+                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  />
+                </div>
 
                 <div className="col-span-6">
                   <label
                     htmlFor="street-address"
                     className="block text-md font-medium text-gray-700"
                   >
-                    Discription
+                    Content
                   </label>
                   {/* <input
                       type="text"
@@ -192,7 +199,8 @@ const Addpost = ({ uploadImage }) => {
 
                   <Editor
                     apiKey="u9xnjd1zxyorl0cxv29cpdlfgxgr67ypm5gl6t0hw24tq7qs"
-                    onInit={(evt, editor) => (editorRef.current = editor)}
+                    // onInit={(evt, editor) => (editorRef.current = editor)}
+                    onChange={e => handleEditorChange(e)}
                     initialValue="<p>Place This Your Content.</p>"
                     init={{
                       height: 500,
@@ -210,14 +218,13 @@ const Addpost = ({ uploadImage }) => {
                       file_picker_types: "file image media",
                       file_picker_callback: async function (cb, value, meta) {
 
-
                         // try {
                         //   const file = this.files[0];
                         //   //upload now to backend
                         //   //Response path from cloudinary
                         //   console.log(file);
                         //   const formData = new FormData()
-  
+
                         //   formData.append('files', file);
                         //   const config = {
                         //   headers: {
@@ -231,13 +238,13 @@ const Addpost = ({ uploadImage }) => {
                         // } catch (err) {
                         //   console.log(err);
                         // }
-                        
+
                         var input = document.createElement("input");
                         input.setAttribute("type", "file");
                         input.setAttribute("accept", "image/*");
 
                         input.onchange = async function () {
-                          
+
                           var file = this.files[0];
                           //upload now to backend
                           //Response path from cloudinary
@@ -251,10 +258,10 @@ const Addpost = ({ uploadImage }) => {
                             }
                           };
                           console.log(formData);
-                          const res = await api.post('/upload',formData,config);
+                          const res = await api.post('/upload', formData, config);
                           console.log(res.data[0].url);
                           cb(res.data[0].url);
-                          
+
                           // var reader = new FileReader();
                           // reader.onload = function () {
                           //   var id = 'blobid' + (new Date()).getTime();
@@ -278,93 +285,43 @@ const Addpost = ({ uploadImage }) => {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                  <Listbox value={selected} onChange={setSelected}>
-                    {({ open }) => (
-                      <>
-                        <Listbox.Label className="block text-sm font-medium text-gray-700">
-                          Content Type
-                        </Listbox.Label>
-                        <div className="mt-1 relative">
-                          <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <span className="flex items-center">
-                              {/* <img src={selected.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" /> */}
-                              <span className="ml-3 block truncate">
-                                {selected.name}
-                              </span>
+                <Listbox value={selectedPerson} onChange={setSelectedPerson}>
+                  <Listbox.Label className="block text-sm font-medium text-gray-700">Catagory Type</Listbox.Label>
+                  <div className="mt-1 relative">
+                    <Listbox.Button className="relative w-80 bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+
+                      <span className="flex items-center">
+                        <span className="ml-3 block truncate">{selectedPerson.name}</span>
+                      </span>
+                    </Listbox.Button>
+                    <Transition
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+
+                    </Transition>
+                    <Listbox.Options className="absolute z-10 mt-1 w-80 bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                      {people.map((person) => (
+                        <Listbox.Option
+                          key={person.id}
+                          value={person}
+                          disabled={person.unavailable}
+                          className="cursor-default select-none relative py-2 pl-3 pr-9"
+                        >
+                          <div className="flex items-center">
+
+                            <span className='font-normal ml-3 block truncate' >
+                              {person.name}
                             </span>
-                            <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                              <SelectorIcon
-                                className="h-5 w-5 text-gray-400"
-                                aria-hidden="true"
-                              />
-                            </span>
-                          </Listbox.Button>
+                          </div>
 
-                          <Transition
-                            show={open}
-                            as={Fragment}
-                            leave="transition ease-in duration-100"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                          >
-                            <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                              {people.map((person) => (
-                                <Listbox.Option
-                                  key={person.id}
-                                  className={({ active }) =>
-                                    classNames(
-                                      active
-                                        ? "text-white bg-indigo-600"
-                                        : "text-gray-900",
-                                      "cursor-default select-none relative py-2 pl-3 pr-9"
-                                    )
-                                  }
-                                  value={person}
-                                >
-                                  {({ selected, active }) => (
-                                    <>
-                                      <div className="flex items-center">
-                                        {/* <img src={person.avatar} alt="" className="flex-shrink-0 h-6 w-6 rounded-full" /> */}
-                                        <span
-                                          className={classNames(
-                                            selected
-                                              ? "font-semibold"
-                                              : "font-normal",
-                                            "ml-3 block truncate"
-                                          )}
-                                        >
-                                          {person.name}
-                                        </span>
-                                      </div>
-
-                                      {selected ? (
-                                        <span
-                                          className={classNames(
-                                            active
-                                              ? "text-white"
-                                              : "text-indigo-600",
-                                            "absolute inset-y-0 right-0 flex items-center pr-4"
-                                          )}
-                                        >
-                                          <CheckIcon
-                                            className="h-5 w-5"
-                                            aria-hidden="true"
-                                          />
-                                        </span>
-                                      ) : null}
-                                    </>
-                                  )}
-                                </Listbox.Option>
-                              ))}
-                            </Listbox.Options>
-                          </Transition>
-                        </div>
-                      </>
-                    )}
-                  </Listbox>
-                </div>
-
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </div>
+                </Listbox>
                 {/* <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                     <label
                       htmlFor="region"
@@ -409,7 +366,7 @@ const Addpost = ({ uploadImage }) => {
           </div>
         </form>
         <form >
-          <input
+          {/* <input
             type="file"
             className="block w-full text-sm text-slate-500
                     file:mr-4 file:py-2 file:px-4
@@ -418,24 +375,29 @@ const Addpost = ({ uploadImage }) => {
                     file:bg-violet-50 file:text-violet-700
                     hover:file:bg-violet-100"
             onChange={(e) => setFiles(e.target.files)}
-          />
-          <input type="submit" onClick={uploadImages} />
+          /> */}
+          {/* <input type="submit" onClick={uploadImages} /> */}
         </form>
       </div>
 
-      <button onClick={log}>Log editor content</button>
+      {/* <button onClick={log}>Log editor content</button> */}
     </div>
   );
 };
 Addpost.propTypes = {
-  uploadImage: PropTypes.func.isRequired,
-  imagetext: PropTypes.object.isRequired,
+  addPost: PropTypes.func.isRequired
+  // uploadImage: PropTypes.func.isRequired,
+  // imagetext: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 
-export default connect(mapStateToProps, { uploadImage })(Addpost);
+export default connect(mapStateToProps, {
+  // uploadImage
+  addPost
+})(Addpost);
 
 // export default Addpost;
