@@ -19,7 +19,7 @@ module.exports = [
     config: {
       enabled: true,
       header: '*',
-      origin: ['http://localhost:3000','http://app.affix-tech.com','https://app.affix-tech.com','http://cloud.affix-tech.com','https://cloud.affix-tech.com','http://uat.affix-tech.com','https://uat.affix-tech.com']
+      origin: ['http://localhost:3000','http://localhost:1337','http://app.affix-tech.com','https://app.affix-tech.com','http://cloud.affix-tech.com','https://cloud.affix-tech.com','http://uat.affix-tech.com','https://uat.affix-tech.com']
     }
   },
   'strapi::poweredBy',
