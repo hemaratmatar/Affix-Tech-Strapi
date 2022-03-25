@@ -5,7 +5,7 @@ import React, {
 } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import { /*CheckIcon,*/ SelectorIcon } from "@heroicons/react/solid";
 
 // Redux
 import api from "../../Redux/utils/api";
@@ -294,6 +294,9 @@ const Addpost = ({ addPost, user: { id }, history }) => {
                       <span className="flex items-center">
                         <span className="ml-3 block truncate">{selectedPerson.name}</span>
                       </span>
+                      <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              </span>
                     </Listbox.Button>
                     <Transition
                       leave="transition ease-in duration-100"
