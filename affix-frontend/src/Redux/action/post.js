@@ -7,7 +7,9 @@ import {
     uploadImage_complete,
     uploadImage_error,
     post_hl_loaded,
-    post_hl_load_error
+    post_hl_load_error,
+    loadedPostbyid_error,
+    loadedPostbyid
 } from "./types";
 
 
@@ -22,6 +24,22 @@ export const addPost = (formPost) => async (dispatch) =>{
     } catch (err) {
         dispatch({
             type: post_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}
+
+export const loadedPostbyID = () => async (dispatch)=>{
+    try {
+        const res = await api.get('/posts/:id/?populate[0]=users_permissions_user&filters[highlights][$eq]=true&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
+
+        dispatch({
+            type: loadedPostbyid,
+            payload:res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: loadedPostbyid_error,
             payload: { msg: err.response.statusText, status: err.response.status }
           });
     }
