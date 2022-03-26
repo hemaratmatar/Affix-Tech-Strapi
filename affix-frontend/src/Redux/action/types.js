@@ -32,4 +32,18 @@ export const uploadImage_error = "uploadImage_error";
 export const Profile_loaded ="Profile_loaded";
 export const Profile_load_error ="Profile_load_error";
 
+export const review_loaded ="review_losded";
+export const review_load_error = "review_load_error";
+
+export const add_loaded ="add_loadeed";
+export const add_load_error ="add_load_error";
+
+export const edit_loaded = "edit_loaded";
+export const edit_load_error= "edit_load_error";  
+
+export const dele_loaded = "dele_loaded";
+export const dele_load_error = "dele_load_error";
+
+
+
 
