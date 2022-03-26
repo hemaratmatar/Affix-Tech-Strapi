@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
+import parse from 'html-react-parser'
 
-const Postpage = () => {
-  return (
+//Redux
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { loadedPostbyID } from "../../Redux/action/post";
+import { useParams } from "react-router-dom";
+import Loadingpage from "../Layout/Loadingpage";
+import moment from 'moment'
+
+const Postpage = ({ loadedPostbyID, post: { post, loading } }) => {
+  const { id } = useParams();
+  useEffect(() => {
+    loadedPostbyID(id);
+  }, [loadedPostbyID, id]);
+  if (post !=null) {
+    var date = moment(post.attributes.publish_date);
+    var dateComponent = date.utc().format("DD/MM/YYYY");
+  }
+
+  console.log(dateComponent);
+  return loading || post === null ? (
+    <Loadingpage />
+  ) : (
     <div className="space-y-4">
       {/*เนื้อหา*/}
       <div>
         {/*หัวข้อ*/}
         <div className="bg-red-400 p-4 text-md font-bold text-white break-all rounded-t-xl">
-          <p>Title</p>
+          <p>{post.attributes.Title}</p>
         </div>
         {/*หัวข้อ*/}
         <div className=" bg-white h-full text-sm p-5 border-b-4 border-x-4 border-slate-200 rounded-b-xl">
-          <p>Post Date : 23/12/2022</p>
+          <p>Post Date : {dateComponent}</p>
           <div className=" break-words text-sm p-5">
-            <p>
+            {/* <div dangerouslySetInnerHTML={{ __html: post.attributes.Content }} /> */}
+                        <div>{parse(post.attributes.Content)}</div>
+
+            {/* <div>{post.attributes.Content}</div> */}
+            {/* <p>
               Let’s start with a simple consideration: we all love neural
               networks. We love them because they are intuitive, most of the
               time they don’t require domain knowledge, they are easy to code
@@ -51,7 +76,7 @@ const Postpage = () => {
               which has the following expression: And it is our loss function
               gradient, which we would like to set to 0: The loss function and
               gradient, for our “perfect” solution are correctly 0:
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
@@ -148,4 +173,23 @@ const Postpage = () => {
   );
 };
 
-export default Postpage;
+Postpage.propTypes = {
+  loadedPostbyID: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired
+  // getKnowbyID: PropTypes.func.isRequired,
+  // knows: PropTypes.object.isRequired,
+  // knowledge: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  post: state.post
+  // knowledge: state.knowledge,
+  // knows: state.knows
+});
+
+export default connect(mapStateToProps, {
+  loadedPostbyID
+  // getKnowbyID 
+})(Postpage);
+
+// export default Postpage;
