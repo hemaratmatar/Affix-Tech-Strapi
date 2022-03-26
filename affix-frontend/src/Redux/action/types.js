@@ -36,8 +36,8 @@ export const loadedPostbyid_error = "loadedPostbyid_error";
 export const Profile_loaded ="Profile_loaded";
 export const Profile_load_error ="Profile_load_error";
 
-export const review_loaded ="review_losded";
-export const review_load_error = "review_load_error";
+export const reviews_loaded ="review_losded";
+export const reviews_load_error = "review_load_error";
 
 export const add_loaded ="add_loadeed";
 export const add_load_error ="add_load_error";
