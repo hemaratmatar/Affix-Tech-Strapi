@@ -18,7 +18,7 @@ const Posthighlight = ({ post: { id, attributes } }) => {
               alt="profile-in-post-list"
             />
             <p className="px-4 text-lg">
-              {attributes.users_permissions_user.data.attributes.username}{" "}
+              {attributes.users_permissions_user.data.attributes.username}
             </p>
           </div>
           <Link to={`/posts/${id}`}>
