@@ -29,9 +29,9 @@ export const addPost = (formPost) => async (dispatch) =>{
     }
 }
 
-export const loadedPostbyID = () => async (dispatch)=>{
+export const loadedPostbyID = (id) => async (dispatch)=>{
     try {
-        const res = await api.get('/posts/:id/?populate[0]=users_permissions_user&filters[highlights][$eq]=true&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
+        const res = await api.get(`/posts/${id}`);
 
         dispatch({
             type: loadedPostbyid,

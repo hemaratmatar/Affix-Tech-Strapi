@@ -182,13 +182,14 @@ const Addpost = ({ addPost, user: { id }, history }) => {
                   />
                 </div>
 
-                <div className="col-span-6">
+                <div className="col-span-6 space-y-2">
                   <label
                     htmlFor="street-address"
                     className="block text-md font-medium text-gray-700"
                   >
                     Content
                   </label>
+                  <p className="text-sm">คุณสามารถปรับแต่งโพสต์ของคุณโดยใช้ Source Code จาก <a className=" text-cyan-400" href="https://tailwindcss.com" target="_blank" rel="noreferrer">Tailwind CSS</a> ได้แล้ว</p>
                   {/* <input
                       type="text"
                       name="street-address"
@@ -212,9 +213,9 @@ const Addpost = ({ addPost, user: { id }, history }) => {
                       ],
                       toolbar:
                         "undo redo | formatselect | " +
-                        "bold italic backcolor | alignleft aligncenter " +
-                        "image media |alignright alignjustify | bullist numlist outdent indent | " +
-                        "removeformat | code | help",
+                        "bold italic backcolor | alignleft aligncenter alignright alignjustify |" +
+                        "image media | code | bullist numlist outdent indent  | " +
+                        "removeformat | help",
                       file_picker_types: "file image media",
                       file_picker_callback: async function (cb, value, meta) {
 
