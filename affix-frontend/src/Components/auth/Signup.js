@@ -128,7 +128,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
                 htmlFor="text"
                 className="text-sm font-semibold text-white"
               >
-                Username
+                Email
               </label>
               <input
                 type="email"
@@ -163,7 +163,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
                   htmlFor="password"
                   className="text-sm font-semibold text-white"
                 >
-                  Password Check
+                  Confirm Password
                 </label>
               </div>
               <input

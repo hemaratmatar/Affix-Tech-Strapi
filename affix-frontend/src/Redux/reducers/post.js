@@ -1,4 +1,4 @@
-import { 
+import {
     post_sucessfuly,
     post_error,
     uploadImage_complete,
@@ -6,70 +6,85 @@ import {
     post_load_error,
     post_loaded,
     post_hl_loaded,
-    post_hl_load_error
+    post_hl_load_error,
+    loadedPostbyid,
+    loadedPostbyid_error
 } from "../action/types";
 
 
 const initialState = {
-    highlights:[],
-    posts:[],
-    post:null,
-    loading:true,
-    imagetext:null,
-    error:{}
+    highlights: [],
+    posts: [],
+    post: null,
+    loading: true,
+    imagetext: null,
+    error: {}
 }
 
-function postReducer(state = initialState,action) {
-    const {type,payload} =action;
+function postReducer(state = initialState, action) {
+    const { type, payload } = action;
 
     switch (type) {
         case post_sucessfuly:
-            return{
+            return {
                 ...state,
-                post:payload,
-                loading:false
+                post: payload,
+                loading: false
             }
         case post_error:
-            return{
+            return {
                 ...state,
-                error:payload,
-                loading:false
-        }
+                error: payload,
+                loading: false
+            }
         case post_hl_loaded:
-            return{
+            return {
                 ...state,
-                highlights:payload,
-                loading:false
+                highlights: payload,
+                loading: false
             }
         case post_hl_load_error:
-            return{
+            return {
                 ...state,
-                error:payload,
-                loading:false
+                error: payload,
+                loading: false
             }
         case post_loaded:
-            return{
+            return {
                 ...state,
-                posts:payload,
-                loading:false
+                posts: payload,
+                loading: false
             }
         case post_load_error:
-            return{
+            return {
                 ...state,
-                error:payload,
-                loading:false
+                error: payload,
+                loading: false
             }
         case uploadImage_complete:
-            return{
+            return {
                 ...state,
-                imagetext:payload,
-                loading:false
+                imagetext: payload,
+                loading: false
             }
         case uploadImage_error:
-            return{
+            return {
                 ...state,
-                error:payload,
-                loading:false
+                error: payload,
+                loading: false
+            }
+
+        case loadedPostbyid:
+            return {
+                ...state,
+                post: payload,
+                loading: false
+            }
+        case loadedPostbyid_error:
+            return {
+                ...state,
+                error: payload,
+                loading: false
             }
         default:
             return state;
