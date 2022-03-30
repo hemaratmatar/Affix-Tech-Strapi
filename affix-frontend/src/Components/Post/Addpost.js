@@ -12,6 +12,7 @@ import api from "../../Redux/utils/api";
 import { connect } from "react-redux";
 import { addPost } from "../../Redux/action/post";
 import PropTypes from "prop-types";
+import { unstable_HistoryRouter, useNavigate } from "react-router-dom";
 // import { uploadImage } from "../../Redux/action/post";
 
 // const catagory = [ { id: 1, name: "Post" }, { id: 2, name: "Review" }, ];
@@ -20,7 +21,7 @@ import PropTypes from "prop-types";
 //   return classes.filter(Boolean).join(" ");
 // }
 
-const Addpost = ({ addPost, user: { id }, history }) => {
+const Addpost = ({ addPost, user: { id } }) => {
   // const editorRef = useRef(null);
   // const log = () => {
   //   if (editorRef.current) {
@@ -31,7 +32,6 @@ const Addpost = ({ addPost, user: { id }, history }) => {
     { id: 1, name: 'Post' },
     { id: 2, name: 'Review' },
   ]
-
 
 
   const [selectedPerson, setSelectedPerson] = useState(people[0])
@@ -113,11 +113,13 @@ const Addpost = ({ addPost, user: { id }, history }) => {
   } else {
     console.log("You selected");
   }
-
+const history = useNavigate();
   const submitdata = e => {
     e.preventDefault();
     console.log(formPost);
-    addPost(formPost, history);
+
+    addPost(formPost );
+    history.push("/")
   };
 
   console.log(formPost);
@@ -307,9 +309,9 @@ const Addpost = ({ addPost, user: { id }, history }) => {
 
                     </Transition>
                     <Listbox.Options className="absolute z-10 mt-1 w-80 bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                      {people.map((person) => (
+                      {people.map((person,id) => (
                         <Listbox.Option
-                          key={person.id}
+                          key={id}
                           value={person}
                           disabled={person.unavailable}
                           className="cursor-default select-none relative py-2 pl-3 pr-9"

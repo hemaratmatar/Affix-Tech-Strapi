@@ -48,3 +48,18 @@ export const edit_load_error= "edit_load_error";
 export const dele_loaded = "dele_loaded";
 export const dele_load_error = "dele_load_error";
 
+//Comment System
+
+
+export const add_comment = "add_comment";
+export const add_comment_error = "add_comment_error";
+
+export const show_comment = "show_comment";
+export const show_comment_error = "show_comment_error";
+
+export const edit_comment = "edit_comment";
+export const edit_comment_error = "edit_comment_error";
+
+export const delete_comment = "delete_comment";
+export const delete_comment_error = "delete_comment_error";
+

@@ -1,7 +1,7 @@
 import { Profile_loaded, Profile_load_error } from "../action/types";
 
 const initialState = {
-  profile: [],
+  profiles: [],
   profile: null,
   loading: true,
   error: {},
