@@ -69,8 +69,8 @@ const Mainpost = ({
         </div>
         <div className="flex flex-col  h-[400px] space-y-4  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
           {/* สร้าง Component ใหม่เพื่อทำ loop แสดงผล */}
-          {highlights.map((highlight) => (
-            <Posthighlight key={highlight.id} post={highlight} />
+          {highlights.map((highlight,id) => (
+            <Posthighlight key={id} post={highlight} />
           ))}
         </div>
       </div>
@@ -79,8 +79,8 @@ const Mainpost = ({
           <p className="text-xl">Problem Content</p>
         </div>
         <div className="inline-grid grid-cols-1 gap-4 md:grid-cols-3  h-full   overflow-y-auto rounded-b-3xl p-6 bg-red-200">
-          {posts.map((post) => (
-            <Postall key={post.id} post={post} />
+          {posts.map((post,id) => (
+            <Postall key={id} post={post} />
           ))}
         </div>
       </div>

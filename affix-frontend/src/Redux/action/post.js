@@ -13,7 +13,7 @@ import {
 } from "./types";
 
 
-export const addPost = (formPost) => async (dispatch) =>{
+export const addPost = (formPost,history) => async (dispatch) =>{
     try {
         const res = await api.post('/posts',formPost);
 
@@ -21,6 +21,11 @@ export const addPost = (formPost) => async (dispatch) =>{
             type: post_sucessfuly,
             payload:res.data
         });
+           // const history = createBrowserHistory();
+    // history.push({
+    //     pathname:"/",
+       //  state:{Key : response.data.user }
+//    });
     } catch (err) {
         dispatch({
             type: post_error,
@@ -31,8 +36,7 @@ export const addPost = (formPost) => async (dispatch) =>{
 
 export const loadedPostbyID = (id) => async (dispatch)=>{
     try {
-        const res = await api.get(`/posts/${id}`);
-
+        const res = await api.get(`/posts/${id}?populate[comments][populate][0]=users_permissions_user`);
         dispatch({
             type: loadedPostbyid,
             payload:res.data.data

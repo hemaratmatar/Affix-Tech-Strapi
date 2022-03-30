@@ -8,18 +8,32 @@ import { loadedPostbyID } from "../../Redux/action/post";
 import { useParams } from "react-router-dom";
 import Loadingpage from "../Layout/Loadingpage";
 import moment from 'moment'
+// import { showAllcomment } from "../../Redux/action/comment";
 
-const Postpage = ({ loadedPostbyID, post: { post, loading } }) => {
+//Components
+import CommentItems from "../Comments/CommentItems";
+
+const Postpage = ({ 
+  loadedPostbyID, post: { post, loading }, 
+  // showAllcomment, comment: { comments } 
+}) => {
   const { id } = useParams();
   useEffect(() => {
     loadedPostbyID(id);
-  }, [loadedPostbyID, id]);
-  if (post !=null) {
+    // showAllcomment(id);
+  }, [loadedPostbyID, id, 
+    // showAllcomment
+  ]);
+  if (post != null) {
     var date = moment(post.attributes.publish_date);
     var dateComponent = date.utc().format("DD/MM/YYYY");
   }
 
-  console.log(dateComponent);
+// if (post.attributes.comments.data.length === null) {
+  
+  // console.log(post.attributes.comments.data);
+// }
+  // console.log(comments);
   return loading || post === null ? (
     <Loadingpage />
   ) : (
@@ -35,7 +49,7 @@ const Postpage = ({ loadedPostbyID, post: { post, loading } }) => {
           <p>Post Date : {dateComponent}</p>
           <div className=" break-words text-sm p-5">
             {/* <div dangerouslySetInnerHTML={{ __html: post.attributes.Content }} /> */}
-                        <div>{parse(post.attributes.Content)}</div>
+            <div>{parse(post.attributes.Content)}</div>
 
             {/* <div>{post.attributes.Content}</div> */}
             {/* <p>
@@ -85,12 +99,7 @@ const Postpage = ({ loadedPostbyID, post: { post, loading } }) => {
         <div className=" bg-white h-full border-4 border-slate-200 rounded-xl">
           <div className=" break-words text-md p-5 space-y-4 font-bold text-black">
             <p>Comment Content</p>
-            <textarea
-              className=" form-control block w-full px-3 py-1.5 text-sm font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-blue-600 focus:outline-none "
-              rows="7"
-              placeholder="Your message"
-            >
-              Hold Comment On This Post
+            <textarea className=" form-control block w-full px-3 py-1.5 text-sm font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-blue-600 focus:outline-none " rows="4" placeholder="Writing Comment" >
             </textarea>
             <div className="grid md:justify-items-end">
               <button className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -102,32 +111,27 @@ const Postpage = ({ loadedPostbyID, post: { post, loading } }) => {
       </div>
       <div>
         <div className=" bg-white h-full rounded-xl  ">
-          <div className="mx-auto bg-red-400 p-4 text-md  rounded-t-xl">
-            <p>Comment</p>
-          </div>
-          <div className="bg-white border-b-4 border-x-4 border-slate-200 rounded-b-xl">
-            <div className=" flex flex-col mx-4 space-y-4 h-full py-4  overflow-auto">
-              <div className=" ">
-                <div className=" flex flex-1 items-center bg-red-300  p-3   rounded-t-xl">
-                  <img
-                    className="h-10 w-10  rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                  <p className="px-4 text-sm font-bold">Comment Contents</p>
-                </div>
-                <div className=" bg-slate-100 break-all p-4 text-sm rounded-b-xl ">
-                  Paragraphs are distinct blocks of text which section out a
-                  larger piece of writing—stories, novels, articles, creative
-                  writing or professional writing pieces—making it easier to
-                  read and understand. Good paragraphs are a handy writing skill
-                  for many forms of literature, and good writers can greatly
-                  enhance the readability of their news, essays, or fiction
-                  writing when constructed properly.
-                </div>
-              </div>
+          <div className="mx-auto bg-red-400 p-4 text-md flex  justify-items-center justify-between  rounded-t-xl">
+            <div className="flex items-center"><p>Comment</p></div>
 
-              <div className="  ">
+          </div>
+
+          <div className="bg-white border-b-4 border-x-4 border-slate-200 rounded-b-xl">
+            <div className=" flex flex-col mx-4 space-y-4 h-full py-4  overflow-auto ">
+              
+              { post.attributes.comments.data.length !== 0 ?(
+                post.attributes.comments.data.map((comment,id) => (
+                  // <p>{comment.id}</p>
+                  <CommentItems key={id} comment={comment} />
+                ))
+              ):(<p className=" justify-center items-center">No Comment</p>)}
+
+              {/* {post.attributes.comments.data.map((comment) => (
+                // <p>{comment.id}</p>
+                <CommentItems key={comment.id} comment={comment} />
+              ))} */}
+
+              {/* <div className="  ">
                 <div className=" flex flex-1 items-center bg-red-300  p-3  rounded-t-xl">
                   <img
                     className="h-10 w-10  rounded-full"
@@ -164,7 +168,7 @@ const Postpage = ({ loadedPostbyID, post: { post, loading } }) => {
                   enhance the readability of their news, essays, or fiction
                   writing when constructed properly.
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -175,21 +179,26 @@ const Postpage = ({ loadedPostbyID, post: { post, loading } }) => {
 
 Postpage.propTypes = {
   loadedPostbyID: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  // showAllcomment: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired,
+  // comment:PropTypes.object.isRequired
   // getKnowbyID: PropTypes.func.isRequired,
   // knows: PropTypes.object.isRequired,
   // knowledge: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  // comment: state.comment
   // knowledge: state.knowledge,
   // knows: state.knows
 });
 
 export default connect(mapStateToProps, {
-  loadedPostbyID
+  loadedPostbyID,
+  // showAllcomment
   // getKnowbyID 
 })(Postpage);
 
 // export default Postpage;
+
