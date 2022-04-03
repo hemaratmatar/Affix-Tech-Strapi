@@ -6,33 +6,27 @@ import React, {
 import { Editor } from "@tinymce/tinymce-react";
 import { Listbox, Transition } from "@headlessui/react";
 import { /*CheckIcon,*/ SelectorIcon } from "@heroicons/react/solid";
+import { useNavigate } from "react-router-dom";
 
 // Redux
 import api from "../../Redux/utils/api";
 import { connect } from "react-redux";
-import { addPost } from "../../Redux/action/post";
 import PropTypes from "prop-types";
-import { unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { addPost } from "../../Redux/action/post";
 // import { uploadImage } from "../../Redux/action/post";
 
-// const catagory = [ { id: 1, name: "Post" }, { id: 2, name: "Review" }, ];
 
 // function classNames(...classes) {
 //   return classes.filter(Boolean).join(" ");
 // }
 
 const Addpost = ({ addPost, user: { id } }) => {
-  // const editorRef = useRef(null);
-  // const log = () => {
-  //   if (editorRef.current) {
-  //     setFormpost(editorRef.current.getContent());
-  //   }
-  // };
+  const navigator = useNavigate();
+
   const people = [
     { id: 1, name: 'Post' },
     { id: 2, name: 'Review' },
   ]
-
 
   const [selectedPerson, setSelectedPerson] = useState(people[0])
   const [formPost, setFormpost] = useState({
@@ -113,13 +107,12 @@ const Addpost = ({ addPost, user: { id } }) => {
   } else {
     console.log("You selected");
   }
-const history = useNavigate();
   const submitdata = e => {
     e.preventDefault();
     console.log(formPost);
 
     addPost(formPost );
-    history.push("/")
+    navigator("/posts");
   };
 
   console.log(formPost);
@@ -201,7 +194,7 @@ const history = useNavigate();
                     /> */}
 
                   <Editor
-                    apiKey="u9xnjd1zxyorl0cxv29cpdlfgxgr67ypm5gl6t0hw24tq7qs"
+                    // apiKey="u9xnjd1zxyorl0cxv29cpdlfgxgr67ypm5gl6t0hw24tq7qs"
                     // onInit={(evt, editor) => (editorRef.current = editor)}
                     onChange={e => handleEditorChange(e)}
                     initialValue="<p>Place This Your Content.</p>"

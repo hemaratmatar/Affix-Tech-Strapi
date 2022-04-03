@@ -36,18 +36,18 @@ const Mainpost = ({
   // console.log(highlights);
   // }, [loadedPost,hightlightPost]);
 
- 
+//  const Link = (props,linkcontent) => <a {...props}>{linkcontent}</a>
 
   return  (
     <Fragment>
       <div className="flex flex-row bg-red-200 p-6 space-x-4 rounded-3xl">
         <div>
-          <Link
-            to="/posts/:id"
+          <a
+            href="/posts/:id"
             className=" p-3 bg-red-400 text-white rounded-lg"
           >
             Post Single Page
-          </Link>
+          </a>
         </div>
         <div>
           <Link

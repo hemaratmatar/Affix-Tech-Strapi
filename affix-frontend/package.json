@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.5",
     "@jest/test-sequencer": "^28.0.0-alpha.5",
@@ -13,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@tinymce/tinymce-react": "^3.13.0",
     "axios": "^0.26.0",
+    "babel-plugin-macros": "^3.1.0",
     "gravatar": "^1.8.2",
     "html-react-parser": "^1.4.9",
     "moment": "^2.29.1",
