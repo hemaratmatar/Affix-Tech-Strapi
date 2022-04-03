@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 // Components
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Posthighlight = ({ post: { id, attributes } }) => {
   return (
@@ -21,14 +21,14 @@ const Posthighlight = ({ post: { id, attributes } }) => {
               {attributes.users_permissions_user.data.attributes.username}
             </p>
           </div>
-          <Link to={`/posts/${id}`}>
+          <a href={`/posts/${id}`}>
             <div className="py-2">
               <div className="text-lg font-medium text-black line-clamp-1 ">
                 {attributes.Title}
               </div>
               <p className="truncate">{attributes.discription}</p>
             </div>
-          </Link>
+          </a>
           {/* <p className="truncate">{renderHTML(attributes.discription)}</p> */}
         </div>
       </div>

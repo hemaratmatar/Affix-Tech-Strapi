@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 // Components
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Postall = ({ post: { id, attributes } }) => {
   return (
@@ -12,14 +12,14 @@ const Postall = ({ post: { id, attributes } }) => {
         {/* <div className=" flex-1 flex-shrink-0"></div> */}
         <div className="flex flex-col px-3 ">
           <div className=" justify-end">
-          <Link to={`/posts/${id}`}>
+          <a href={`/posts/${id}`}>
             <div className="py-2">
               <div className="text-md font-medium text-black line-clamp-1 ">
                 {attributes.Title}
               </div>
               <p className="truncate">{attributes.discription}</p>
             </div>
-          </Link>            
+          </a>            
           </div>
           {/* <p className="truncate">{renderHTML(attributes.discription)}</p> */}
           <div className="flex flex-row items-center  ">

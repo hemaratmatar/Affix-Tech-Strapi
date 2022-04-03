@@ -71,6 +71,11 @@
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "post"
+    },
+    "viewpost": {
+      "type": "biginteger",
+      "default": "0",
+      "required": false
     }
   }
 }

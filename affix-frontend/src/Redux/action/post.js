@@ -21,6 +21,7 @@ export const addPost = (formPost,history) => async (dispatch) =>{
             type: post_sucessfuly,
             payload:res.data
         });
+        
            // const history = createBrowserHistory();
     // history.push({
     //     pathname:"/",
