@@ -8,7 +8,9 @@ import {
     post_hl_loaded,
     post_hl_load_error,
     loadedPostbyid,
-    loadedPostbyid_error
+    loadedPostbyid_error,
+    updatePost_sucessfuly,
+    updatePost_error
 } from "../action/types";
 
 
@@ -25,6 +27,7 @@ function postReducer(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
+        //Add Post Suceessfuly
         case post_sucessfuly:
             return {
                 ...state,
@@ -37,6 +40,7 @@ function postReducer(state = initialState, action) {
                 error: payload,
                 loading: false
             }
+        //Highlight Post Loaded
         case post_hl_loaded:
             return {
                 ...state,
@@ -49,6 +53,7 @@ function postReducer(state = initialState, action) {
                 error: payload,
                 loading: false
             }
+        //Post All Load
         case post_loaded:
             return {
                 ...state,
@@ -61,6 +66,7 @@ function postReducer(state = initialState, action) {
                 error: payload,
                 loading: false
             }
+        // Update Image Function
         case uploadImage_complete:
             return {
                 ...state,
@@ -73,7 +79,7 @@ function postReducer(state = initialState, action) {
                 error: payload,
                 loading: false
             }
-
+        // Load By id
         case loadedPostbyid:
             return {
                 ...state,
@@ -81,6 +87,19 @@ function postReducer(state = initialState, action) {
                 loading: false
             }
         case loadedPostbyid_error:
+            return {
+                ...state,
+                error: payload,
+                loading: false
+            }
+        // Update Post
+        case updatePost_sucessfuly:
+            return {
+                ...state,
+                post: payload,
+                loading: false
+            }
+        case updatePost_error:
             return {
                 ...state,
                 error: payload,
