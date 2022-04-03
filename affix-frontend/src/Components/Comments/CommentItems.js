@@ -1,4 +1,8 @@
-import React, { Fragment, useState ,useEffect} from 'react'
+import React, { 
+  Fragment, 
+  useState, 
+  // useEffect 
+} from 'react'
 
 // Redux
 import { connect } from "react-redux";
@@ -10,7 +14,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { DeleteComment, EditComment } from '../../Redux/action/comment';
 import { loadedPostbyID } from '../../Redux/action/post';
 // import { ChevronDownIcon } from '@heroicons/react/solid'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { megaphone } from '@fortawesome/fontawesome-svg-core/import.macro'
 function EditInactiveIcon(props) {
   return (
@@ -94,19 +98,9 @@ function DeleteActiveIcon(props) {
   )
 }
 
-const Comment = ({ comment: { id, attributes }, auth: { user }, post,EditComment,loadedPostbyID,DeleteComment}) => {
-  
+const Comment = ({ comment: { id, attributes }, auth: { user }, post, EditComment, loadedPostbyID, DeleteComment }) => {
 
-  
-  
-  
-  
-  
-  
   const [switchtoedit, setswitchtoedit] = useState(false);
-
-
-
 
   //Edit Comment Function
   const [commentpost, setCommentpost] = useState({
@@ -125,18 +119,18 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post,EditComment
 
   const submitdata = (e) => {
     e.preventDefault();
-     EditComment(commentpost,id);
-     setswitchtoedit(false);
-     window.location.reload(false);    
+    EditComment(commentpost, id);
+    setswitchtoedit(false);
+    window.location.reload(false);
     //  loadedPostbyID(post.post.id);
-     setCommentpost({ data: { ...commentpost.data, commentcontent: "" } });
+    setCommentpost({ data: { ...commentpost.data, commentcontent: "" } });
   };
 
-  const deletecomment = (e) =>{
+  const deletecomment = (e) => {
     e.preventDefault();
     DeleteComment(id);
     console.log(id);
-    window.location.reload(false);  
+    window.location.reload(false);
   }
 
   return (
@@ -227,7 +221,7 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post,EditComment
                           <button
                             className={`${active ? 'bg-red-400 text-white' : 'text-gray-900'
                               } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                              onClick={e=> deletecomment(e)}
+                            onClick={e => deletecomment(e)}
                           >
                             {active ? (
                               <DeleteActiveIcon
@@ -266,9 +260,9 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post,EditComment
                               //   aria-hidden="true"
                               // />
                               <>
-                              {/* <i class="fa-light fa-megaphone"></i> */}
+                                {/* <i class="fa-light fa-megaphone"></i> */}
                               </>
-                              
+
                             )}
                             Report
                           </button>
@@ -295,7 +289,7 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post,EditComment
           <div className='p-3 space-y-4'>
             <p>Edit Comment</p>
             <form
-            onSubmit={e=> submitdata(e)}
+              onSubmit={e => submitdata(e)}
             >
               <textarea
                 className=" form-control block w-full px-3 py-1.5 text-sm font-normal text-black bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-black focus:bg-white focus:border-blue-600 focus:outline-none "
@@ -320,9 +314,9 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post,EditComment
   )
 }
 Comment.propTypes = {
-  loadedPostbyID:PropTypes.func.isRequired,
-  EditComment:PropTypes.func.isRequired,
-  DeleteComment:PropTypes.func.isRequired,
+  loadedPostbyID: PropTypes.func.isRequired,
+  EditComment: PropTypes.func.isRequired,
+  DeleteComment: PropTypes.func.isRequired,
   comment: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired
@@ -333,7 +327,7 @@ const mapStateToProps = (state) => ({
   post: state.post,
 });
 
-export default connect(mapStateToProps,{EditComment,loadedPostbyID,DeleteComment})(Comment);
+export default connect(mapStateToProps, { EditComment, loadedPostbyID, DeleteComment })(Comment);
 // export default Comment
 
 

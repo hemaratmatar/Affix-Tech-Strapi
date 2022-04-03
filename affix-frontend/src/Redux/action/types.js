@@ -24,6 +24,8 @@ export const post_load_error = "post_load_error";
 export const post_sucessfuly = "post_sucessfuly";
 export const post_error = "post_error";
 
+export const updatePost_sucessfuly = "updatePost_sucessfuly";
+export const updatePost_error = "updatePost_error";
 
 export const uploadImage_complete = "uploadImage_complete";
 export const uploadImage_error = "uploadImage_error";

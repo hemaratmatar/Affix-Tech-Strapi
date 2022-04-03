@@ -9,7 +9,9 @@ import {
     post_hl_loaded,
     post_hl_load_error,
     loadedPostbyid_error,
-    loadedPostbyid
+    loadedPostbyid,
+    updatePost_error,
+    updatePost_sucessfuly
 } from "./types";
 
 
@@ -37,7 +39,7 @@ export const addPost = (formPost,history) => async (dispatch) =>{
 
 export const loadedPostbyID = (id) => async (dispatch)=>{
     try {
-        const res = await api.get(`/posts/${id}?populate[comments][populate][0]=users_permissions_user`);
+        const res = await api.get(`/posts/${id}?populate[comments][populate][0]=users_permissions_user&filters[content_private][$eq]=false`);
         dispatch({
             type: loadedPostbyid,
             payload:res.data.data
@@ -80,7 +82,24 @@ export const loadedPost = () => async (dispatch) =>{
             payload: { msg: err.response.statusText, status: err.response.status }
           });
     }
+}
 
+
+export const updatePost = (formData,id) => async (dispatch)=>{
+    try {
+        const res = await api.put(`/posts/${id}`,formData);
+
+        dispatch({
+            type: updatePost_sucessfuly,
+            payload:res.data.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: updatePost_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
 }
 
 

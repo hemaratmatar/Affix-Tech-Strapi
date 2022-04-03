@@ -1,5 +1,14 @@
 import api from "../utils/api";
-import { add_comment, add_comment_error, delete_comment, delete_comment_error, edit_comment, edit_comment_error, show_comment, show_comment_error } from "./types";
+import { 
+    add_comment, 
+    add_comment_error, 
+    delete_comment, 
+    delete_comment_error, 
+    edit_comment, 
+    edit_comment_error, 
+    show_comment, 
+    show_comment_error 
+} from "./types";
 
 
 
@@ -56,9 +65,6 @@ export const EditComment = (commentpost,id) => async (dispatch) =>{
           });
     }
 }
-
-
-
 
 export const DeleteComment = (id) => async (dispatch) =>{
     try {
