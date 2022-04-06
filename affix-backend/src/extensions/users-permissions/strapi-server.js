@@ -1,4 +1,6 @@
 // path: src/extensions/users-permissions/strapi-server.js
+
+
 module.exports = plugin => {
     const sanitizeOutput = (user) => {
       const {
@@ -28,6 +30,21 @@ module.exports = plugin => {
   
       ctx.body = users.map(user => sanitizeOutput(user));
     };
+
+    // plugin.controllers.auth.local = async (ctx) => {
+    //   if (!ctx.state.user) {
+    //     return ctx.unauthorized();
+    //   }
+    //   const user = await strapi.entityService.findOne(
+    //     'plugin::users-permissions.auth.local',
+    //     ctx.state.user.id,
+    //     { populate: ['role','profile'] }
+    //   );
+  
+    //   ctx.body = sanitizeOutput(user);
+    // };
   
     return plugin;
   };
+
+

@@ -19,6 +19,7 @@ import Postpage from './Components/Post/Postpage';
 import Profile from './Components/Porfile/Profile'
 import Report from "./Components/Report/Report";
 import Editpost from "./Components/Post/Editpost";
+import Review from "./Components/Review/Review";
 // import { hightlightPost, loadedPost } from "./Redux/action/post";
 
 const App = () => {
@@ -56,7 +57,8 @@ const App = () => {
             <Route path="posts/:id" element={<Postpage />} />
             <Route path="posts/add" element={<Addpost />} />
             <Route path="posts-edit/:id" element={<Editpost />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="reviews" element={<Review/>}/>
             <Route path="reports" element={<Report />} />
 
           </Route>
