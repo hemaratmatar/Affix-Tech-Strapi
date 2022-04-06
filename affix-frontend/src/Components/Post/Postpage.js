@@ -146,7 +146,6 @@ const Postpage = ({
   const [switchtoedit, setswitchtoedit] = useState(false);
 
 
-
   // post
   return loading || post === null ? (
     <Loadingpage />

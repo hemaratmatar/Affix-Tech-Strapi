@@ -1,6 +1,6 @@
-import React, { 
-  Fragment, 
-  useState, 
+import React, {
+  Fragment,
+  useState,
   // useEffect 
 } from 'react'
 
@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import { Menu, Transition } from '@headlessui/react'
 import { DeleteComment, EditComment } from '../../Redux/action/comment';
 import { loadedPostbyID } from '../../Redux/action/post';
+import Loadingpage from '../Layout/Loadingpage';
 // import { ChevronDownIcon } from '@heroicons/react/solid'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { megaphone } from '@fortawesome/fontawesome-svg-core/import.macro'
@@ -102,6 +103,9 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post, EditCommen
 
   const [switchtoedit, setswitchtoedit] = useState(false);
 
+  console.log(user.id);
+  console.log(post.post.attributes.users_permissions_user.data.attributes.username);
+
   //Edit Comment Function
   const [commentpost, setCommentpost] = useState({
     data: {
@@ -133,16 +137,27 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post, EditCommen
     window.location.reload(false);
   }
 
-  return (
+  return !id && !attributes ? <Loadingpage/> : (
     <div>
       <div className=" flex float-none justify-items-stretch items-center bg-red-400  p-3  rounded-t-xl">
-        <div className="justify-self-start w-10"><img
-          className="h-10 w-10  rounded-full"
-          src={attributes.users_permissions_user.data.attributes.imageUrl}
-          // src={"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}
-          alt="userimage-profile-comment"
-        /></div>
-        <div className=" flex-1 text-white"><p className="px-4 text-sm font-bold">{/*Comment Contents*/}{attributes.users_permissions_user.data.attributes.username}</p></div>
+        <div className="justify-self-start w-10">
+          {attributes.users_permissions_user.data === null && attributes.users_permissions_user.data.attributes.profile.data === null ?
+            <img
+              className="h-10 w-10 rounded-full "
+              src="https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
+              alt="userimage-profile-comment"
+            />
+            :
+            <img
+              className="h-10 w-10  rounded-full"
+              src={attributes.users_permissions_user.data.attributes.profile.data.attributes.imageUrl}
+              alt="userimage-profile-comment"
+            />
+          }
+        </div>
+        <div className=" flex-1 text-white">
+          <p className="px-4 text-sm font-bold">{attributes.users_permissions_user.data === null ? "" : attributes.users_permissions_user.data.attributes.username}</p>
+        </div>
         {/* T-shirt sizes */}
 
         <div className=" justify-end">
@@ -262,7 +277,6 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post, EditCommen
                               <>
                                 {/* <i class="fa-light fa-megaphone"></i> */}
                               </>
-
                             )}
                             Report
                           </button>

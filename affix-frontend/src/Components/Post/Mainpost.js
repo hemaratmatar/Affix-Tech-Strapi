@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { hightlightPost, loadedPost } from "../../Redux/action/post";
 import Posthighlight from "./Posts/Posthighlight";
+import Loadingpage from '../Layout/Loadingpage'
 
 const Mainpost = ({
   loadedPost,
@@ -21,13 +22,13 @@ const Mainpost = ({
   useEffect(() => {
     // if (posts === null && highlights == null) {
     loadedPost();
-    hightlightPost();      
+    hightlightPost();
     // }
 
     // Redux display Log
     // console.log(highlights);
     //  console.log(posts.attributes);
-  }, [loadedPost,hightlightPost]);
+  }, [loadedPost, hightlightPost]);
 
   //กรณีใช้งาน useLayoutEffect
   // useLayoutEffect(() => {
@@ -36,23 +37,18 @@ const Mainpost = ({
   // console.log(highlights);
   // }, [loadedPost,hightlightPost]);
 
-//  const Link = (props,linkcontent) => <a {...props}>{linkcontent}</a>
+  //  const Link = (props,linkcontent) => <a {...props}>{linkcontent}</a>
 
-  return  (
+  return (
     <Fragment>
-      <div className="flex flex-row bg-red-200 p-6 space-x-4 rounded-3xl">
-        <div>
-          <a
-            href="/posts/:id"
-            className=" p-3 bg-red-400 text-white rounded-lg"
-          >
-            Post Single Page
-          </a>
+      <div className="flex  bg-red-400 p-6 space-x-4 rounded-3xl">
+        <div className="flex-1">
+          <h4 className="text-white text-xl">Problem Content</h4>
         </div>
-        <div>
+        <div className=" justify-end">
           <Link
             to="/posts/add"
-            className="p-3 bg-red-400 text-white rounded-lg"
+            className="p-3 bg-red-300 text-white rounded-lg"
           >
             Add Post
           </Link>
@@ -69,17 +65,18 @@ const Mainpost = ({
         </div>
         <div className="flex flex-col  h-[400px] space-y-4  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
           {/* สร้าง Component ใหม่เพื่อทำ loop แสดงผล */}
-          {highlights.map((highlight,id) => (
-            <Posthighlight key={id} post={highlight} />
-          ))}
+          {!highlights ? (<Loadingpage />) :
+            highlights.map((highlight, id) => (
+              <Posthighlight key={id} post={highlight} />
+            ))}
         </div>
       </div>
       <div className="pt-8">
         <div className="bg-red-400 text-white rounded-t-3xl p-4 ">
           <p className="text-xl">Problem Content</p>
         </div>
-        <div className="inline-grid grid-cols-1 gap-4 md:grid-cols-3  h-full   overflow-y-auto rounded-b-3xl p-6 bg-red-200">
-          {posts.map((post,id) => (
+        <div className="inline-grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3  h-full w-full  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
+          {!posts ? <Loadingpage /> : posts.map((post, id) => (
             <Postall key={id} post={post} />
           ))}
         </div>
