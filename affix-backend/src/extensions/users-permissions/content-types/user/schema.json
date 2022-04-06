@@ -67,7 +67,8 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::profile.profile",
-      "inversedBy": "user"
+      "inversedBy": "user",
+      "autoPopulate": true
     },
     "comments": {
       "type": "relation",

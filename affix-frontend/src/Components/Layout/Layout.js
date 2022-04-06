@@ -21,7 +21,7 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 const navigation = [
   { name: "Home", to: "home", current: false },
   { name: "Problem", to: "posts", current: false },
-  { name: "Review", to: "reports", current: false },
+  { name: "Review", to: "reviews", current: false },
   //   { name: "Calendar", to: "#", current: false },
   { name: "Chat", to: "chats", current: false },
 ];
@@ -32,7 +32,7 @@ function Filt(...classes) {
 
 const Layout = ({ logout, auth: { user } }) => {
   //Check user data from redux
-  // console.log(user);
+  console.log(user);
 
   return (
     <Fragment>

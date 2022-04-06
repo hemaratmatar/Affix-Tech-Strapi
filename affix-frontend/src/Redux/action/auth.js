@@ -61,7 +61,7 @@ export const login = (identifier, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    // dispatch(loadUser());
+    dispatch(loadUser());
   } catch (err) {
     // console.log(err.response.status);
     const errors = err.response.data.error;
