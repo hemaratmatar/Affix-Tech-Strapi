@@ -103,7 +103,7 @@ const Layout = ({ logout, auth: { user } }) => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
+                              src={user.profile.imageUrl}
                               alt=""
                             />
                           </Menu.Button>
@@ -212,7 +212,7 @@ const Layout = ({ logout, auth: { user } }) => {
                     <div className="flex-shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={user.imageUrl}
+                        src={user.profile.imageUrl}
                         alt=""
                       />
                     </div>

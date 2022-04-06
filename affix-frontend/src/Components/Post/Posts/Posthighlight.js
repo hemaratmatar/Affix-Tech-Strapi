@@ -8,15 +8,24 @@ import PropTypes from "prop-types";
 const Posthighlight = ({ post: { id, attributes } }) => {
   return (
     <div>
- <div className="bg-white w-full h-full rounded-xl p-3">
+      <div className="bg-white w-full h-full rounded-xl p-3">
         <div className=" flex-shrink-0"></div>
         <div className="flex flex-col px-3">
           <div className="flex flex-row items-center ">
-            <img
-              className="h-10 w-10 rounded-full "
-              src={attributes.users_permissions_user.data.attributes.imageUrl}
-              alt="profile-in-post-list"
-            />
+          {attributes.users_permissions_user.data.attributes.profile.data === null ? 
+              <img
+                  className="h-10 w-10 rounded-full "
+                  src="https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
+                  alt="profile-in-post-list"
+                />
+              :
+              <img
+                className="h-10 w-10 rounded-full "
+                src={attributes.users_permissions_user.data.attributes.profile.data.attributes.imageUrl}
+                alt="profile-in-post-list"
+              /> 
+              }
+
             <p className="px-4 text-lg">
               {attributes.users_permissions_user.data.attributes.username}
             </p>
