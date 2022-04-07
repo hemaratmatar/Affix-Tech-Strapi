@@ -103,8 +103,8 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post, EditCommen
 
   const [switchtoedit, setswitchtoedit] = useState(false);
 
-  console.log(user.id);
-  console.log(post.post.attributes.users_permissions_user.data.attributes.username);
+  // console.log(user.id);
+  // console.log(post.post.attributes.users_permissions_user.data.attributes.username);
 
   //Edit Comment Function
   const [commentpost, setCommentpost] = useState({

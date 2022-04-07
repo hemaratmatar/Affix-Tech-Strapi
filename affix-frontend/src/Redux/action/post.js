@@ -11,7 +11,9 @@ import {
     loadedPostbyid_error,
     loadedPostbyid,
     updatePost_error,
-    updatePost_sucessfuly
+    updatePost_sucessfuly,
+    post_remove,
+    post_remove_error
 } from "./types";
 
 
@@ -117,6 +119,22 @@ export const uploadImage =(formData) => async (dispatch) =>{
     } catch (err) {
         dispatch({
             type: uploadImage_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}
+
+export const deletePost =(id) => async (dispatch) =>{
+    try {
+        const res = await api.delete(`/posts/${id}`);
+
+        dispatch({
+            type: post_remove,
+            payload:res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: post_remove_error,
             payload: { msg: err.response.statusText, status: err.response.status }
           });
     }
