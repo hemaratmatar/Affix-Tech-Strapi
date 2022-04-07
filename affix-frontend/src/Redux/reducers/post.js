@@ -1,3 +1,4 @@
+import { loaded_Review } from "../action/post";
 import {
     post_sucessfuly,
     post_error,
@@ -12,11 +13,17 @@ import {
     updatePost_sucessfuly,
     updatePost_error,
     post_remove,
-    post_remove_error
+    post_remove_error,
+    loadedhl_Review,
+    loadedhl_Review_error,
+    loadedReview_error,
+    loadedReview
 } from "../action/types";
 
 
 const initialState = {
+    hlreviews: [],
+    reviews: [],
     highlights: [],
     posts: [],
     post: null,
@@ -109,17 +116,44 @@ function postReducer(state = initialState, action) {
             }
         //Delete Post
         case post_remove:
-            return{
+            return {
                 ...state,
                 post: payload,
-                loading:false
+                loading: false
             }
         case post_remove_error:
-            return{
+            return {
                 ...state,
-                error:payload,
-                loading:false
+                error: payload,
+                loading: false
             }
+        //Review Post
+        case loadedhl_Review:
+            return {
+                ...state,
+                hlreviews: payload,
+                loading: false
+            }
+
+        case loadedhl_Review_error:
+            return {
+                ...state,
+                error: payload,
+                loading: false
+            }
+        case loadedReview:
+            return {
+                ...state,
+                reviews: payload,
+                loading: false
+            }
+        case loadedReview_error:
+            return {
+                ...state,
+                error: payload,
+                loading: false
+            }
+
         default:
             return state;
     }
