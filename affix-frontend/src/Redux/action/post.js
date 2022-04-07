@@ -13,7 +13,11 @@ import {
     updatePost_error,
     updatePost_sucessfuly,
     post_remove,
-    post_remove_error
+    post_remove_error,
+    loadedhl_Review,
+    loadedhl_Review_error,
+    loadedReview,
+    loadedReview_error
 } from "./types";
 
 
@@ -135,6 +139,40 @@ export const deletePost =(id) => async (dispatch) =>{
     } catch (err) {
         dispatch({
             type: post_remove_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}
+
+
+
+export const loaedReviewHL =() => async (dispatch) =>{
+    try {
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[highlights][$eq]=true&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
+
+        dispatch({
+            type: loadedhl_Review,
+            payload:res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: loadedhl_Review_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}
+
+export const loaded_Review =() => async (dispatch) =>{
+    try {
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
+
+        dispatch({
+            type: loadedReview,
+            payload:res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: loadedReview_error,
             payload: { msg: err.response.statusText, status: err.response.status }
           });
     }
