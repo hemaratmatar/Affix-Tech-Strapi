@@ -10,7 +10,9 @@ import {
     loadedPostbyid,
     loadedPostbyid_error,
     updatePost_sucessfuly,
-    updatePost_error
+    updatePost_error,
+    post_remove,
+    post_remove_error
 } from "../action/types";
 
 
@@ -104,6 +106,19 @@ function postReducer(state = initialState, action) {
                 ...state,
                 error: payload,
                 loading: false
+            }
+        //Delete Post
+        case post_remove:
+            return{
+                ...state,
+                post: payload,
+                loading:false
+            }
+        case post_remove_error:
+            return{
+                ...state,
+                error:payload,
+                loading:false
             }
         default:
             return state;

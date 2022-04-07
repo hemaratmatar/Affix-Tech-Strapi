@@ -60,7 +60,6 @@ const App = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="reviews" element={<Review/>}/>
             <Route path="reports" element={<Report />} />
-
           </Route>
         </Route>
 

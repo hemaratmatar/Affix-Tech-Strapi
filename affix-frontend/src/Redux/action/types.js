@@ -33,6 +33,9 @@ export const uploadImage_error = "uploadImage_error";
 export const loadedPostbyid = "loadedPostbyid";
 export const loadedPostbyid_error = "loadedPostbyid_error";
 
+export const post_remove = "post_remove";
+export const post_remove_error = "post_remove_error";
+
 //Profile System
 
 export const Profile_loaded ="Profile_loaded";

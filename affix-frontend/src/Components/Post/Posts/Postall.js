@@ -9,23 +9,10 @@ const Postall = ({ post: { id, attributes } }) => {
 
   // console.log(attributes.users_permissions_user.data.attributes.profile.data.attributes.imageUrl);
   return (
-    <div>
+    <div><a href={`/posts/${id}`}>     
       <div className="bg-white w-full h-40 rounded-xl p-3">
-        {/* <div className=" flex-1 flex-shrink-0"></div> */}
         <div className="flex flex-col px-3 ">
-          <div className=" justify-end">
-            <a href={`/posts/${id}`}>
-              <div className="py-2">
-                <div className="text-md font-medium text-black line-clamp-1 ">
-                  {attributes.Title}
-                </div>
-                <p className="truncate">{attributes.discription}</p>
-              </div>
-            </a>
-          </div>
-          {/* <p className="truncate">{renderHTML(attributes.discription)}</p> */}
-          <div className="flex flex-row items-center  ">
-
+          <div className="flex flex-row items-center py-2 ">
             {attributes.users_permissions_user.data.attributes.profile.data === null ?
               <img
                 className="h-10 w-10 rounded-full "
@@ -39,21 +26,23 @@ const Postall = ({ post: { id, attributes } }) => {
                 alt="profile-in-post-list"
               />
             }
-
-            {/* <img
-                className="h-10 w-10 rounded-full "
-                src={attributes.users_permissions_user.data.attributes.profile.data.attributes.imageUrl}
-                alt="profile-in-post-list"
-              /> */}
-
             <p className="px-4 text-md">
               {attributes.users_permissions_user.data.attributes.username}
             </p>
+          </div>        
+          <div className="py-2 justify-end">
+              <div className="py-2">
+                <div className="text-md font-medium text-black line-clamp-1 ">
+                  {attributes.Title}
+                </div>
+                <p className="truncate">{attributes.discription}</p>
+              </div>
+            
           </div>
         </div>
 
       </div>
-    </div>
+    </a></div>
   );
 };
 
