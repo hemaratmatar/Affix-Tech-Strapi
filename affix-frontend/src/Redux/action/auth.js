@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../utils/api";
 import { setAlert } from "./alert";
 import {
   USER_LOADED,
@@ -15,7 +15,7 @@ import {
 
 export const loadUser = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:1337/api/users/me");
+    const res = await api.get("/users/me");
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -28,11 +28,11 @@ export const loadUser = () => async (dispatch) => {
 };
 
 export const login = (identifier, password) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // };
 
   const body = JSON.stringify({ identifier, password });
   // const body = { identifier, password };
@@ -52,10 +52,10 @@ export const login = (identifier, password) => async (dispatch) => {
   //     dispatch({ type: LOGIN_FAIL });
   //   });
   try {
-    const res = await axios.post(
-      "http://localhost:1337/api/auth/local",
+    const res = await api.post(
+      "/auth/local",
       body,
-      config
+      // config
     );
     dispatch({
       type: LOGIN_SUCCESS,
@@ -106,8 +106,8 @@ export const signup = (username, email, password, role) => async (dispatch) => {
   });
 
   try {
-    const res = await axios.post(
-      "http://localhost:1337/api/auth/local/register",
+    const res = await api.post(
+      "/auth/local/register",
       body,
       config
     );

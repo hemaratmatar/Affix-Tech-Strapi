@@ -17,13 +17,13 @@
       "type": "string",
       "minLength": 3,
       "unique": true,
-      "configurable": false,
+      "configurable": true,
       "required": true
     },
     "email": {
       "type": "email",
       "minLength": 6,
-      "configurable": false,
+      "configurable": true,
       "required": true
     },
     "provider": {
@@ -49,7 +49,7 @@
     "confirmed": {
       "type": "boolean",
       "default": false,
-      "configurable": false
+      "configurable": true
     },
     "blocked": {
       "type": "boolean",
@@ -61,12 +61,20 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
-      "configurable": false
+      "configurable": true
     },
-    "imageUrl": {
-      "type": "text",
-      "default": "https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg",
-      "required": false
+    "profile": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profile.profile",
+      "inversedBy": "user",
+      "autoPopulate": true
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
