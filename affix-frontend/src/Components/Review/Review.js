@@ -1,14 +1,26 @@
-import React, { Fragment } from 'react'
+import React, { Fragment,useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-const Review = () => {
+// Redux
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {loadedReviewsHL} from "../../Redux/action/post"
+
+const Review = ({loadedReviewsHL,post:{hlreviews}}) => {
+    useEffect(() => {
+        loadedReviewsHL()
+
+      }, [loadedReviewsHL]);
 
     const { id } = useParams();
+
+    console.log(hlreviews);
+
     return (
         <Fragment>
             <div className="flex  bg-red-400 p-6 space-x-4 rounded-3xl">
                 <div className="flex-1">
-                    <h4 className="text-white text-xl">Review Content</h4>
+                    <h4 className="text-white text-lg">Review Content</h4>
                 </div>
                 <div className=" justify-end">
                     <Link
@@ -23,7 +35,7 @@ const Review = () => {
             </div>
             <div className="pt-8">
                 <div className="bg-red-400 text-white rounded-t-3xl p-4 ">
-                    <p className="text-xl"> Hightlights Review</p>
+                    <p className="text-lg"> Hightlights Review</p>
                 </div>
                 <div className="flex flex-col  h-[400px] space-y-4  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
                     {/* สร้าง Component ใหม่เพื่อทำ loop แสดงผล */}
@@ -70,7 +82,7 @@ const Review = () => {
             </div>
             <div className="pt-8">
                 <div className="bg-red-400 text-white rounded-t-3xl p-4 ">
-                    <p className="text-xl">Review Content</p>
+                    <p className="text-lg">Review Content</p>
                 </div>
                 <div className="inline-grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3  h-full w-full  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
                     {/* {!posts ? <Loadingpage /> : posts.map((post, id) => (
@@ -169,4 +181,19 @@ const Review = () => {
     )
 }
 
-export default Review
+Review.propTypes = {
+    loadedReviewsHL: PropTypes.func.isRequired,
+    post :PropTypes.object.isRequired
+    // hightlightPost: PropTypes.func.isRequired,
+    // post: PropTypes.object.isRequired,
+  };
+  
+  const mapStateToProps = (state) => ({
+    post: state.post
+  });
+  
+  export default connect
+  (mapStateToProps, { loadedReviewsHL })
+    ( Review );
+
+// export default Review

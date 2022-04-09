@@ -61,7 +61,7 @@ const Mainpost = ({
       </div>
       <div className="pt-8">
         <div className="bg-red-400 text-white rounded-t-3xl p-4 ">
-          <p className="text-xl">Post Hightlights</p>
+          <p className="text-lg">Post Hightlights</p>
         </div>
         <div className="flex flex-col  h-[400px] space-y-4  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
           {/* สร้าง Component ใหม่เพื่อทำ loop แสดงผล */}
@@ -73,7 +73,7 @@ const Mainpost = ({
       </div>
       <div className="pt-8">
         <div className="bg-red-400 text-white rounded-t-3xl p-4 ">
-          <p className="text-xl">Problem Content</p>
+          <p className="text-lg">Problem Content</p>
         </div>
         <div className="inline-grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3  h-full w-full  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
           {!posts ? <Loadingpage /> : posts.map((post, id) => (

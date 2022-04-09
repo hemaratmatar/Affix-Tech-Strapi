@@ -15,7 +15,7 @@ const Postall = ({ post: { id, attributes } }) => {
           <div className="flex flex-row items-center py-2 ">
             {attributes.users_permissions_user.data.attributes.profile.data === null ?
               <img
-                className="h-10 w-10 rounded-full "
+                className="h-7 w-7 rounded-full "
                 src="https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
                 alt="profile-in-post-list"
               />
@@ -35,7 +35,7 @@ const Postall = ({ post: { id, attributes } }) => {
                 <div className="text-md font-medium text-black line-clamp-1 ">
                   {attributes.Title}
                 </div>
-                <p className="truncate">{attributes.discription}</p>
+                <p className="text-sm truncate">{attributes.discription}</p>
               </div>
             
           </div>

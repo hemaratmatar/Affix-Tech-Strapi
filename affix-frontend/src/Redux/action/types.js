@@ -68,3 +68,10 @@ export const edit_comment_error = "edit_comment_error";
 export const delete_comment = "delete_comment";
 export const delete_comment_error = "delete_comment_error";
 
+// Review System
+
+export const loadedhl_Review= "loadedhlReview";
+export const loadedhl_Review_error= "loadedhlReview_error";
+
+export const loadedReviews = "loadedReviews";
+export const loadedReviews_error = "loadedReviews_error";

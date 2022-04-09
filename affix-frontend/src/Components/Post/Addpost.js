@@ -136,7 +136,7 @@ const Addpost = ({ addPost, user: { id } }) => {
               <div className="grid grid-cols-6 gap-6">
                 <label
                   htmlFor="first-name"
-                  className="block text-xl font-medium text-gray-700"
+                  className="block text-md font-medium text-gray-700"
                 >
                   Post Add
                   {/* เพิ่มเนื้อหา */}
@@ -282,7 +282,7 @@ const Addpost = ({ addPost, user: { id } }) => {
                 </div>
 
                 <Listbox value={selectedPerson} onChange={setSelectedPerson}>
-                  <Listbox.Label className="block text-sm font-medium text-gray-700">Catagory Type</Listbox.Label>
+                  <Listbox.Label className="block text-sm font-medium item text-gray-700">Catagory Type</Listbox.Label>
                   <div className="mt-1 relative">
                     <Listbox.Button className="relative w-80 bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 

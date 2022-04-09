@@ -1,19 +1,30 @@
 import React, {
   // Fragment, 
   // useRef, 
+  useEffect,
   useState
 } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Listbox, Transition } from "@headlessui/react";
 import { /*CheckIcon,*/ SelectorIcon } from "@heroicons/react/solid";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
 //Redux
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import api from '../../Redux/utils/api';
+import { loadedPostbyID } from "../../Redux/action/post";
 
-const Editpost = () => {
-  // const navigator = useNavigate();
-
+const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
+  const navigator = useNavigate();
+  const { id } = useParams();
+  useEffect(() => {
+    //Load Data By id
+    loadedPostbyID(id);
+    // showAllcomment(id);
+  }, [loadedPostbyID, id,
+    // showAllcomment
+  ]);
 
 
   const people = [
@@ -21,18 +32,40 @@ const Editpost = () => {
     { id: 2, name: 'Review' },
   ]
 
-  const [selectedPerson, setSelectedPerson] = useState(people[0])
-  //   const [formPost, setFormpost] = useState({
+  const [selectedPerson, setSelectedPerson] = useState(people[0]);
+
+  // const {title,content,discription,user_permissions_user,catagory} = post.attributes
+
+    const [formPost, setFormpost] = useState({
+      data: {
+        Title: post.attributes.Title,
+        Content: post.attributes.Content,
+        content_private: false,
+        Catagory: post.attributes.catagory,
+        discription: post.attributes.discription,
+        highlights: false
+      }
+    });
+
+    console.log(formPost);
+
+    const onChange = e =>
+    setFormpost({ data: { ...formPost.data, [e.target.name]: e.target.value } });
+
+  // const handleEditorChange = e => {
+  //   console.log("Content was updated:");
+  //   setFormpost({
   //     data: {
-  //       Title: "",
-  //       Content: "",
-  //       content_private: false,
-  //       Catagory: "selectedPerson.name",
-  //       discription: "",
-  //       highlights: false,
-  //       users_permissions_user: "id"
+  //       Title: formPost.data.Title,
+  //       discription: formPost.data.discription,
+  //       Content: e.target.getContent(),
+  //       Catagory: formPost.dataCatagory,
+  //       highlights: formPost.datahighlights,
+  //       content_private: formPost.datacontent_private
   //     }
   //   });
+  // };
+
 
   return (
     <div>
@@ -43,7 +76,7 @@ const Editpost = () => {
               <div className="grid grid-cols-6 gap-6">
                 <label
                   htmlFor="first-name"
-                  className="block text-xl font-medium text-gray-700"
+                  className="block text-md font-medium text-gray-700"
                 >
                   Title Edit
                   {/* เพิ่มเนื้อหา */}
@@ -60,8 +93,8 @@ const Editpost = () => {
                     name="Title"
                     id="Title"
                     autoComplete="given-name"
-                    //   onChange={e => onChange(e)}
-                    //   value={Title}
+                      onChange={e => onChange(e)}
+                      value={formPost.data.Title}
                     className="mt-1 focus:ring-red-400 focus:border-red-400 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
@@ -77,8 +110,8 @@ const Editpost = () => {
                     type="text"
                     name="discription"
                     id="discription"
-                    //   onChange={e => onChange(e)}
-                    //   value={discription}
+                      onChange={e => onChange(e)}
+                      value={formPost.data.discription}
                     autoComplete="family-name"
                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full  shadow-sm sm:text-sm border-gray-300 rounded-md"
                   />
@@ -290,5 +323,33 @@ const Editpost = () => {
     </div>
   )
 }
+Editpost.propTypes = {
+  loadedPostbyID: PropTypes.func.isRequired,
+  // deletePost:PropTypes.func.isRequired,
+  // showAllcomment: PropTypes.func.isRequired,
+  // addComment: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
+  // comment:PropTypes.object.isRequired
+  // getKnowbyID: PropTypes.func.isRequired,
+  // knows: PropTypes.object.isRequired,
+  // knowledge: PropTypes.object.isRequired
+};
 
-export default Editpost
+const mapStateToProps = state => ({
+  post: state.post,
+  auth: state.auth
+  // comment: state.comment
+  // knowledge: state.knowledge,
+  // knows: state.knows
+});
+
+export default connect(mapStateToProps, {
+  loadedPostbyID,
+  // addComment,
+  // deletePost
+  // showAllcomment
+  // getKnowbyID 
+})(Editpost);
+
+// export default Editpost
