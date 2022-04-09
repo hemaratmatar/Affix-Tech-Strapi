@@ -13,6 +13,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
+  error:{}
 };
 
 export default function auth(state = initialState, action) {
@@ -32,8 +33,11 @@ export default function auth(state = initialState, action) {
         user:payload
       };
     case LOADER_FAIL:
-      break
-    // Login
+      return {
+        ...state,
+        loading: false,
+        error:payload
+      };
     
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.jwt);
@@ -45,8 +49,11 @@ export default function auth(state = initialState, action) {
         loading: false,
       };
     case LOGIN_FAIL:
-      break
-      //Sign UP
+      return {
+        ...state,
+        loading: false,
+        error:payload
+      };
       
     case SIGNUP_SUCCESS:
       localStorage.setItem("token", payload.jwt);
@@ -58,6 +65,11 @@ export default function auth(state = initialState, action) {
         loading: false,
       };
     case SIGNUP_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error:payload
+      };
     case LOGOUT:
       localStorage.removeItem("token",null);
       return {

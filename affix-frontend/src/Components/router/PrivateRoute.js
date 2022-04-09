@@ -53,7 +53,7 @@ const PrivateRoute = ({
   component: Component,
   auth: { isAuthenticated, loading },
 }) => {
-  console.log(loading);
+  // console.log(loading);
   if (loading) return <Loadingpage />;
   if (isAuthenticated) return <Outlet />;
 

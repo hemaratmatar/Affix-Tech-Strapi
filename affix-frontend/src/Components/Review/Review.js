@@ -11,11 +11,11 @@ const Review = ({ loaedReviewHL, post: { hlreviews,reviews },loaded_Review }) =>
         loaedReviewHL()
         loaded_Review()
     }, [loaedReviewHL,loaded_Review])
-    console.log(hlreviews);
-    console.log(reviews);
+    // console.log(hlreviews);
+    // console.log(reviews);
     const { id } = useParams();
 
-    console.log(hlreviews);
+    // console.log(hlreviews);
 
     return (
         <Fragment>
@@ -38,7 +38,7 @@ const Review = ({ loaedReviewHL, post: { hlreviews,reviews },loaded_Review }) =>
                 <div className="bg-red-400 text-white rounded-t-3xl p-4 ">
                     <p className="text-lg"> Hightlights Review</p>
                 </div>
-                <div className="flex flex-col  h-[400px] space-y-4  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
+                <div className="flex flex-col  h-[460px] space-y-4  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
                     {/* สร้าง Component ใหม่เพื่อทำ loop แสดงผล */}
                     {!hlreviews ? (<Loadingpage />) :
                         hlreviews.map((review, id) => (
@@ -84,13 +84,13 @@ const Review = ({ loaedReviewHL, post: { hlreviews,reviews },loaded_Review }) =>
                                     {/* {attributes.users_permissions_user.data.attributes.username} */}
                                 </p>
                             </div>
-                            <div className=" py-2 justify-end">
+                            <div className=" py-1 justify-end">
                                 <a href={`/posts/${id}`}>
-                                    <div className="py-2">
+                                    <div className="py-1">
                                         <div className="text-md font-medium text-black line-clamp-1 ">
                                             {/* {attributes.Title} */} Title
                                         </div>
-                                        <p className="truncate">
+                                        <p className="text-sm truncate">
                                             {/* {attributes.discription} */}Content discription
                                         </p>
                                     </div>
@@ -126,13 +126,13 @@ const Review = ({ loaedReviewHL, post: { hlreviews,reviews },loaded_Review }) =>
                                     {/* {attributes.users_permissions_user.data.attributes.username} */}
                                 </p>
                             </div>
-                            <div className=" py-2 justify-end">
+                            <div className=" py-1 justify-end">
                                 <a href={`/posts/${id}`}>
-                                    <div className="py-2">
+                                    <div className="py-1">
                                         <div className="text-md font-medium text-black line-clamp-1 ">
                                             {/* {attributes.Title} */} Title
                                         </div>
-                                        <p className="truncate">
+                                        <p className="text-sm truncate">
                                             {/* {attributes.discription} */}Content discription
                                         </p>
                                     </div>

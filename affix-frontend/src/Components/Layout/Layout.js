@@ -23,7 +23,7 @@ const navigation = [
   { name: "Problem", to: "posts", current: false },
   { name: "Review", to: "reviews", current: false },
   //   { name: "Calendar", to: "#", current: false },
-  { name: "Chat", to: "chats", current: false },
+  // { name: "Chat", to: "chats", current: false },
 ];
 
 function Filt(...classes) {
@@ -32,7 +32,8 @@ function Filt(...classes) {
 
 const Layout = ({ logout, auth: { user } }) => {
   //Check user data from redux
-  console.log(user);
+  // console.log(user);
+  const {username,email,profile} = user
 
   return (
     <Fragment>
@@ -66,8 +67,9 @@ const Layout = ({ logout, auth: { user } }) => {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
+                        {navigation.map((item,id) => (
                           <Link
+                            key={id}
                             to={item.to}
                             className={Filt(
                               item.current
@@ -86,7 +88,7 @@ const Layout = ({ logout, auth: { user } }) => {
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
                       {/* Profile dropdown */}
-                      <p className="text-sm text-white mr-3">{user.username}</p>
+                      <p className="text-sm text-white mr-3">{username}</p>
 
                       {/* Notification button */}
                       <button
@@ -203,25 +205,25 @@ const Layout = ({ logout, auth: { user } }) => {
                   <Link to="/reviews"><Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
                     Review
                   </Disclosure.Button></Link>
-                  <Link to="/chat"><Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
+                  {/* <Link to="/chat"><Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
                     Chat
-                  </Disclosure.Button></Link>
+                  </Disclosure.Button></Link> */}
                 </div>
                 <div className="pt-4 pb-3 border-t border-red-200">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={user.profile.imageUrl}
+                        src={profile.imageUrl}
                         alt=""
                       />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">
-                        {user.username}
+                        {username}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-200">
-                        {user.email}
+                        {email}
                       </div>
                     </div>
                     {/* Nortification Button */}

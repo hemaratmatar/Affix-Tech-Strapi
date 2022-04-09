@@ -12,7 +12,7 @@ const Postall = ({ post: { id, attributes } }) => {
     <div><a href={`/posts/${id}`}>     
       <div className="bg-white w-full h-40 rounded-xl p-3">
         <div className="flex flex-col px-3 ">
-          <div className="flex flex-row items-center py-2 ">
+          <div className="flex flex-row items-center py-3 ">
             {attributes.users_permissions_user.data.attributes.profile.data === null ?
               <img
                 className="h-7 w-7 rounded-full "
@@ -30,8 +30,8 @@ const Postall = ({ post: { id, attributes } }) => {
               {attributes.users_permissions_user.data.attributes.username}
             </p>
           </div>        
-          <div className="py-2 justify-end">
-              <div className="py-2">
+          <div className="py-1 justify-end">
+              <div className="py-1">
                 <div className="text-md font-medium text-black line-clamp-1 ">
                   {attributes.Title}
                 </div>

@@ -133,7 +133,7 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post, EditCommen
   const deletecomment = (e) => {
     e.preventDefault();
     DeleteComment(id);
-    console.log(id);
+    // console.log(id);
     window.location.reload(false);
   }
 

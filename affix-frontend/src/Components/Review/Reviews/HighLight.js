@@ -7,7 +7,6 @@ const HighLight = ({ post: { id, attributes } }) => {
     return (
         <div>
             <div className="bg-white w-full  rounded-xl p-3">
-                <div className=" flex-shrink-0"></div>
                 <div className="flex flex-col px-3">
                     <div className="flex flex-row items-center ">
                         {attributes.users_permissions_user.data.attributes.profile.data === null ?
@@ -23,16 +22,16 @@ const HighLight = ({ post: { id, attributes } }) => {
                                 alt="profile-in-post-list"
                             />
                         }
-                        <p className="px-4 text-lg">
+                        <p className="px-4 text-md">
                         {attributes.users_permissions_user.data.attributes.username}
                         </p>
                     </div>
                     <a href={`/posts/${id}`}>
                         <div className="py-2">
-                            <div className="text-lg font-medium text-black line-clamp-1 ">
+                            <div className="text-md font-medium text-black line-clamp-1 ">
                                 {attributes.Title}
                             </div>
-                            <p className="truncate">
+                            <p className=" text-sm truncate">
                                 {/* {attributes.discription} */}Oven Discription
                             </p>
                         </div>
