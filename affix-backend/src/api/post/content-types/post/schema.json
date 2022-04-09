@@ -26,7 +26,7 @@
     },
     "content_private": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "required": true
     },
     "reports": {
@@ -34,9 +34,6 @@
       "relation": "oneToMany",
       "target": "api::report.report",
       "mappedBy": "post"
-    },
-    "Catagory": {
-      "type": "string"
     },
     "Cover": {
       "type": "media",
@@ -50,6 +47,35 @@
     },
     "publish_date": {
       "type": "datetime"
+    },
+    "discription": {
+      "type": "text",
+      "required": true
+    },
+    "highlights": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "Catagory": {
+      "type": "enumeration",
+      "enum": [
+        "Post",
+        "Review"
+      ],
+      "default": "Post",
+      "required": true
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "post"
+    },
+    "viewpost": {
+      "type": "biginteger",
+      "default": "0",
+      "required": false
     }
   }
 }

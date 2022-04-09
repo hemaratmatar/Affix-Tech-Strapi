@@ -20,8 +20,8 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 //Menu Link
 const navigation = [
   { name: "Home", to: "home", current: false },
-  { name: "Problem", to: "/post", current: false },
-  { name: "Review", to: "reports", current: false },
+  { name: "Problem", to: "posts", current: false },
+  { name: "Review", to: "reviews", current: false },
   //   { name: "Calendar", to: "#", current: false },
   { name: "Chat", to: "chats", current: false },
 ];
@@ -32,7 +32,7 @@ function Filt(...classes) {
 
 const Layout = ({ logout, auth: { user } }) => {
   //Check user data from redux
-  // console.log(user);
+  console.log(user);
 
   return (
     <Fragment>
@@ -43,8 +43,8 @@ const Layout = ({ logout, auth: { user } }) => {
             This example requires updating your template:
 
             ```
-            <html class="h-full bg-gray-100">
-            <body class="h-full">
+            <html className="h-full bg-gray-100">
+            <body className="h-full">
             ```
         */}
       <div className="min-h-screen">
@@ -103,7 +103,7 @@ const Layout = ({ logout, auth: { user } }) => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
+                              src={user.profile.imageUrl}
                               alt=""
                             />
                           </Menu.Button>
@@ -194,25 +194,25 @@ const Layout = ({ logout, auth: { user } }) => {
                         {item.name}
                         </Disclosure.Button>
                     ))} */}
-                  <Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
-                    <Link to="/home">Home</Link>
-                  </Disclosure.Button>
-                  <Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
-                    <Link to="/problem">Problem</Link>
-                  </Disclosure.Button>
-                  <Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
-                    <Link to="/review">Review</Link>
-                  </Disclosure.Button>
-                  <Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
-                    <Link to="/chat">Chat</Link>
-                  </Disclosure.Button>
+                  <Link to="/home"><Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
+                    Home
+                  </Disclosure.Button></Link>
+                  <Link to="/posts"><Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
+                    Problem
+                  </Disclosure.Button></Link>
+                  <Link to="/reviews"><Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
+                    Review
+                  </Disclosure.Button></Link>
+                  <Link to="/chat"><Disclosure.Button className="block px-3 py-2 w-full text-left rounded-md text-base font-medium text-white hover:bg-red-300 hover:text-white">
+                    Chat
+                  </Disclosure.Button></Link>
                 </div>
                 <div className="pt-4 pb-3 border-t border-red-200">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={user.imageUrl}
+                        src={user.profile.imageUrl}
                         alt=""
                       />
                     </div>

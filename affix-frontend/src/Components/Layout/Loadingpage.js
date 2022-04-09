@@ -3,8 +3,8 @@ import "./Loadingpage.css";
 
 export default function Loadingpage() {
   return (
-    <div class="loader">
-      <div class="loader-wrapper">
+    <div className="loader">
+      <div className="loader-wrapper">
         <span></span>
         <span></span>
         <span></span>
@@ -22,7 +22,7 @@ export default function Loadingpage() {
 //  const Loadingpage = () => {
 //   return (
 //     <div style={{		 background:"#3F485B",display:"flex",alignItems:"center",height: 970}}>
-//     <span class="back">
+//     <span className="back">
 //       <span>L</span>
 //       <span>o</span>
 //       <span>a</span>
@@ -41,18 +41,18 @@ export default function Loadingpage() {
 
 //  const Loadpage = () => {
 //   return (
-// <div class='loading-page'>
-// 		<div class="loading-wrap">
-// 			<div class="loading-card">
-// 				<div class='ball'></div>
-// 				<div class='loading-board board1'>
+// <div className='loading-page'>
+// 		<div className="loading-wrap">
+// 			<div className="loading-card">
+// 				<div className='ball'></div>
+// 				<div className='loading-board board1'>
 // 				</div>
-// 				<div class='loading-board board2'>
+// 				<div className='loading-board board2'>
 // 				</div>
-// 				<div class='loading-board board3'>
+// 				<div className='loading-board board3'>
 // 				</div>
 // 			</div>
-// 			<p class='loading-text'>Loading...</p>
+// 			<p className='loading-text'>Loading...</p>
 // 		</div>
 // 	</div>
 //   );
