@@ -45,7 +45,7 @@ const Addpost = ({ addPost, user: { id } }) => {
     setFormpost({ data: { ...formPost.data, [e.target.name]: e.target.value } });
 
   const handleEditorChange = e => {
-    console.log("Content was updated:");
+    // console.log("Content was updated:");
     setFormpost({
       data: {
         Title: Title,
@@ -77,7 +77,7 @@ const Addpost = ({ addPost, user: { id } }) => {
   // };
 
 
-  console.log(selectedPerson.name);
+  // console.log(selectedPerson.name);
   if (selectedPerson.name === "Post" && Catagory !== "Post") {
     // console.log(selectedPerson.name);
     setFormpost({
@@ -109,13 +109,13 @@ const Addpost = ({ addPost, user: { id } }) => {
   }
   const submitdata = e => {
     e.preventDefault();
-    console.log(formPost);
+    // console.log(formPost);
 
-    addPost(formPost );
+    addPost(formPost);
     navigator("/posts");
   };
 
-  console.log(formPost);
+  // console.log(formPost);
   // const [files, setFiles] = useState();
 
   // const uploadImages = async (e) => {
@@ -185,14 +185,6 @@ const Addpost = ({ addPost, user: { id } }) => {
                     Content
                   </label>
                   <p className="text-sm">คุณสามารถปรับแต่งโพสต์ของคุณโดยใช้ Source Code จาก <a className=" text-cyan-400" href="https://tailwindcss.com" target="_blank" rel="noreferrer">Tailwind CSS</a> ได้แล้ว</p>
-                  {/* <input
-                      type="text"
-                      name="street-address"
-                      id="street-address"
-                      autoComplete="street-address"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    /> */}
-
                   <Editor
                     // apiKey="u9xnjd1zxyorl0cxv29cpdlfgxgr67ypm5gl6t0hw24tq7qs"
                     // onInit={(evt, editor) => (editorRef.current = editor)}
@@ -244,7 +236,7 @@ const Addpost = ({ addPost, user: { id } }) => {
                           var file = this.files[0];
                           //upload now to backend
                           //Response path from cloudinary
-                          console.log(file);
+                          // console.log(file);
                           const formData = new FormData()
 
                           formData.append('files', file);
@@ -253,9 +245,9 @@ const Addpost = ({ addPost, user: { id } }) => {
                               "content-type": "multipart/form-data"
                             }
                           };
-                          console.log(formData);
+                          // console.log(formData);
                           const res = await api.post('/upload', formData, config);
-                          console.log(res.data[0].url);
+                          // console.log(res.data[0].url);
                           cb(res.data[0].url);
 
                           // var reader = new FileReader();
@@ -269,7 +261,7 @@ const Addpost = ({ addPost, user: { id } }) => {
                           // };
                           // reader.readAsDataURL(file);
 
-                          console.log(file);
+                          // console.log(file);
                         };
 
                         input.click()

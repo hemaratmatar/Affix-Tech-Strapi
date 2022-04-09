@@ -1,12 +1,13 @@
 import React, {
+  Fragment,
   // Fragment, 
-  // useRef, 
+  useRef, 
   useEffect,
   useState
 } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { Listbox, Transition } from "@headlessui/react";
-import { /*CheckIcon,*/ SelectorIcon } from "@heroicons/react/solid";
+// import { Listbox, Transition } from "@headlessui/react";
+// import { /*CheckIcon,*/ SelectorIcon } from "@heroicons/react/solid";
 import { useNavigate,useParams } from "react-router-dom";
 
 //Redux
@@ -14,62 +15,39 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import api from '../../Redux/utils/api';
 import { loadedPostbyID } from "../../Redux/action/post";
-
-const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
-  const navigator = useNavigate();
-  const { id } = useParams();
-  useEffect(() => {
-    //Load Data By id
-    loadedPostbyID(id);
-    // showAllcomment(id);
-  }, [loadedPostbyID, id,
-    // showAllcomment
-  ]);
+import Loadingpage from "../Layout/Loadingpage";
 
 
-  const people = [
-    { id: 1, name: 'Post' },
-    { id: 2, name: 'Review' },
-  ]
+const Contents = ({content}) =>{  
 
-  const [selectedPerson, setSelectedPerson] = useState(people[0]);
+  const [formPost, setFormpost] = useState({
+    data: {
+      Title: content.attributes.Title,
+      Content: content.attributes.Content,
+      content_private: false,
+      Catagory: content.attributes.Catagory,
+      discription: content.attributes.discription,
+      highlights: false
+    }
+  });
 
-  // const {title,content,discription,user_permissions_user,catagory} = post.attributes
-
-    const [formPost, setFormpost] = useState({
-      data: {
-        Title: post.attributes.Title,
-        Content: post.attributes.Content,
-        content_private: false,
-        Catagory: post.attributes.catagory,
-        discription: post.attributes.discription,
-        highlights: false
-      }
-    });
-
-    console.log(formPost);
-
+  console.log(formPost);
     const onChange = e =>
     setFormpost({ data: { ...formPost.data, [e.target.name]: e.target.value } });
-
-  // const handleEditorChange = e => {
-  //   console.log("Content was updated:");
-  //   setFormpost({
-  //     data: {
-  //       Title: formPost.data.Title,
-  //       discription: formPost.data.discription,
-  //       Content: e.target.getContent(),
-  //       Catagory: formPost.dataCatagory,
-  //       highlights: formPost.datahighlights,
-  //       content_private: formPost.datacontent_private
-  //     }
-  //   });
-  // };
-
-
-  return (
-    <div>
-      <div className="mt-5 md:mt-0 md:col-span-2">
+  const editorRef = useRef(null);
+  const handleEditorChange = (e) => {
+    if (editorRef.current || e) {
+      setFormpost({
+        data: {
+          ...formPost.data,
+          Content: editorRef.current.getContent()
+        }
+      });   
+     }
+  };
+return (
+  <Fragment>
+          <div className="mt-5 md:mt-0 md:col-span-2">
         <form /*onSubmit={e => submitdata(e)}*/>
           <div className="shadow overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6">
@@ -79,7 +57,6 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                   className="block text-md font-medium text-gray-700"
                 >
                   Title Edit
-                  {/* เพิ่มเนื้อหา */}
                 </label>
                 <div className="col-span-6">
                   <label
@@ -125,19 +102,13 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                     Content
                   </label>
                   <p className="text-sm">คุณสามารถปรับแต่งโพสต์ของคุณโดยใช้ Source Code จาก <a className=" text-cyan-400" href="https://tailwindcss.com" target="_blank" rel="noreferrer">Tailwind CSS</a> ได้แล้ว</p>
-                  {/* <input
-                    type="text"
-                    name="street-address"
-                    id="street-address"
-                    autoComplete="street-address"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  /> */}
-
                   <Editor
                     // apiKey="u9xnjd1zxyorl0cxv29cpdlfgxgr67ypm5gl6t0hw24tq7qs"
-                    // onInit={(evt, editor) => (editorRef.current = editor)}
-                    //   onChange={e => handleEditorChange(e)}
-                    initialValue="<p>Place This Your Content.</p>"
+
+                      onInit={(evt, editor) => editorRef.current = editor}
+                      onChange={e=>handleEditorChange(e)}
+                      initialValue={formPost.data.Content}
+                      // value={formPost.data.Content}
                     init={{
                       height: 500,
                       menubar: false,
@@ -152,7 +123,7 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                         "image media | code | bullist numlist outdent indent  | " +
                         "removeformat | help",
                       file_picker_types: "file image media",
-                      file_picker_callback: async function (cb, value, meta) {
+                      file_picker_callback: async function (cb) {
 
                         // try {
                         //   const file = this.files[0];
@@ -184,7 +155,7 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                           var file = this.files[0];
                           //upload now to backend
                           //Response path from cloudinary
-                          console.log(file);
+                          // console.log(file);
                           const formData = new FormData()
 
                           formData.append('files', file);
@@ -193,9 +164,9 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                               "content-type": "multipart/form-data"
                             }
                           };
-                          console.log(formData);
+                          // console.log(formData);
                           const res = await api.post('/upload', formData, config);
-                          console.log(res.data[0].url);
+                          // console.log(res.data[0].url);
                           cb(res.data[0].url);
 
                           // var reader = new FileReader();
@@ -209,7 +180,7 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                           // };
                           // reader.readAsDataURL(file);
 
-                          console.log(file);
+                          // console.log(file);
                         };
 
                         input.click()
@@ -221,7 +192,7 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                   />
                 </div>
 
-                <Listbox value={selectedPerson} onChange={setSelectedPerson}>
+                {/* <Listbox value={selectedPerson} onChange={setSelectedPerson}>
                   <Listbox.Label className="block text-sm font-medium text-gray-700">Catagory Type</Listbox.Label>
                   <div className="mt-1 relative">
                     <Listbox.Button className="relative w-80 bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -260,43 +231,14 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
                       ))}
                     </Listbox.Options>
                   </div>
-                </Listbox>
-                {/* <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                  <label
-                    htmlFor="region"
-                    className="block text-md font-medium text-gray-700"
-                  >
-                    State / Province
-                  </label>
-                  <input
-                    type="text"
-                    name="region"
-                    id="region"
-                    autoComplete="address-level1"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
-                </div>
+                </Listbox> */}
 
-                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                  <label
-                    htmlFor="postal-code"
-                    className="block text-md font-medium text-gray-700"
-                  >
-                    ZIP / Postal code
-                  </label>
-                  <input
-                    type="text"
-                    name="postal-code"
-                    id="postal-code"
-                    autoComplete="postal-code"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                  />
-                </div> */}
               </div>
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
                 type="submit"
+           
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Save
@@ -320,7 +262,95 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
       </div>
 
       {/* <button onClick={log}>Log editor content</button> */}
-    </div>
+  </Fragment>
+)
+
+}
+
+
+
+
+const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
+  const navigator = useNavigate();
+  const { id } = useParams();
+  useEffect(() => {
+    //Load Data By id
+    loadedPostbyID(id);
+
+    // showAllcomment(id);
+    // if (post === null ) {
+    //   setFormpost({
+    //     data: {
+    //       Title: post.attributes.Title,
+    //       Content: post.attributes.Content,
+    //       content_private: false,
+    //       Catagory: post.attributes.Catagory,
+    //       discription: post.attributes.discription,
+    //       highlights: false
+    //     }
+    //   })
+    // }   
+    // checks()
+    
+
+  }, [loadedPostbyID, id]);
+
+// const checks = () => {
+//    if (post !== null) {
+//       setFormpost({
+//         data: {
+//           Title: post.attributes.Title,
+//           Content: post.attributes.Content,
+//           content_private: false,
+//           Catagory: post.attributes.Catagory,
+//           discription: post.attributes.discription,
+//           highlights: false
+//         }
+//       })
+//     }     
+// }
+  // const people = [
+  //   { id: 1, name: 'Post' },
+  //   { id: 2, name: 'Review' },
+  // ]
+
+  // const [selectedPerson, setSelectedPerson] = useState(people[0]);
+
+  // const {title,content,discription,user_permissions_user,catagory} = post.attributes
+
+   
+    // const [formPost, setFormpost] = useState({
+    //   data: {
+    //     Title: post.attributes.Title,
+    //     Content: post.attributes.Content,
+    //     content_private: false,
+    //     Catagory: post.attributes.Catagory,
+    //     discription: post.attributes.discription,
+    //     highlights: false
+    //   }
+    // });
+    // if (post === null) {
+    //   setFormpost({
+    //     data: {
+    //       Title: post.attributes.Title,
+    //       Content: post.attributes.Content,
+    //       content_private: false,
+    //       Catagory: post.attributes.Catagory,
+    //       discription: post.attributes.discription,
+    //       highlights: false
+    //     }
+    //   })
+    // }
+
+    
+
+// return (
+  return loading || post === null ? (
+    <Loadingpage />
+  ) : (
+    <Fragment>
+      <Contents content={post}/>
+    </Fragment>
   )
 }
 Editpost.propTypes = {

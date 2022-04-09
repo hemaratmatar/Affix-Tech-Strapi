@@ -23,6 +23,7 @@ export const loadUser = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: LOADER_FAIL,
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
