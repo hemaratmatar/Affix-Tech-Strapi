@@ -12,11 +12,15 @@ import {
     updatePost_sucessfuly,
     updatePost_error,
     post_remove,
-    post_remove_error
+    post_remove_error,
+    loadedhl_Review,
+    loadedhl_Review_error
 } from "../action/types";
 
 
 const initialState = {
+    hlreviews:[],
+    reviews:[],
     highlights: [],
     posts: [],
     post: null,
@@ -115,6 +119,19 @@ function postReducer(state = initialState, action) {
                 loading:false
             }
         case post_remove_error:
+            return{
+                ...state,
+                error:payload,
+                loading:false
+            }
+        // Review Post
+        case loadedhl_Review:
+            return{
+                ...state,
+                hlreviews:payload,
+                loading:false
+            }
+        case loadedhl_Review_error:
             return{
                 ...state,
                 error:payload,

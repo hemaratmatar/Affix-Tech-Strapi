@@ -1,8 +1,8 @@
 import api from "../utils/api";
-import { 
-    post_error, 
-    post_loaded, 
-    post_load_error, 
+import {
+    post_error,
+    post_loaded,
+    post_load_error,
     post_sucessfuly,
     uploadImage_complete,
     uploadImage_error,
@@ -13,129 +13,148 @@ import {
     updatePost_error,
     updatePost_sucessfuly,
     post_remove,
-    post_remove_error
+    post_remove_error,
+    loadedhl_Review,
+    loadedhl_Review_error
 } from "./types";
 
 
-export const addPost = (formPost,history) => async (dispatch) =>{
+export const addPost = (formPost, history) => async (dispatch) => {
     try {
-        const res = await api.post('/posts',formPost);
+        const res = await api.post('/posts', formPost);
 
         dispatch({
             type: post_sucessfuly,
-            payload:res.data
+            payload: res.data
         });
-        
-           // const history = createBrowserHistory();
-    // history.push({
-    //     pathname:"/",
-       //  state:{Key : response.data.user }
-//    });
+
+        // const history = createBrowserHistory();
+        // history.push({
+        //     pathname:"/",
+        //  state:{Key : response.data.user }
+        //    });
     } catch (err) {
         dispatch({
             type: post_error,
             payload: { msg: err.response.statusText, status: err.response.status }
-          });
+        });
     }
 }
 
-export const loadedPostbyID = (id) => async (dispatch)=>{
+export const loadedPostbyID = (id) => async (dispatch) => {
     try {
         const res = await api.get(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&filters[content_private][$eq]=false`);
         dispatch({
             type: loadedPostbyid,
-            payload:res.data.data
+            payload: res.data.data
         });
     } catch (err) {
         dispatch({
             type: loadedPostbyid_error,
             payload: { msg: err.response.statusText, status: err.response.status }
-          });
+        });
     }
 }
 
-export const hightlightPost =()=> async (dispatch)=>{
+export const hightlightPost = () => async (dispatch) => {
     try {
         const res = await api.get('/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[highlights][$eq]=true&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
 
         dispatch({
             type: post_hl_loaded,
-            payload:res.data.data
+            payload: res.data.data
         });
     } catch (err) {
         dispatch({
             type: post_hl_load_error,
             payload: { msg: err.response.statusText, status: err.response.status }
-          });
+        });
     }
 }
 
-export const loadedPost = () => async (dispatch) =>{
+export const loadedPost = () => async (dispatch) => {
     try {
         const res = await api.get('/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
- 
+
         dispatch({
             type: post_loaded,
-            payload:res.data.data
+            payload: res.data.data
         });
     } catch (err) {
         dispatch({
             type: post_load_error,
             payload: { msg: err.response.statusText, status: err.response.status }
-          });
+        });
     }
 }
 
 
-export const updatePost = (formData,id) => async (dispatch)=>{
+export const updatePost = (formData, id) => async (dispatch) => {
     try {
-        const res = await api.put(`/posts/${id}`,formData);
+        const res = await api.put(`/posts/${id}`, formData);
 
         dispatch({
             type: updatePost_sucessfuly,
-            payload:res.data.data
+            payload: res.data.data
         });
 
     } catch (err) {
         dispatch({
             type: updatePost_error,
             payload: { msg: err.response.statusText, status: err.response.status }
-          });
+        });
     }
 }
 
 
-export const uploadImage =(formData) => async (dispatch) =>{
+export const uploadImage = (formData) => async (dispatch) => {
     try {
-        const config ={
+        const config = {
             "content-type": "multipart/form-data"
         }
-        const res = await api.post('/upload',formData,config);
+        const res = await api.post('/upload', formData, config);
 
         dispatch({
             type: uploadImage_complete,
-            payload:res.data
+            payload: res.data
         })
     } catch (err) {
         dispatch({
             type: uploadImage_error,
             payload: { msg: err.response.statusText, status: err.response.status }
-          });
+        });
     }
 }
 
-export const deletePost =(id) => async (dispatch) =>{
+export const deletePost = (id) => async (dispatch) => {
     try {
         const res = await api.delete(`/posts/${id}`);
 
         dispatch({
             type: post_remove,
-            payload:res.data
+            payload: res.data
         });
     } catch (err) {
         dispatch({
             type: post_remove_error,
             payload: { msg: err.response.statusText, status: err.response.status }
-          });
+        });
+    }
+}
+
+
+export const loadedReviewsHL = () => async (dispatch) => {
+    try {
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[highlights][$eq]=true&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
+ 
+        dispatch({
+            type: loadedhl_Review,
+            payload: res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: loadedhl_Review_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
     }
 }
