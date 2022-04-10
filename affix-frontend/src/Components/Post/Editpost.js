@@ -14,11 +14,13 @@ import { useNavigate,useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import api from '../../Redux/utils/api';
-import { loadedPostbyID } from "../../Redux/action/post";
+import { loadedPostbyID, updatePost } from "../../Redux/action/post";
 import Loadingpage from "../Layout/Loadingpage";
 
 
-const Contents = ({content}) =>{  
+const Contents = ({content,updatePost}) =>{  
+  const { id } = useParams();
+  const navigator = useNavigate();
 
   const [formPost, setFormpost] = useState({
     data: {
@@ -27,7 +29,8 @@ const Contents = ({content}) =>{
       content_private: false,
       Catagory: content.attributes.Catagory,
       discription: content.attributes.discription,
-      highlights: false
+      highlights: false,
+      users_permissions_user: content.attributes.users_permissions_user.data.id
     }
   });
 
@@ -45,10 +48,25 @@ const Contents = ({content}) =>{
       });   
      }
   };
+
+
+const editSubmit = (e) =>{
+  e.preventDefault();
+
+  updatePost(formPost,id);
+  if (formPost.data.Catagory === "Review") {
+    navigator("/reviews");
+  } else {
+    navigator("/posts");
+  }
+}
+
+
+
 return (
   <Fragment>
           <div className="mt-5 md:mt-0 md:col-span-2">
-        <form /*onSubmit={e => submitdata(e)}*/>
+        <form >
           <div className="shadow overflow-hidden sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6">
               <div className="grid grid-cols-6 gap-6">
@@ -107,7 +125,7 @@ return (
 
                       onInit={(evt, editor) => editorRef.current = editor}
                       onChange={e=>handleEditorChange(e)}
-                      initialValue={formPost.data.Content}
+                      initialValue={content.attributes.Content}
                       // value={formPost.data.Content}
                     init={{
                       height: 500,
@@ -238,7 +256,7 @@ return (
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
                 type="submit"
-           
+                onClick={e => editSubmit(e)}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Save
@@ -270,8 +288,8 @@ return (
 
 
 
-const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
-  const navigator = useNavigate();
+const Editpost = ({  post: { post, loading },loadedPostbyID,updatePost}) => {
+  // const navigator = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     //Load Data By id
@@ -349,12 +367,13 @@ const Editpost = ({  post: { post, loading },loadedPostbyID}) => {
     <Loadingpage />
   ) : (
     <Fragment>
-      <Contents content={post}/>
+      <Contents content={post} updatePost={updatePost}/>
     </Fragment>
   )
 }
 Editpost.propTypes = {
   loadedPostbyID: PropTypes.func.isRequired,
+  updatePost:PropTypes.func.isRequired,
   // deletePost:PropTypes.func.isRequired,
   // showAllcomment: PropTypes.func.isRequired,
   // addComment: PropTypes.func.isRequired,
@@ -376,6 +395,7 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   loadedPostbyID,
+  updatePost
   // addComment,
   // deletePost
   // showAllcomment
