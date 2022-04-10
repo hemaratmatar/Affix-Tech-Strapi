@@ -70,7 +70,7 @@ export const delete_comment_error = "delete_comment_error";
 
 //Review System
 
-export const loadedhl_Review= "lloadedhl_Review"
+export const loadedhl_Review= "loadedhl_Review"
 export const loadedhl_Review_error= "loadedhl_Review_error"
 
 export const loadedReview= "loadedReview"
