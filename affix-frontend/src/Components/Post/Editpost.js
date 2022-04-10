@@ -14,11 +14,11 @@ import { useNavigate,useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import api from '../../Redux/utils/api';
-import { loadedPostbyID, updatePost } from "../../Redux/action/post";
+import { hightlightPost, loadedPost, loadedPostbyID, updatePost } from "../../Redux/action/post";
 import Loadingpage from "../Layout/Loadingpage";
 
 
-const Contents = ({content,updatePost}) =>{  
+const Contents = ({content,updatePost,hightlightPost, loadedPost}) =>{  
   const { id } = useParams();
   const navigator = useNavigate();
 
@@ -26,10 +26,10 @@ const Contents = ({content,updatePost}) =>{
     data: {
       Title: content.attributes.Title,
       Content: content.attributes.Content,
-      content_private: false,
+      content_private: content.attributes.content_private,
       Catagory: content.attributes.Catagory,
       discription: content.attributes.discription,
-      highlights: false,
+      highlights: content.attributes.highlights,
       users_permissions_user: content.attributes.users_permissions_user.data.id
     }
   });
@@ -54,10 +54,15 @@ const editSubmit = (e) =>{
   e.preventDefault();
 
   updatePost(formPost,id);
+  hightlightPost();
+  loadedPost();
+  // window.location.href = "/posts"
   if (formPost.data.Catagory === "Review") {
+    // window.location.href = "/reviews"
     navigator("/reviews");
   } else {
-    navigator("/posts");
+  navigator("/posts");
+    // window.location.href = "/posts"
   }
 }
 
@@ -288,8 +293,7 @@ return (
 
 
 
-const Editpost = ({  post: { post, loading },loadedPostbyID,updatePost}) => {
-  // const navigator = useNavigate();
+const Editpost = ({  post: { post, loading },loadedPostbyID,updatePost,  hightlightPost, loadedPost}) => { // const navigator = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     //Load Data By id
@@ -367,13 +371,17 @@ const Editpost = ({  post: { post, loading },loadedPostbyID,updatePost}) => {
     <Loadingpage />
   ) : (
     <Fragment>
-      <Contents content={post} updatePost={updatePost}/>
+      <Contents content={post} updatePost={updatePost} 
+      loadedPost={loadedPost} hightlightPost={hightlightPost}
+      />
     </Fragment>
   )
 }
 Editpost.propTypes = {
   loadedPostbyID: PropTypes.func.isRequired,
   updatePost:PropTypes.func.isRequired,
+  hightlightPost:PropTypes.func.isRequired,
+  loadedPost:PropTypes.func.isRequired,
   // deletePost:PropTypes.func.isRequired,
   // showAllcomment: PropTypes.func.isRequired,
   // addComment: PropTypes.func.isRequired,
@@ -395,7 +403,9 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   loadedPostbyID,
-  updatePost
+  updatePost,
+  hightlightPost,
+  loadedPost
   // addComment,
   // deletePost
   // showAllcomment

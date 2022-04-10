@@ -20,10 +20,10 @@ const Mainpost = ({
   post: { posts, highlights },
 }) => {
   useEffect(() => {
-    // if (posts === null && highlights == null) {
+
     loadedPost();
     hightlightPost();
-    // }
+
 
     // Redux display Log
     // console.log(highlights);

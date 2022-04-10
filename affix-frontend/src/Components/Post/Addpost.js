@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../Redux/utils/api";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addPost } from "../../Redux/action/post";
+import { addPost, hightlightPost, loadedPost } from "../../Redux/action/post";
 // import { uploadImage } from "../../Redux/action/post";
 
 
@@ -20,7 +20,7 @@ import { addPost } from "../../Redux/action/post";
 //   return classes.filter(Boolean).join(" ");
 // }
 
-const Addpost = ({ addPost, user: { id } }) => {
+const Addpost = ({ addPost, user: { id },loadedPost, hightlightPost }) => {
   const navigator = useNavigate();
 
   const people = [
@@ -110,9 +110,15 @@ const Addpost = ({ addPost, user: { id } }) => {
   const submitdata = e => {
     e.preventDefault();
     // console.log(formPost);
-
     addPost(formPost);
-    navigator("/posts");
+    // loadedPost();
+    // hightlightPost();
+    if (formPost.data.Catagory ==="Review") {
+      navigator("/reviews");
+    } else {
+      navigator("/posts");
+    }
+    
   };
 
   // console.log(formPost);
@@ -377,7 +383,9 @@ const Addpost = ({ addPost, user: { id } }) => {
   );
 };
 Addpost.propTypes = {
-  addPost: PropTypes.func.isRequired
+  addPost: PropTypes.func.isRequired,
+  oadedPost:PropTypes.func.isRequired,
+    hightlightPost:PropTypes.func.isRequired
   // uploadImage: PropTypes.func.isRequired,
   // imagetext: PropTypes.object.isRequired,
 };
@@ -388,6 +396,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
+  loadedPost,
+  hightlightPost,
+
   // uploadImage
   addPost
 })(Addpost);
