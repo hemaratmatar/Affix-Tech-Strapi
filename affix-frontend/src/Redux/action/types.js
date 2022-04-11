@@ -76,3 +76,7 @@ export const loadedhl_Review_error= "loadedhl_Review_error"
 export const loadedReview= "loadedReview"
 export const loadedReview_error= "loadedReview_error"
 
+// Home System
+
+export const home_highlight= "home_highlight"
+export const home_highlight_error= "home_highlight_error"

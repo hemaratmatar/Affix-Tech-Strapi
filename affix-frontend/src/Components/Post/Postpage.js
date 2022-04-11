@@ -67,7 +67,12 @@ const Postpage = ({
   const deletepostevent = e =>{
     e.preventDefault();
     deletePost(id);
-    navigator("/posts")
+    if (post.attributes.Catagory === "Review") {
+      navigator("/reviews");
+    } else {
+      navigator("/posts");
+    }
+    
   }
 
 

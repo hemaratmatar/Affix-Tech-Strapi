@@ -17,7 +17,9 @@ import {
     loadedhl_Review,
     loadedhl_Review_error,
     loadedReview,
-    loadedReview_error
+    loadedReview_error,
+    home_highlight,
+    home_highlight_error
 } from "./types";
 
 
@@ -190,6 +192,23 @@ export const loaded_Review =() => async (dispatch) =>{
     } catch (err) {
         dispatch({
             type: loadedReview_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}
+
+
+export const homehighlight = () => async (dispatch) =>{
+    try {
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[content_private][$eq]=false&filters[highlights][$eq]=true");
+
+        dispatch({
+            type: home_highlight,
+            payload:res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: home_highlight_error,
             payload: { msg: err.response.statusText, status: err.response.status }
           });
     }

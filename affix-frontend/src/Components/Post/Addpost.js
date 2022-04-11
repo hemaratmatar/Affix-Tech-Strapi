@@ -384,7 +384,7 @@ const Addpost = ({ addPost, user: { id },loadedPost, hightlightPost }) => {
 };
 Addpost.propTypes = {
   addPost: PropTypes.func.isRequired,
-  oadedPost:PropTypes.func.isRequired,
+  loadedPost:PropTypes.func.isRequired,
     hightlightPost:PropTypes.func.isRequired
   // uploadImage: PropTypes.func.isRequired,
   // imagetext: PropTypes.object.isRequired,
