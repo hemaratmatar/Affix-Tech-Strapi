@@ -3,8 +3,8 @@ import React from "react";
 const Profile = () => {
   return (
     <div>
-      <div className="flex flex-row flex-1 w-full space-x-4">
-        <div className="w-full mx-auto">
+      <div className="flex flex-col md:flex-row w-full  md:space-x-4 ">
+        <div className="w-full mx-auto mb-6">
           <div className="bg-red-400 p-4 text-white rounded-t-md ">
             <p>Your Profile</p>
           </div>
@@ -12,7 +12,7 @@ const Profile = () => {
             {/* <div className="bg-white p-3 border-t-4 border-green-400"> */}
               <div className="image overflow-hidden p-4">
                 <img
-                  className="h-auto w-96 mx-auto rounded-md"
+                  className="h-60 w-auto mx-auto rounded-md"
                   src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
                   alt=""
                 />
