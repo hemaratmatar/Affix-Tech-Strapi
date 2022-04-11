@@ -40,7 +40,7 @@ const Postpage = ({
   ]);
   //Convert Date Post Function
   if (post != null) {
-    var date = moment(post.attributes.publish_date);
+    var date = moment(post.attributes.createdAt);
     var dateComponent = date.utc().format("DD/MM/YYYY");
   }
   //Add Comment Function
