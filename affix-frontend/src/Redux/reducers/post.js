@@ -1,4 +1,3 @@
-import { loaded_Review } from "../action/post";
 import {
     post_sucessfuly,
     post_error,
@@ -17,11 +16,14 @@ import {
     loadedhl_Review,
     loadedhl_Review_error,
     loadedReview_error,
-    loadedReview
+    loadedReview,
+    home_highlight,
+    home_highlight_error
 } from "../action/types";
 
 
 const initialState = {
+    homehighlights:[],
     hlreviews: [],
     reviews: [],
     highlights: [],
@@ -153,7 +155,18 @@ function postReducer(state = initialState, action) {
                 error: payload,
                 loading: false
             }
-
+        case home_highlight:
+            return {
+                ...state,
+                homehighlights: payload,
+                loading: false
+            }
+        case home_highlight_error:
+            return {
+                ...state,
+                error: payload,
+                loading: false
+            }
         default:
             return state;
     }

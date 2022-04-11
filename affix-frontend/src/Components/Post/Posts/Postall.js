@@ -40,7 +40,6 @@ const Postall = ({ post: { id, attributes } }) => {
             
           </div>
         </div>
-
       </div>
     </a></div>
   );
