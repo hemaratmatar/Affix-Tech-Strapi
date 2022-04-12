@@ -295,7 +295,7 @@ const Layout = ({ logout, auth: { user } }) => {
 
 Layout.propTypes = {
   logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
