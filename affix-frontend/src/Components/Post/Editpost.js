@@ -297,7 +297,7 @@ const Editpost = ({  post: { post, loading },loadedPostbyID,updatePost,  hightli
   const { id } = useParams();
   useEffect(() => {
     //Load Data By id
-    loadedPostbyID(id);
+      loadedPostbyID(id);
 
     // showAllcomment(id);
     // if (post === null ) {

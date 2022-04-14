@@ -14,7 +14,11 @@ import { logout } from "../../Redux/action/auth";
 
 //Menu Components
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { 
+  // BellIcon, 
+  MenuIcon, 
+  XIcon 
+} from "@heroicons/react/outline";
 
 
 //Menu Link
@@ -33,7 +37,7 @@ function Filt(...classes) {
 const Layout = ({ logout, auth: { user } }) => {
   //Check user data from redux
   // console.log(user);
-  const {username,email,profile} = user
+  const {username,email,profile} = user;
 
   return (
     <Fragment>
@@ -88,16 +92,16 @@ const Layout = ({ logout, auth: { user } }) => {
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
                       {/* Profile dropdown */}
-                      <p className="text-sm text-white mr-3">{username}</p>
+                      <p className="text-sm text-white mr-3">{profile.fullname}</p>
 
                       {/* Notification button */}
-                      <button
+                      {/* <button
                         type="button"
                         className="bg-red-300 p-1 rounded-full text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-300 focus:ring-white"
                       >
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
+                      </button> */}
 
                       <Menu as="div" className="ml-3 relative">
                         <div>

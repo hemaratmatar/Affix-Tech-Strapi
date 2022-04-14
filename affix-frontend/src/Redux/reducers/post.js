@@ -1,8 +1,6 @@
 import {
     post_sucessfuly,
     post_error,
-    uploadImage_complete,
-    uploadImage_error,
     post_load_error,
     post_loaded,
     post_hl_loaded,
@@ -30,7 +28,6 @@ const initialState = {
     posts: [],
     post: null,
     loading: true,
-    imagetext: null,
     error: {}
 }
 
@@ -77,19 +74,7 @@ function postReducer(state = initialState, action) {
                 error: payload,
                 loading: false
             }
-        // Update Image Function
-        case uploadImage_complete:
-            return {
-                ...state,
-                imagetext: payload,
-                loading: false
-            }
-        case uploadImage_error:
-            return {
-                ...state,
-                error: payload,
-                loading: false
-            }
+
         // Load By id
         case loadedPostbyid:
             return {

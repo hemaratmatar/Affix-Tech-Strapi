@@ -4,8 +4,7 @@ import {
     post_loaded,
     post_load_error,
     post_sucessfuly,
-    uploadImage_complete,
-    uploadImage_error,
+
     post_hl_loaded,
     post_hl_load_error,
     loadedPostbyid_error,
@@ -111,24 +110,6 @@ export const updatePost = (formData, id) => async (dispatch) => {
 }
 
 
-export const uploadImage = (formData) => async (dispatch) => {
-    try {
-        const config = {
-            "content-type": "multipart/form-data"
-        }
-        const res = await api.post('/upload', formData, config);
-
-        dispatch({
-            type: uploadImage_complete,
-            payload: res.data
-        })
-    } catch (err) {
-        dispatch({
-            type: uploadImage_error,
-            payload: { msg: err.response.statusText, status: err.response.status }
-        });
-    }
-}
 
 export const deletePost = (id) => async (dispatch) => {
     try {

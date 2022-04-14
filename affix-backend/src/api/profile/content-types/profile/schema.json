@@ -19,7 +19,9 @@
       "type": "richtext"
     },
     "fullname": {
-      "type": "text"
+      "type": "text",
+      "required": true,
+      "unique": false
     },
     "dob": {
       "type": "date"

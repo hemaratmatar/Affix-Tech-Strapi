@@ -22,7 +22,18 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
     role: 1,
   });
  // https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg
-  const { username, email, password,role, passwordCheck } = signupData;
+
+ const [profileData, setprofileData] = useState({
+  data:{
+    fullname:""
+}
+});
+
+const onProfilechange = (e) =>{
+  setprofileData({ data: { ...profileData.data, [e.target.name]: e.target.value } });
+}
+
+  const { email, password,role, passwordCheck } = signupData;
   // if (signupData.ImageUrl === "" || null) {
   //   const image = normalize(
   //     gravatar.url(email, {
@@ -36,7 +47,11 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
   // }
   
   const onChange = (e) =>{
-    setsignupData({ ...signupData, [e.target.name]: e.target.value })};
+    setsignupData({ ...signupData,  [e.target.name]: e.target.value })};
+  
+console.log(signupData);
+console.log(profileData);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== passwordCheck ) {
@@ -44,7 +59,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
     } else {
       // setsignupData({ confirmed: true });
       // signup({username, email, password,confirmed,role,ImageUrl, passwordCheck})
-      signup(username, email, password,role);
+      signup(profileData, email, password,role);
     }
   };
 
@@ -107,17 +122,17 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
           <form  className="flex flex-col space-y-5" onSubmit={(e) => onSubmit(e)}>
             <div className="flex flex-col space-y-1">
               <label
-                htmlFor="text"
+                htmlFor="fullname"
                 className="text-sm font-semibold text-white"
               >
                 Full Name
               </label>
               <input
-                type="text"
-                id="text"
-                name="username"
-                value={username}
-                onChange={(e) => onChange(e)}
+                type="fullname"
+                id="fullname"
+                name="fullname"
+                defaultValue={profileData.data.fullname}
+                onChange={(e) => onProfilechange(e)}
                 required
                 autoFocus
                 className="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-red-200"
@@ -125,7 +140,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
             </div>
             <div className="flex flex-col space-y-1">
               <label
-                htmlFor="text"
+                htmlFor="email"
                 className="text-sm font-semibold text-white"
               >
                 Email
@@ -142,7 +157,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
             </div>
             <div className="flex flex-col space-y-1">
               <label
-                htmlFor="text"
+                htmlFor="password"
                 className="text-sm font-semibold text-white"
               >
                 Password
@@ -160,7 +175,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
             <div className="flex flex-col space-y-1">
               <div className="flex items-center justify-between">
                 <label
-                  htmlFor="password"
+                  htmlFor="passwordCheck"
                   className="text-sm font-semibold text-white"
                 >
                   Confirm Password
@@ -168,7 +183,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
               </div>
               <input
                 type="password"
-                id="password"
+                id="passwordCheck"
                 name="passwordCheck"
                 value={passwordCheck}
                 onChange={(e) => onChange(e)}
@@ -249,6 +264,6 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { signup,setAlert })(Signup);
+export default  connect(mapStateToProps, { signup,setAlert })(Signup);
 
 // export default Signup;
