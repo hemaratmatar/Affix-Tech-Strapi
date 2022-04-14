@@ -1,15 +1,22 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState,useEffect } from "react";
 //Redux
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import moment from 'moment';
-import { Menu, Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
+import store from "../../Redux/store";
+import { setAlert } from "../../Redux/action/alert";
+import Alert from '../auth/Alert'
+import { updateProfile ,uploadImage} from "../../Redux/action/userprofiles";
+import { loadUser } from "../../Redux/action/auth";
 
-
-
-
-const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
+const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,loading} ,updateProfile,loadUser,uploadImage}) => {
+  useEffect(() => {
+    loadUser();
+    
+  }, [loadUser])
+  
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -21,9 +28,9 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
   }
 
 
-  var date = moment(profile.dob);
-  var dateComponent = date.utc().format("DD/MM/YYYY");
-  console.log(dateComponent);
+  const date = moment(profile.dob);
+  const dateComponent = date.format("DD/MM/YYYY");
+  // console.log(dateComponent);
 
 
   const [Profiles, setProfiles] = useState({
@@ -31,16 +38,93 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
       fullname: profile.fullname,
       dob: profile.dob,
       education: profile.education,
-      shotbio_tech: profile.shotbio_tech
+      shotbio_tech: profile.shotbio_tech,
+      imageUrl:profile.imageUrl
     }
   });
 
   const onChange = e =>
     setProfiles({ data: { ...Profiles.data, [e.target.name]: e.target.value } });
 
-  const { fullname, dob, education, shotbio_tech } = Profiles
+  const { fullname, dob, education, shotbio_tech } = Profiles.data;
+  const onUpdateimage = () =>{
+    setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+    console.log(Profiles.data);
+  }
 
-  console.log(Profiles);
+  const uploadimages = async ()=>{
+    if (moment(dob,'YYYY-MM-DD',true).isValid() || dob === "" || dob === null ) { 
+      console.log(Profiles.data.imageUrl);
+      await updateProfile(Profiles,profile.id,Profiles)
+      console.log("edit sucessfuly");
+       loadUser();
+       closeModal();
+    }else{
+     store.dispatch(setAlert("Error : Date Error "));
+      // console.log("error");
+  }
+  }
+
+
+  const onSubmit = (e) =>{
+    setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+
+      // onUpdateimage();
+      // uploadimages();
+
+// console.log(imagetext.url);
+//     if(imagetext !== null && imagetext.url !== profile.imageUrl){
+//       console.log(setProfiles({ data:  { ...Profiles.data, imageUrl: imagetext.url } }));
+//       // console.log(Profiles.data.imageUrl);
+//     }
+
+    // if ( imagetext !== null && imagetext.url !== profile.imageUrl) {
+      // if(imagedata !== null){
+        // onUpdateimage();
+        // console.log(Profiles);  
+    // }
+    
+   
+    //   // console.log(dob);
+    //   // console.log(profile.id);
+
+    // } else 
+
+  }
+
+    // console.log(imagedata.url);    
+
+  // Add Photo
+  const [files, setFiles] = useState();
+
+  const uploadImages = async (e) => {
+    //posting logic will go here
+    e.preventDefault();
+    // console.log(e.target.files);
+    if(files !== undefined) {
+      // sharp automatically rotates image according to orientation tag
+    console.log();
+    const formData = new FormData();
+    formData.append('files', files[0]);
+     uploadImage(formData);
+    }
+
+    // setProfiles({ data: { ...Profiles.data, [e.target.name]: e.target.value } });
+  };
+  // if (imagetext !== undefined || imagetext !== null) {
+    // const uid = imagetext[1].id;
+    // console.log(uid);
+    // const url = imagetext[1].url;
+    // console.log(url);
+  // } else {
+
+  // }   
+  console.log(imagetext);
+  // if (imagetext) {
+  //   setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+  // } 
+
+  // console.log(Profiles);
   return (
     <div>
       <div className="flex flex-col md:flex-row w-full  md:space-x-4 ">
@@ -52,7 +136,7 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
             {/* <div className="bg-white p-3 border-t-4 border-green-400"> */}
             <div className="image overflow-hidden p-4">
               <img
-                className="h-60 w-auto mx-auto rounded-md"
+                className="object-cover h-60 w-60 mx-auto rounded-md"
                 src={profile.imageUrl}
                 alt=""
               />
@@ -108,7 +192,6 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
                           Edit About Me
                         </Dialog.Title>
                         <div className="mt-4 justify-start">
-
                           <div className="grid grid-cols-6 gap-6">
                             <div className="col-span-6">
                               <label
@@ -186,9 +269,74 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
                                 className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full  shadow-sm sm:text-sm border-gray-300 rounded-md"
                               />
                             </div>
+
+                            <div className="col-span-6">
+                              <label
+                                htmlFor="shotbio_tech"
+                                className="block text-md font-medium text-gray-700"
+                              >
+                                Image Profile
+                              </label>
+                              <div className="image overflow-hidden p-4">
+                                { loading !== true ?
+                               <img
+                               className="object-cover h-60 w-60 mx-auto rounded-md"
+                               // src="https://res.cloudinary.com/carisoven/image/upload/v1649872713/medium_DSC_0020_528c43c9ed.jpg"
+                               src={imagetext.url}
+                               alt=""
+                             />
+                             :
+                               loading === true && profile.imageUrl === null ?
+                              <div class="flex justify-center items-center h-full">
+                              <img class="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="loading"/>
+                            </div>    
+                              :    
+                              <img
+                              className="object-cover h-60 w-60 mx-auto rounded-md"
+                              // src="https://res.cloudinary.com/carisoven/image/upload/v1649872713/medium_DSC_0020_528c43c9ed.jpg"
+                              src={profile.imageUrl}
+                              alt=""
+                            />
+                            }
+
+{/* <div class="flex justify-center items-center h-full">
+  <img class="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="loading"/>
+</div> */}
+                                </div>
+                                <div className="w-full my-2">
+                                <input
+                                  type="file"
+                                  className="block w-full text-sm text-slate-500
+                                          file:mr-4 file:py-2 file:px-4
+                                          file:rounded-full file:border-1
+                                          file:text-sm file:font-semibold
+                                          file:bg-violet-50 file:text-violet-700
+                                          hover:file:bg-violet-100
+                                          "
+                                  onChange={(e) =>  {
+                                    setFiles(e.target.files)
+                                  }}
+                                  // onChange={e => uploadImages(e)}
+                                /> 
+                                </div>
+                                <button className=" w-full rounded-full bg-red-400 p-2 text-white text-sm" onClick={e=>uploadImages(e)}>Upload Image</button>
+
+
+                              {/* <input
+                                type="text"
+                                name="shotbio_tech"
+                                id="shotbio_tech"
+                                onChange={e => onChange(e)}
+                                defaultValue={profile.shotbio_tech}
+                                value={shotbio_tech}
+                                autoComplete="family-name"
+                                className="mt-1 focus:ring-red-500 focus:border-red-500 block w-full  shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              /> */}
+                            </div>
                           </div>
-
-
+                        </div>
+                        <div className="mt-4 justify-start">
+                          <Alert/>
                         </div>
                         {/* <div className="mt-2">
                           <p className="text-sm text-gray-500">
@@ -201,7 +349,12 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
                             <button
                               type="button"
                               className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                              onClick={closeModal}
+                              onClick={()=>{
+                                setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+                                uploadimages()
+                                uploadimages()
+                                // onSubmit()
+                              }}
                             >
                               Save
                             </button>
@@ -227,7 +380,7 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
                   About Me
                 </h1>
                 <h3 className="text-md leading-8">
-                  <strong>Full Name : </strong> {username}
+                  <strong>Full Name : </strong> {profile.fullname}
                 </h3>
                 <p className="text-md leading-8">
                   <strong>DoB : </strong> {dateComponent}
@@ -272,16 +425,23 @@ const Profile = ({ auth: { user: { id, username, email, profile } } }) => {
 
 Profile.propTypes = {
   // logout: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
+  updateProfile: PropTypes.func.isRequired,
+  loadUser:PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  userprofiles: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   user: state.user,
+  userprofiles: state.userprofiles
 });
 
 export default connect(mapStateToProps, {
-
+  updateProfile,
+  loadUser,
+  uploadImage
 })(Profile);
 
 // export default Profile;

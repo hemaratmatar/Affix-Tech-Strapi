@@ -1,7 +1,14 @@
-import { Profile_loaded, Profile_load_error } from "../action/types";
+import { 
+  Profile_loaded, 
+  Profile_load_error,
+  uploadImage_complete,
+  uploadImage_error,
+
+} from "../action/types";
 
 const initialState = {
   profiles: [],
+  imagetext: null,
   profile: null,
   loading: true,
   error: {},
@@ -22,7 +29,19 @@ function profileReducer(state = initialState, action) {
         error: payload,
         loading: false,
       };
-
+        // Update Image Function
+        case uploadImage_complete:
+            return {
+                ...state,
+                imagetext: payload,
+                loading: false
+            }
+        case uploadImage_error:
+            return {
+                ...state,
+                error: payload,
+                loading: false
+            }
     default:
       return state;
   }

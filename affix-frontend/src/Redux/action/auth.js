@@ -68,9 +68,9 @@ export const login = (identifier, password) => async (dispatch) => {
     const errors = err.response.data.error;
 
 
-    if (err.response.status === 400) {
+    if (err.response.status === 500) {
       // errors.forEach((error) => dispatch(setAlert(error.message, "danger")));
-      dispatch(setAlert(null,errors.message,"danger"));
+      dispatch(setAlert(null,"Email or Password is Worng"));
     }else {
       dispatch(setAlert("Status Code :"+err.response.status,err.message,"danger"))
     }
@@ -80,7 +80,7 @@ export const login = (identifier, password) => async (dispatch) => {
   }
 };
 
-export const signup = (username, email, password, role) => async (dispatch) => {
+export const signup = (profileData,email, password, role) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -96,22 +96,30 @@ export const signup = (username, email, password, role) => async (dispatch) => {
   // const confirmed = true;
   // const provider = "local";
 
-  const body = JSON.stringify({
-    username,
-    email,
-    password,
-    // confirmed,
-    // provider,
-    role,
-    // image,
-  });
+
 
   try {
+    const resprofile = await api.post("/profiles",
+    profileData,
+    config);
+    console.log(resprofile.data.data.id);
+    const body = JSON.stringify({
+      email,
+      password,
+      // confirmed,
+      // provider,
+      role,
+      profile:resprofile.data.data.id
+      // image,
+    });
+    console.log(body);
     const res = await api.post(
       "/auth/local/register",
       body,
       config
     );
+    console.log(res.data);
+
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: res.data,
@@ -120,8 +128,6 @@ export const signup = (username, email, password, role) => async (dispatch) => {
   } catch (err) {
     // console.log(err.response.status);
     const errors = err.response.data.error;
-
-
     if (err.response.status === 400) {
       // errors.forEach((error) => dispatch(setAlert(error.message, "danger")));
       dispatch(setAlert(null,errors.message,"danger"));

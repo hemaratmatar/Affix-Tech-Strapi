@@ -56,7 +56,7 @@ module.exports = {
       }
 
       // Check if the user exists.
-      const user = await strapi.query('plugin::users-permissions.user').findOne({ where: query });
+      const user = await strapi.query('plugin::users-permissions.user').findOne({ where: query, populate: ['role','profile'] });
 
       if (!user) {
         throw new ValidationError('Invalid identifier or password');
@@ -209,7 +209,7 @@ module.exports = {
     // Find the user by email.
     const user = await strapi
       .query('plugin::users-permissions.user')
-      .findOne({ where: { email: email.toLowerCase() } });
+      .findOne({ where: { email: email.toLowerCase() } , populate: ['role','profile']});
 
     // User not found.
     if (!user) {
@@ -304,7 +304,7 @@ module.exports = {
 
     const role = await strapi
       .query('plugin::users-permissions.role')
-      .findOne({ where: { type: settings.default_role } });
+      .findOne({ where: { type: settings.default_role }});
 
     if (!role) {
       throw new ApplicationError('Impossible to find the default role');
@@ -326,6 +326,7 @@ module.exports = {
       populate: ['role','profile']
     });
 
+
     if (user && user.provider === params.provider) {
       throw new ApplicationError('Email is already taken');
     }
@@ -340,6 +341,7 @@ module.exports = {
       }
 
     const user = await getService('user').add(params);
+    console.log(user);
 
       const sanitizedUser = await sanitizeUser(user, ctx);
 
@@ -354,10 +356,15 @@ module.exports = {
       }
 
       const jwt = getService('jwt').issue(_.pick(user, ['id']));
-
+      const profile = await strapi.query('plugin::users-permissions.user').findOne({
+        where: { email: user.email },
+        fields: ['email', 'provider','confirmed','blocked','createdAt','role','profile'],
+        populate: ['role','profile']
+      });
+      console.log(profile);
       return ctx.send({
         jwt,
-        user: sanitizedUser,
+        user: profile,
       });
     } catch (err) {
       if (_.includes(err.message, 'username')) {
@@ -417,7 +424,8 @@ module.exports = {
     }
 
     const user = await strapi.query('plugin::users-permissions.user').findOne({
-      where: { email: params.email },
+      where: { email: params.email }
+      , populate: ['role','profile']
     });
 
     if (user.confirmed) {
