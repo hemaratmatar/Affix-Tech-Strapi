@@ -4,7 +4,12 @@ import parse from 'html-react-parser'
 //Redux
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { deletePost, loadedPostbyID } from "../../Redux/action/post";
+import {
+  deletePost,
+  loadedPostbyID,
+  countspost
+} from "../../Redux/action/post";
+
 import {
   Link,
   useNavigate,
@@ -21,10 +26,11 @@ import { Menu, Transition } from '@headlessui/react'
 
 
 const Postpage = ({
-  loadedPostbyID, 
+  loadedPostbyID,
   post: { post, loading },
   auth: { user },
   addComment,
+  countspost,
   deletePost
   // showAllcomment, comment: { comments } 
 }) => {
@@ -32,10 +38,20 @@ const Postpage = ({
   const navigator = useNavigate();
   useEffect(() => {
     //Load Data By id
-    loadedPostbyID(id);
-
+    // loadedPostbyID(id);
+    
+    if (performance.navigation.type === 1) {
+      loadedPostbyID(id)
+      console.log("This page is reloaded");
+    } else {
+      countspost(id);
+      console.log("This page is not reloaded");
+    }
     // showAllcomment(id);
-  }, [loadedPostbyID, id,
+  }, [
+    loadedPostbyID, 
+    id,
+    countspost,
     // showAllcomment
   ]);
   //Convert Date Post Function
@@ -64,7 +80,7 @@ const Postpage = ({
     setCommentpost({ data: { ...commentpost.data, commentcontent: "" } });
   };
 
-  const deletepostevent = e =>{
+  const deletepostevent = e => {
     e.preventDefault();
     deletePost(id);
     if (post.attributes.Catagory === "Review") {
@@ -72,7 +88,7 @@ const Postpage = ({
     } else {
       navigator("/posts");
     }
-    
+
   }
 
 
@@ -107,76 +123,76 @@ const Postpage = ({
                 <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="px-1 py-1 ">
                     {user.id === post.attributes.users_permissions_user.data.id ?
-                    <Fragment>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link to={`/posts-edit/${id}`}>
-                            <button className={`${active ? 'bg-red-400 text-white' : 'text-gray-900' } group flex rounded-md items-center w-full px-2 py-2 text-sm`} >
+                      <Fragment>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link to={`/posts-edit/${id}`}>
+                              <button className={`${active ? 'bg-red-400 text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`} >
+                                {active ? (
+                                  <EditActiveIcon
+                                    className="w-5 h-5 mr-2"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <EditInactiveIcon
+                                    className="w-5 h-5 mr-2"
+                                    aria-hidden="true"
+                                  />
+                                )}
+                                Edit
+                              </button>
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              className={`${active ? 'bg-red-400 text-white' : 'text-gray-900'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                              onClick={e => deletepostevent(e)}
+                            >
                               {active ? (
-                                <EditActiveIcon
-                                  className="w-5 h-5 mr-2"
+                                <DeleteActiveIcon
+                                  className="w-5 h-5 mr-2 text-red-400"
                                   aria-hidden="true"
                                 />
                               ) : (
-                                <EditInactiveIcon
-                                  className="w-5 h-5 mr-2"
+                                <DeleteInactiveIcon
+                                  className="w-5 h-5 mr-2 text-red-400"
                                   aria-hidden="true"
                                 />
                               )}
-                              Edit
+                              Delete
                             </button>
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            className={`${active ? 'bg-red-400 text-white' : 'text-gray-900' } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                          onClick={e=> deletepostevent(e)}
-                          >
-                            {active ? (
-                              <DeleteActiveIcon
-                                className="w-5 h-5 mr-2 text-red-400"
-                                aria-hidden="true"
-                              />
-                            ) : (
-                              <DeleteInactiveIcon
-                                className="w-5 h-5 mr-2 text-red-400"
-                                aria-hidden="true"
-                              />
-                            )}
-                            Delete
-                          </button>
-                        )}
-                      </Menu.Item>
-                    </Fragment>:
-                    <Fragment>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            className={`${active ? 'bg-red-400 text-white' : 'text-gray-900'
-                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                          >
-                            {active ? (
-                              <></>
-                              // <DeleteActiveIcon
-                              //   className="w-5 h-5 mr-2 text-red-400"
-                              //   aria-hidden="true"
-                              // />
-                            ) : (
-                              // <DeleteInactiveIcon
-                              //   className="w-5 h-5 mr-2 text-red-400"
-                              //   aria-hidden="true"
-                              // />
-                              <>
-                                {/* <i class="fa-light fa-megaphone"></i> */}
-                              </>
-                            )}
-                            Report
-                          </button>
-                        )}
-                      </Menu.Item>
-                    </Fragment> }
+                          )}
+                        </Menu.Item>
+                      </Fragment> :
+                      <Fragment>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              className={`${active ? 'bg-red-400 text-white' : 'text-gray-900'
+                                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                            >
+                              {active ? (
+                                <></>
+                                // <DeleteActiveIcon
+                                //   className="w-5 h-5 mr-2 text-red-400"
+                                //   aria-hidden="true"
+                                // />
+                              ) : (
+                                // <DeleteInactiveIcon
+                                //   className="w-5 h-5 mr-2 text-red-400"
+                                //   aria-hidden="true"
+                                // />
+                                <>
+                                  {/* <i class="fa-light fa-megaphone"></i> */}
+                                </>
+                              )}
+                              Report
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </Fragment>}
                   </div>
                 </Menu.Items>
               </Transition>
@@ -186,6 +202,7 @@ const Postpage = ({
 
         <div className=" bg-white h-full text-sm p-5 border-b-4 border-x-4 border-slate-200 rounded-b-xl">
           <p>Post Date : {dateComponent}</p>
+          <p>View Post : {post.attributes.viewpost}</p>
           <div className=" break-words text-sm p-5">
             {/* <div dangerouslySetInnerHTML={{ __html: post.attributes.Content }} /> */}
             <div>{parse(post.attributes.Content)}</div>
@@ -248,7 +265,8 @@ const Postpage = ({
 
 Postpage.propTypes = {
   loadedPostbyID: PropTypes.func.isRequired,
-  deletePost:PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  countspost: PropTypes.func.isRequired,
   // showAllcomment: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -270,7 +288,8 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   loadedPostbyID,
   addComment,
-  deletePost
+  deletePost,
+  countspost
   // showAllcomment
   // getKnowbyID 
 })(Postpage);

@@ -4,7 +4,8 @@ import {
     post_loaded,
     post_load_error,
     post_sucessfuly,
-
+    count_Post,
+    count_Post_error,
     post_hl_loaded,
     post_hl_load_error,
     loadedPostbyid_error,
@@ -190,6 +191,35 @@ export const homehighlight = () => async (dispatch) =>{
     } catch (err) {
         dispatch({
             type: home_highlight_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}
+
+export const countspost = (id) =>async (dispatch) =>{
+    try {
+
+        const resget = await api.get(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&filters[content_private][$eq]=false`);
+
+
+        const pluspost = parseInt(resget.data.data.attributes.viewpost)+1
+        console.log(pluspost);
+
+        const body = JSON.stringify({
+            data:{
+                viewpost:pluspost
+            }
+          });
+        console.log(body);
+        const res = await api.put(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile`, body);
+          console.log(res.data.data);
+        dispatch({
+            type: count_Post,
+            payload: res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: count_Post_error,
             payload: { msg: err.response.statusText, status: err.response.status }
           });
     }

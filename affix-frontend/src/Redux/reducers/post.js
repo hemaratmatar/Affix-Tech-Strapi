@@ -16,7 +16,9 @@ import {
     loadedReview_error,
     loadedReview,
     home_highlight,
-    home_highlight_error
+    home_highlight_error,
+    count_Post,
+    count_Post_error
 } from "../action/types";
 
 
@@ -147,6 +149,18 @@ function postReducer(state = initialState, action) {
                 loading: false
             }
         case home_highlight_error:
+            return {
+                ...state,
+                error: payload,
+                loading: false
+            }
+        case count_Post:
+                return{
+                    ...state,
+                    post: payload,
+                    loading: false
+                }
+        case count_Post_error:
             return {
                 ...state,
                 error: payload,
