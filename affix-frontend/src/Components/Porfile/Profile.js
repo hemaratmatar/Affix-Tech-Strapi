@@ -52,10 +52,20 @@ const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,lo
     console.log(Profiles.data);
   }
 
-  const uploadimages = async ()=>{
+
+
+
+  const onSubmit = (e) =>{
+    e.preventDefault()
+    if (imagetext) {
+      setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+    }
+
     if (moment(dob,'YYYY-MM-DD',true).isValid() || dob === "" || dob === null ) { 
+      // console.log(Profiles.data.imageUrl);
+      setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
       console.log(Profiles.data.imageUrl);
-      await updateProfile(Profiles,profile.id,Profiles)
+       updateProfile(Profiles,profile.id)
       console.log("edit sucessfuly");
        loadUser();
        closeModal();
@@ -63,11 +73,6 @@ const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,lo
      store.dispatch(setAlert("Error : Date Error "));
       // console.log("error");
   }
-  }
-
-
-  const onSubmit = (e) =>{
-    setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
 
       // onUpdateimage();
       // uploadimages();
@@ -119,7 +124,7 @@ const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,lo
   // } else {
 
   // }   
-  console.log(imagetext);
+  // console.log(imagetext);
   // if (imagetext) {
   //   setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
   // } 
@@ -349,11 +354,11 @@ const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,lo
                             <button
                               type="button"
                               className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                              onClick={()=>{
+                              onClick={(e)=>{
                                 setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
-                                uploadimages()
-                                uploadimages()
-                                // onSubmit()
+                                // uploadimages()
+                                // uploadimages()
+                                onSubmit(e)
                               }}
                             >
                               Save

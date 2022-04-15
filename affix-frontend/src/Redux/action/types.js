@@ -36,6 +36,12 @@ export const loadedPostbyid_error = "loadedPostbyid_error";
 export const post_remove = "post_remove";
 export const post_remove_error = "post_remove_error";
 
+
+export const count_Post = "count_Post";
+export const count_Post_error = "count_Post_error";
+
+
+
 //Profile System
 
 export const Profile_loaded ="Profile_loaded";
