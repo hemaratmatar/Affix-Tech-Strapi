@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const HighLight = ({ post: { id, attributes } }) => {
     return (
         <div>
-            <div className="bg-white w-full  rounded-xl p-3">
+            <div className="bg-white w-full h-full  rounded-xl p-3">
                 <div className="flex flex-col px-3">
                     <div className="flex flex-row items-center ">
                         {attributes.users_permissions_user.data.attributes.profile.data === null ?

@@ -11,7 +11,7 @@ console.log(attributes.users_permissions_user);
   // console.log(attributes.users_permissions_user.data.attributes.profile.data.attributes.imageUrl);
   return attributes === null ? <Loadingpage/> : (
     <div><a href={`/posts/${id}`}>     
-      <div className="bg-white w-full h-40 rounded-xl p-3">
+      <div className="bg-white w-full h-full rounded-xl p-3">
         <div className="flex flex-col px-3 ">
           <div className="flex flex-row items-center py-3 ">
             {attributes.users_permissions_user.data.attributes.profile.data === null ?

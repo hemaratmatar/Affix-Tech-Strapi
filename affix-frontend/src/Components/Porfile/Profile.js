@@ -10,8 +10,10 @@ import { setAlert } from "../../Redux/action/alert";
 import Alert from '../auth/Alert'
 import { updateProfile ,uploadImage} from "../../Redux/action/userprofiles";
 import { loadUser } from "../../Redux/action/auth";
+import Myprofile from "./Myprofile";
+import Loadingpage from "../Layout/Loadingpage";
 
-const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,loading} ,updateProfile,loadUser,uploadImage}) => {
+const Profile = ({ auth: { user: { email, profile ,posts }} ,userprofiles:{imagetext,loading} ,updateProfile,loadUser,uploadImage}) => {
   useEffect(() => {
     loadUser();
     
@@ -26,7 +28,7 @@ const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,lo
   function openModal() {
     setIsOpen(true)
   }
-
+console.log(posts);
 
   const date = moment(profile.dob);
   const dateComponent = date.format("DD/MM/YYYY");
@@ -411,14 +413,14 @@ const Profile = ({ auth: { user: { email, profile }} ,userprofiles:{imagetext,lo
           <div className="bg-red-400 p-4 text-white rounded-t-md ">
             <p>Post View</p>
           </div>
-          <div className=" bg-red-200 h-36 p-4 rounded-b-md">
-            <div className="bg-red 300 w-full h-24 rounded-xl p-3">
-              <div className=" flex-shrink-0"></div>
-              <div className="px-3">
-                <div className="text-lg font-medium text-black line-clamp-1">
-                  Title
-                </div>
-              </div>
+          <div className=" bg-red-200 h-full p-4 rounded-b-md">
+            <div className="bg-red 300 w-full h-full rounded-xl p-3 space-y-4">
+              {/* <div className=" flex-shrink-0"></div> */}
+              {/* <Loadingpage /> */}
+              {!posts ? <p>No Post</p> : posts.map((post, id) => (
+                // <p>{id}</p>
+            <Myprofile key={id} post={post} />
+              ))}
             </div>
           </div>
         </div>

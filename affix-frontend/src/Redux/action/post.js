@@ -224,3 +224,15 @@ export const countspost = (id) =>async (dispatch) =>{
           });
     }
 }
+
+
+export const myPost = (id) => async (dispatch) =>{
+    try {
+        
+    } catch (err) {
+        dispatch({
+            // type: count_Post_error,
+            payload: { msg: err.response.statusText, status: err.response.status }
+          });
+    }
+}

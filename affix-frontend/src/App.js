@@ -33,12 +33,12 @@ const App = () => {
     // will get a 401 response from our API
     // store.dispatch(loadedPost());
     // store.dispatch(hightlightPost());
-    if (performance.navigation.type === 1) {
+    // if (performance.navigation.type === 1) {
       store.dispatch(loadUser());
-      console.log("This page is reloaded");
-    } else {
-      console.log("This page is not reloaded");
-    }
+    //   console.log("This page is reloaded");
+    // } else {
+    //   console.log("This page is not reloaded");
+    // }
 
 
     // log user out from all tabs if they log out in one tab

@@ -11,7 +11,7 @@ const Reviews = ({ post: { id, attributes } }) => {
   return (
     <Fragment>
       <a href={`/posts/${id}`}>
-        <div className="bg-white w-full h-40 rounded-xl p-3">
+        <div className="bg-white w-full h-full rounded-xl p-3">
           {/* <div className=" flex-1 flex-shrink-0"></div> */}
           <div className="flex flex-col px-3 ">
             {/* <p className="truncate">{renderHTML(attributes.discription)}</p> */}
