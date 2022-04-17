@@ -95,7 +95,7 @@ export const loadedPost = () => async (dispatch) => {
 
 export const updatePost = (formData, id) => async (dispatch) => {
     try {
-        const res = await api.put(`/posts/${id}`, formData);
+        const res = await api.put(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&filters[content_private][$eq]=false`, formData);
 
         dispatch({
             type: updatePost_sucessfuly,

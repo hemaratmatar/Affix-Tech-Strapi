@@ -36,16 +36,19 @@ const Login = ({ login, isAuthenticated }) => {
   return (
     <div className="flex overflow-auto min-h-screen p-4 bg-gray-100  md:items-center lg:justify-center">
       <div className="flex flex-col w-full lg:overflow-hidden overflow-auto bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-xl">
-        <div className="lg:flex lg:flex-1 lg:max-w-screen-xl p-4 py-6 text-white bg-red-400 md:w-80 md:flex-1 md:flex-shrink-0 md:flex md:flex-col md:items-center ">
+        <div className="lg:flex content-center lg:flex-1 lg:max-w-screen-xl p-4 py-6 text-white bg-red-400 md:w-80 md:flex-1 md:flex-shrink-0 md:flex md:flex-col md:items-center ">
           <div className="my-3 text-4xl font-bold tracking-wider text-center">
             <p>Affix Tech</p>
           </div>
-          <p className="flex flex-col text-xl items-center justify-center mt-10 text-center">
-            {/* <span>See You The Answer</span> */}
-            <span>Now In Development v.0.2.2</span> 
-          </p>
 
-          <div className=" my-8 p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 md:justify-center">
+
+          <div className="flex flex-col items-center justify-center mt-36 text-xl  ">
+          <p className="  ">
+            <span>See You The Answer</span>
+          </p>            
+          </div>
+
+          {/* <div className=" my-8 p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 md:justify-center">
             <div className="flex-shrink-0">
               <img
                 className="h-12 w-12"
@@ -59,8 +62,8 @@ const Login = ({ login, isAuthenticated }) => {
               </div>
               <p className="text-gray-500  break-words">Detail Recommend</p>
             </div>
-          </div>
-          <div className="my-8 p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+          </div> */}
+          {/* <div className="my-8 p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
             <div className="flex-shrink-0">
               <img
                 className="h-12 w-12"
@@ -74,9 +77,9 @@ const Login = ({ login, isAuthenticated }) => {
               </div>
               <p className="text-gray-500 break-all">Detail Recommend</p>
             </div>
-          </div>
+          </div> */}
 
-          <p className="flex flex-col items-center justify-center text-white mt-10 text-center">
+          <p className="flex flex-col items-center justify-center text-white mt-36 text-center">
             <span>Create by Hemarat & Natthakit</span>
             {/* <a href="#" className="underline">
                 Get Started!
@@ -146,12 +149,12 @@ const Login = ({ login, isAuthenticated }) => {
               <label htmlFor="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
             </div> */}
             <div className="flex items-center justify-end">
-              <a
+              {/* <a
                 href="#"
                 className="text-sm text-red-400 hover:underline focus:text-blue-800"
               >
                 Forgot Password?
-              </a>
+              </a> */}
             </div>
 
             <button

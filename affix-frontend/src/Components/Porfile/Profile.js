@@ -11,7 +11,7 @@ import Alert from '../auth/Alert'
 import { updateProfile ,uploadImage} from "../../Redux/action/userprofiles";
 import { loadUser } from "../../Redux/action/auth";
 import Myprofile from "./Myprofile";
-import Loadingpage from "../Layout/Loadingpage";
+// import Loadingpage from "../Layout/Loadingpage";
 
 const Profile = ({ auth: { user: { email, profile ,posts }} ,userprofiles:{imagetext,loading} ,updateProfile,loadUser,uploadImage}) => {
   useEffect(() => {
@@ -49,10 +49,10 @@ console.log(posts);
     setProfiles({ data: { ...Profiles.data, [e.target.name]: e.target.value } });
 
   const { fullname, dob, education, shotbio_tech } = Profiles.data;
-  const onUpdateimage = () =>{
-    setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
-    console.log(Profiles.data);
-  }
+  // const onUpdateimage = () =>{
+  //   setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+  //   console.log(Profiles.data);
+  // }
 
 
 
@@ -134,8 +134,8 @@ console.log(posts);
   // console.log(Profiles);
   return (
     <div>
-      <div className="flex flex-col md:flex-row w-full  md:space-x-4 ">
-        <div className="w-full mx-auto mb-6">
+      <div className="flex  flex-col md:flex-row  md:space-x-4 ">
+        <div className="flex-1 md:w-1/2 mb-6">
           <div className="bg-red-400 p-4 text-white rounded-t-md ">
             <p>Your Profile</p>
           </div>
@@ -409,19 +409,18 @@ console.log(posts);
             {/* </div> */}
           </div>
         </div>
-        <div className="w-full mx-auto">
+        <div className="flex-1 md:w-1/2 mb-6">
           <div className="bg-red-400 p-4 text-white rounded-t-md ">
             <p>Post View</p>
           </div>
-          <div className=" bg-red-200 h-full p-4 rounded-b-md">
-            <div className="bg-red 300 w-full h-full rounded-xl p-3 space-y-4">
+          <div className="flex flex-col bg-red-200 p-4 rounded-b-md space-y-4">
               {/* <div className=" flex-shrink-0"></div> */}
               {/* <Loadingpage /> */}
               {!posts ? <p>No Post</p> : posts.map((post, id) => (
                 // <p>{id}</p>
             <Myprofile key={id} post={post} />
               ))}
-            </div>
+    
           </div>
         </div>
 

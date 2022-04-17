@@ -32,7 +32,7 @@ const HighLight = ({ post: { id, attributes } }) => {
                                 {attributes.Title}
                             </div>
                             <p className=" text-sm truncate">
-                                {/* {attributes.discription} */}Oven Discription
+                                {attributes.discription}
                             </p>
                         </div>
                     </a>

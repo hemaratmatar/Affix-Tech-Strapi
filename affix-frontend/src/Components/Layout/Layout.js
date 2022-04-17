@@ -275,8 +275,8 @@ const Layout = ({ logout, auth: { user } }) => {
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             {/* Replace with your content */}
 
-            <div className="px-4 py-6 sm:px-0">
-              <div className="rounded-lg">
+            <div className="px-4 py-6 sm:px-0 rounded-lg">
+ 
                 {/* Router Page and */}
                 {/* <div className="bg-red-200 rounded mx-auto p-4 h-full">
                     <p className="text-black">Hello</p>
@@ -287,7 +287,6 @@ const Layout = ({ logout, auth: { user } }) => {
                   <PrivateRouter paht="/post" component={Mainpost}/>
                   <Route path="/add" component={Addpost}/>
                 </Switch> */}
-              </div>
             </div>
             {/* /End replace */}
           </div>
