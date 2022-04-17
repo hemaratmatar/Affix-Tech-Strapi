@@ -17,7 +17,6 @@
     "@tinymce/tinymce-react": "^3.13.0",
     "axios": "^0.26.0",
     "babel-plugin-macros": "^3.1.0",
-    "flowbite": "^1.4.1",
     "gravatar": "^1.8.2",
     "html-react-parser": "^1.4.9",
     "moment": "^2.29.1",

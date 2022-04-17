@@ -55,7 +55,7 @@ const Postpage = ({
     // showAllcomment
   ]);
   //Convert Date Post Function
-  if (post != null) {
+  if (post !== null) {
     var date = moment(post.attributes.createdAt);
     var dateComponent = date.utc().format("DD/MM/YYYY");
   }
@@ -90,7 +90,9 @@ const Postpage = ({
     }
 
   }
+  // console.log(post.attributes.comments.data);
 
+  // console.log(post.attributes.users_permissions_user.data.id);
 
   // post
   return loading || post === null ? (
@@ -185,14 +187,13 @@ const Postpage = ({
                                 //   aria-hidden="true"
                                 // />
                                 <>
-                                  {/* <i class="fa-light fa-megaphone"></i> */}
                                 </>
                               )}
                               Report
                             </button>
                           )}
                         </Menu.Item>
-                      </Fragment>}
+                      </Fragment>} 
                   </div>
                 </Menu.Items>
               </Transition>
@@ -244,7 +245,7 @@ const Postpage = ({
         <div className="bg-red-200 h-auto rounded-b-xl">
           <div className=" flex flex-col mx-4 space-y-4 py-4">
 
-            {post.attributes.comments.data.length !== 0 ? (
+            {post.attributes.comments.data.length !== 0 || post.attributes.comments.data === [] ||  post.attributes.comments.data === null ? (
               post.attributes.comments.data.map((comment, id) => (
                 // <p>{comment.id}</p>
                 <CommentItems key={id} comment={comment} />

@@ -9,9 +9,9 @@ const Myprofile = ({auth:{user:{profile}}, post: { id, Catagory,users_permission
   return (
     <div>
       <a href={`/posts/${id}`}>
-        <div className="bg-white w-full h-full rounded-xl p-3 ">
-          <div className="flex flex-col px-3 ">
-            <div className='flex flex-row items-center'>
+        <div className="bg-white w-full rounded-xl p-3 ">
+          <div className=" px-3 ">
+            <div className='flex  items-center'>
               {profile === null ?
                 <img
                   className="h-7 w-7 rounded-full "
@@ -25,19 +25,19 @@ const Myprofile = ({auth:{user:{profile}}, post: { id, Catagory,users_permission
                   alt="profile-in-post-list"
                 />
                }
-              <div className="flex flex-col items-center py-3 px-4 ">
+              <div className=" items-center py-3 px-4 ">
                 <div className=" text-md">
                   <p >{profile.fullname}</p>
                   <p className="text-sm">{Catagory}</p>
                 </div>
               </div>
             </div>
-            <div className="py-1 justify-end">
-              <div className="py-1">
-                <div className="text-md font-medium text-black line-clamp-1 ">
+            <div className="  py-1 justify-end">
+              <div className="py-1 break-all">
+                <p className="text-md font-medium text-black line-clamp-1 ">
                   {Title}
-                </div>
-                <p className="text-sm truncate">{discription}</p>
+                </p>
+                <p className="text-sm break-all  truncate">{discription}</p>
               </div>
             </div>
           </div>

@@ -57,13 +57,14 @@ const editSubmit = (e) =>{
   hightlightPost();
   loadedPost();
   // window.location.href = "/posts"
-  if (formPost.data.Catagory === "Review") {
+  // if (formPost.data.Catagory === "Review") {
     // window.location.href = "/reviews"
-    navigator("/reviews");
-  } else {
-  navigator("/posts");
+    // navigator("/reviews");
+  // } else {
+    navigator(`/posts/${id}`);
+  // navigator("/posts");
     // window.location.href = "/posts"
-  }
+  // }
 }
 
 

@@ -65,7 +65,7 @@ export const login = (identifier, password) => async (dispatch) => {
     dispatch(loadUser());
   } catch (err) {
     // console.log(err.response.status);
-    const errors = err.response.data.error;
+    // const errors = err.response.data.error;
 
 
     if (err.response.status === 500) {
