@@ -1,4 +1,5 @@
 import api from "../utils/api"
+import { loadUser } from "./auth"
 import { 
     editProfile, 
     editProfile_error, 
@@ -38,7 +39,7 @@ export const updateProfile = (Profiles, id) => async (dispatch) => {
             type: editProfile,
             payload: res.data.data
         });
-
+        // await loadUser();
     } catch (err) {
         dispatch({
             type: editProfile_error,
