@@ -56,7 +56,7 @@ const Profile = ({ auth: { user: { email, profile ,posts }} ,userprofiles:{image
 
 
 
-  const onSubmit = (e) =>{
+  const onSubmit =  (e) =>{
     e.preventDefault()
     if (imagetext) {
       setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
@@ -68,20 +68,20 @@ const Profile = ({ auth: { user: { email, profile ,posts }} ,userprofiles:{image
       console.log(Profiles.data.imageUrl);
        updateProfile(Profiles,profile.id)
       console.log("edit sucessfuly");
-       loadUser();
-       closeModal();
+       
     }else{
      store.dispatch(setAlert("Error : Date Error "));
       // console.log("error");
   }
-
+  loadUser();
+  closeModal();
   }
 
     // console.log(imagedata.url);    
 
   // Add Photo
   const [files, setFiles] = useState();
-  const [ url, setUrl ] = useState("");
+  const [ url, setUrl ] = useState(null);
   const uploadImages = async (e) => {
     //posting logic will go here
     e.preventDefault();
@@ -266,15 +266,15 @@ const Profile = ({ auth: { user: { email, profile ,posts }} ,userprofiles:{image
                                 Image Profile
                               </label>
                               <div className="image overflow-hidden p-4">
-                                { loading !== true ?
+                                { url !== null ?
                                <img
                                className="object-cover h-60 w-60 mx-auto rounded-md"
                                // src="https://res.cloudinary.com/carisoven/image/upload/v1649872713/medium_DSC_0020_528c43c9ed.jpg"
-                               src={imagetext.url}
+                               src={url}
                                alt=""
                              />
                              :
-                               loading === true && profile.imageUrl === null ?
+                             url === null && profile.imageUrl === null ?
                               <div class="flex justify-center items-center h-full">
                               <img class="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="loading"/>
                             </div>    
