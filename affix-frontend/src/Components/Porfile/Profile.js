@@ -28,7 +28,6 @@ const Profile = ({ auth: { user: { email, profile ,posts }} ,userprofiles:{image
   function openModal() {
     setIsOpen(true)
   }
-console.log(posts);
 
   const date = moment(profile.dob);
   const dateComponent = date.format("DD/MM/YYYY");
@@ -65,7 +64,7 @@ console.log(posts);
 
     if (moment(dob,'YYYY-MM-DD',true).isValid() || dob === "" || dob === null ) { 
       // console.log(Profiles.data.imageUrl);
-      setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+      // setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
       console.log(Profiles.data.imageUrl);
        updateProfile(Profiles,profile.id)
       console.log("edit sucessfuly");
@@ -76,62 +75,44 @@ console.log(posts);
       // console.log("error");
   }
 
-      // onUpdateimage();
-      // uploadimages();
-
-// console.log(imagetext.url);
-//     if(imagetext !== null && imagetext.url !== profile.imageUrl){
-//       console.log(setProfiles({ data:  { ...Profiles.data, imageUrl: imagetext.url } }));
-//       // console.log(Profiles.data.imageUrl);
-//     }
-
-    // if ( imagetext !== null && imagetext.url !== profile.imageUrl) {
-      // if(imagedata !== null){
-        // onUpdateimage();
-        // console.log(Profiles);  
-    // }
-    
-   
-    //   // console.log(dob);
-    //   // console.log(profile.id);
-
-    // } else 
-
   }
 
     // console.log(imagedata.url);    
 
   // Add Photo
   const [files, setFiles] = useState();
-
+  const [ url, setUrl ] = useState("");
   const uploadImages = async (e) => {
     //posting logic will go here
     e.preventDefault();
     // console.log(e.target.files);
     if(files !== undefined) {
       // sharp automatically rotates image according to orientation tag
-    console.log();
+
     const formData = new FormData();
-    formData.append('files', files[0]);
-     uploadImage(formData);
+    formData.append('file', files[0]);
+    formData.append("upload_preset", "userprofile-affix-tech")
+    formData.append("cloud_name","carisoven")
+    console.log(formData);
+    //  uploadImage(formData);
+    fetch("  https://api.cloudinary.com/v1_1/carisoven/image/upload",{
+      method:"post",
+      body: formData
+      })
+      .then(resp => resp.json())
+      .then(data => {
+      setUrl(data.url);
+      console.log(data.url);
+      setProfiles({ data: { ...Profiles.data, imageUrl: data.url } });
+      })
+      .catch(err => console.log(err))
+
     }
 
     // setProfiles({ data: { ...Profiles.data, [e.target.name]: e.target.value } });
   };
-  // if (imagetext !== undefined || imagetext !== null) {
-    // const uid = imagetext[1].id;
-    // console.log(uid);
-    // const url = imagetext[1].url;
-    // console.log(url);
-  // } else {
 
-  // }   
-  // console.log(imagetext);
-  // if (imagetext) {
-  //   setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
-  // } 
-
-  // console.log(Profiles);
+  console.log(Profiles);
   return (
     <div>
       <div className="flex  flex-col md:flex-row  md:space-x-4 ">
@@ -357,7 +338,7 @@ console.log(posts);
                               type="button"
                               className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                               onClick={(e)=>{
-                                setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
+                                // setProfiles({ data: { ...Profiles.data, imageUrl: imagetext.url } });
                                 // uploadimages()
                                 // uploadimages()
                                 onSubmit(e)
