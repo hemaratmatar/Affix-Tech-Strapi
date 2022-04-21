@@ -16,13 +16,13 @@ console.log(attributes.users_permissions_user);
           <div className="flex flex-row items-center py-3 ">
             {attributes.users_permissions_user.data.attributes.profile.data === null ?
               <img
-                className="h-7 w-7 rounded-full "
+                className="object-cover h-7 w-7 rounded-full "
                 src="https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
                 alt="profile-in-post-list"
               />
               :
               <img
-                className="h-10 w-10 rounded-full "
+                className="object-cover h-10 w-10 rounded-full "
                 src={attributes.users_permissions_user.data.attributes.profile.data.attributes.imageUrl}
                 alt="profile-in-post-list"
               />

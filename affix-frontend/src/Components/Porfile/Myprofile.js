@@ -20,7 +20,7 @@ const Myprofile = ({auth:{user:{profile}}, post: { id, Catagory,users_permission
                 />
                 :
                 <img
-                  className="h-10 w-10 rounded-full "
+                  className="object-cover h-10 w-10 rounded-full "
                   src={profile.imageUrl}
                   alt="profile-in-post-list"
                 />

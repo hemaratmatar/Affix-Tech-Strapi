@@ -108,7 +108,7 @@ const Layout = ({ logout, auth: { user } }) => {
                           <Menu.Button className="max-w-xs bg-red-400 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-300 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
                             <img
-                              className="h-8 w-8 rounded-full"
+                              className="object-cover h-8 w-8 rounded-full"
                               src={user.profile.imageUrl}
                               alt=""
                             />
@@ -217,7 +217,7 @@ const Layout = ({ logout, auth: { user } }) => {
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
                       <img
-                        className="h-10 w-10 rounded-full"
+                        className="object-cover h-10 w-10 rounded-full"
                         src={profile.imageUrl}
                         alt=""
                       />

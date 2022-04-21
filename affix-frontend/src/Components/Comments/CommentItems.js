@@ -143,13 +143,13 @@ const Comment = ({ comment: { id, attributes }, auth: { user }, post, EditCommen
         <div className="justify-self-start w-10">
           {attributes.users_permissions_user.data === null && attributes.users_permissions_user.data.attributes.profile.data === null ?
             <img
-              className="h-10 w-10 rounded-full "
+              className="object-cover h-10 w-10 rounded-full "
               src="https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
               alt="userimage-profile-comment"
             />
             :
             <img
-              className="h-10 w-10  rounded-full"
+              className="object-cover h-10 w-10  rounded-full"
               src={attributes.users_permissions_user.data.attributes.profile.data.attributes.imageUrl}
               alt="userimage-profile-comment"
             />

@@ -1,5 +1,4 @@
 import api from "../utils/api"
-import { loadUser } from "./auth"
 import { 
     editProfile, 
     editProfile_error, 

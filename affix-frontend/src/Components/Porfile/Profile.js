@@ -276,7 +276,7 @@ const Profile = ({ auth: { user: { email, profile ,posts }} ,userprofiles:{image
                              :
                              url === null && profile.imageUrl === null ?
                               <div class="flex justify-center items-center h-full">
-                              <img class="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="loading"/>
+                              <img class="object-cover h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="loading"/>
                             </div>    
                               :    
                               <img
