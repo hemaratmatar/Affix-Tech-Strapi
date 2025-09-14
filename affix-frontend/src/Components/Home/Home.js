@@ -20,7 +20,7 @@ const Home = ({
     loaded_Review();
     loadedPost();
     homehighlight();
-  }, [loaded_Review, loadedPost, homehighlight])
+  }, [, loadedPost, homehighlight])
 
   return (
     <Fragment>
@@ -39,9 +39,9 @@ const Home = ({
           <p className="text-lg">Review Content</p>
         </div>
         <div className="inline-grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3  h-[560px] w-full  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
-          {!reviews ? <Loadingpage /> : reviews.map((post, id) => (
+          {/* {!reviews ? <Loadingpage /> : reviews.map((post, id) => (
             <Reviews key={id} post={post} />
-          ))}
+          ))} */}
         </div>
       </div>
       <div className="pt-8">
@@ -49,9 +49,9 @@ const Home = ({
           <p className="text-md">Problem Content</p>
         </div>
         <div className="inline-grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3  h-full w-full  overflow-y-auto rounded-b-3xl p-6 bg-red-200">
-          {posts === null ? <Loadingpage /> : posts.map((post, id) => (
+          {/* {posts === null ? <Loadingpage /> : posts.map((post, id) => (
             <Postall key={id} post={post} />
-          ))}
+          ))} */}
         </div>
       </div>
     </Fragment>

@@ -1,4 +1,11 @@
 module.exports = ({ env }) => ({
+    i18n: {
+    enabled: true,
+    config: {
+      locales: ['en', 'th'],
+      defaultLocale: 'en',
+    },
+  },
     // ...
     upload: {
       config: {

@@ -8,15 +8,28 @@ import {
   LOADER_FAIL
 } from "../action/types";
 
-const initialState = {
+interface AuthState {
+  token: string | null;
+  isAuthenticated: boolean | null;
+  loading: boolean;
+  user: any;
+  error: any;
+}
+
+const initialState: AuthState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
   user: null,
-  error:{}
+  error: {}
 };
 
-export default function auth(state = initialState, action) {
+interface AuthAction {
+  type: string;
+  payload?: any;
+}
+
+export default function auth(state: AuthState = initialState, action: AuthAction): AuthState {
   const { type, payload } = action;
 
   switch (type) {

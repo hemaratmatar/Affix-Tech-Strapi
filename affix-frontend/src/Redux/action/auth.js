@@ -36,6 +36,8 @@ export const login = (identifier, password) => async (dispatch) => {
   // };
 
   const body = JSON.stringify({ identifier, password });
+  console.log(body);
+  
   // const body = { identifier, password };
 
   // await axios
