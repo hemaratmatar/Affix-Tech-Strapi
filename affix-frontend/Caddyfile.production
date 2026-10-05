@@ -1,8 +1,0 @@
-uat.affix-tech.com:443 {
-  tls hemarat.mat@gmail.com
-  root * /srv
-  route {
-    try_files {path} {path}/ /index.html
-    file_server
-  }
-}
