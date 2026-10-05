@@ -4,9 +4,7 @@ import { LOGOUT } from '../action/types';
 
 // Create an instance of axios
 const api = axios.create({
-  // baseURL: process.env.REACT_APP_BASE_URL,
-  // baseURL: 'https://api.affix-tech.com/api',
-  baseURL: 'http://localhost:1337/api',
+  baseURL: process.env.REACT_APP_BASE_URL || 'http://localhost:1337/api',
   headers: {
     'Content-Type': 'application/json'
   }

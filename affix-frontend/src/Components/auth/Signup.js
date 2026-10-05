@@ -21,7 +21,7 @@ const Signup = ({setAlert,signup,isAuthenticated,loading}) => {
     passwordCheck: "",
     role: 1,
   });
- // https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg
+ // https://res.cloudinary.com/carisoven/image/upload/v1791194219/affix_avatar_default_120abe7f3f.jpg
 
  const [profileData, setprofileData] = useState({
   data:{

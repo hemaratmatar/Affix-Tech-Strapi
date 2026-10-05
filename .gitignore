@@ -1,1 +1,25 @@
+# Local docs (kept out of git by existing repo convention)
+/doc
+
+# Local bind-mount data (legacy dev compose)
 /data
+/seed
+
+# Secrets / credentials — never commit
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.crt
+
+# Database dumps / exports — never commit, keep DB data outside the repo
+*.sql
+*.sqlite
+*.sqlite3
+*.dump
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

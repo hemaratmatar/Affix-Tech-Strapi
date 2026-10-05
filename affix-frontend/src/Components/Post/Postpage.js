@@ -21,6 +21,7 @@ import { addComment } from "../../Redux/action/comment";
 
 //Components
 import CommentItems from "../Comments/CommentItems";
+import { DEFAULT_COVER, getCover, onImageError } from "../../utils/media";
 import moment from 'moment';
 import { Menu, Transition } from '@headlessui/react'
 
@@ -204,9 +205,17 @@ const Postpage = ({
         <div className=" bg-white h-full text-sm p-5 border-b-4 border-x-4 border-slate-200 rounded-b-xl">
           <p>Post Date : {dateComponent}</p>
           <p>View Post : {post.attributes.viewpost}</p>
+          {post.attributes.Cover?.data && (
+            <img
+              className="mt-4 w-full max-h-[420px] object-cover rounded-xl"
+              src={getCover(post.attributes, "large")}
+              onError={onImageError(DEFAULT_COVER)}
+              alt={post.attributes.Cover.data.attributes.alternativeText || post.attributes.Title}
+            />
+          )}
           <div className=" break-words text-sm p-5">
             {/* <div dangerouslySetInnerHTML={{ __html: post.attributes.Content }} /> */}
-            <div>{parse(post.attributes.Content)}</div>
+            <div className="article-content">{parse(post.attributes.Content || "")}</div>
             {/* <div>{post.attributes.Content}</div> */}
           </div>
         </div>

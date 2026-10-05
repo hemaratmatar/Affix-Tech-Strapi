@@ -10,6 +10,17 @@ Icon
 .Trashes
 ._*
 
+############################
+# Secrets / certificates
+############################
+
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.crt
 
 ############################
 # Linux

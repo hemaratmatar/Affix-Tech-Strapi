@@ -1,26 +1,106 @@
-version: "3"
+name: affix-tech-production
 services:
-  affix-frontend-production:
-    #platform: linux/x86_64
-    image: affix-frontend-production
-    # build: ./affix-frontend/
+  mysql:
+    image: mysql:8.0
+    command: ["mysqld", "--default-authentication-plugin=mysql_native_password"]
     restart: unless-stopped
-    ports: 
-      - "80:3000"
-      # - "443:443"
-    # volumes:
-    #   - caddy-data:/data
-    #   - caddy-config:/config
-#     networks:
-#       - mern-app
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env.production}
+      MYSQL_DATABASE: ${DATABASE_NAME:?Set DATABASE_NAME in .env.production}
+      MYSQL_USER: ${DATABASE_USERNAME:?Set DATABASE_USERNAME in .env.production}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in .env.production}
+    # No "ports:" on purpose — MySQL must stay unreachable from the host/Internet.
+    # Data lives in the named volume below, which Docker stores under its own
+    # data root (e.g. /var/lib/docker/volumes/... on Linux), NOT inside this
+    # repository checkout. Point DOCKER_DATA_ROOT at a separate disk/mount if
+    # you want the volume physically off the app disk — see doc/06.
+    volumes:
+      - affix_production_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$${MYSQL_ROOT_PASSWORD}\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    networks:
+      - internal
 
-# networks:
-#   mern-app:
-#     driver: bridge
+  strapi-backend:
+    build:
+      context: ./affix-backend
+      dockerfile: Dockerfile.production
+    image: affix-backend-production:${IMAGE_TAG:-production}
+    restart: unless-stopped
+    env_file:
+      - ./affix-backend/.env.production
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1337
+      DATABASE_CLIENT: mysql
+      DATABASE_HOST: mysql
+      DATABASE_PORT: 3306
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SSL: "false"
+    # No published host port — only nginx reaches it, over the "edge" network.
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - internal
+      - edge
+
+  frontend:
+    build:
+      context: ./affix-frontend
+      dockerfile: Dockerfile.production
+      args:
+        BASE_URL: ${REACT_APP_API_BASE_URL:-https://api.affix-tech.com/api}
+    image: affix-frontend-production:${IMAGE_TAG:-production}
+    restart: unless-stopped
+    networks:
+      - edge
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - certbot_etc:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    depends_on:
+      - frontend
+      - strapi-backend
+    networks:
+      - edge
+
+  certbot:
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    volumes:
+      - certbot_etc:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    # Renews twice a day (certbot no-ops unless a cert is within 30 days of
+    # expiry); run `make certbot-init` once manually for the first issuance.
+    entrypoint: ["/bin/sh", "-c", "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done"]
+
+networks:
+  edge:
+    driver: bridge
+  internal:
+    driver: bridge
+
 volumes:
-  data:
-    driver: local
-  # caddy-data:
-  #   driver: local
-  # caddy-config:
-  #   driver: local
+  # Named volumes only — nothing database-related is bind-mounted into the
+  # git-tracked repo folder. See doc/06-deployment-and-operations.md for
+  # off-host/offsite backup guidance (mysqldump + encrypted upload).
+  affix_production_mysql_data:
+    name: affix-tech-production-mysql
+  certbot_etc:
+    name: affix-tech-production-certbot-etc
+  certbot_www:
+    name: affix-tech-production-certbot-www

@@ -47,7 +47,7 @@ export const addPost = (formPost, history) => async (dispatch) => {
 
 export const loadedPostbyID = (id) => async (dispatch) => {
     try {
-        const res = await api.get(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&filters[content_private][$eq]=false`);
+        const res = await api.get(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&populate=Cover&filters[content_private][$eq]=false`);
         dispatch({
             type: loadedPostbyid,
             payload: res.data.data
@@ -62,7 +62,7 @@ export const loadedPostbyID = (id) => async (dispatch) => {
 
 export const hightlightPost = () => async (dispatch) => {
     try {
-        const res = await api.get('/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[highlights][$eq]=true&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
+        const res = await api.get('/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&populate[2]=Cover&filters[highlights][$eq]=true&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
 
         dispatch({
             type: post_hl_loaded,
@@ -78,7 +78,7 @@ export const hightlightPost = () => async (dispatch) => {
 
 export const loadedPost = () => async (dispatch) => {
     try {
-        const res = await api.get('/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
+        const res = await api.get('/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&populate[2]=Cover&filters[Catagory][$eq]=Post&filters[content_private][$eq]=false');
 
         dispatch({
             type: post_loaded,
@@ -95,7 +95,7 @@ export const loadedPost = () => async (dispatch) => {
 
 export const updatePost = (formData, id) => async (dispatch) => {
     try {
-        const res = await api.put(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&filters[content_private][$eq]=false`, formData);
+        const res = await api.put(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&populate=Cover&filters[content_private][$eq]=false`, formData);
 
         dispatch({
             type: updatePost_sucessfuly,
@@ -131,7 +131,7 @@ export const deletePost = (id) => async (dispatch) => {
 
 export const loadedReviewsHL = () => async (dispatch) => {
     try {
-        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[highlights][$eq]=true&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&populate[2]=Cover&filters[highlights][$eq]=true&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
  
         dispatch({
             type: loadedhl_Review,
@@ -149,7 +149,7 @@ export const loadedReviewsHL = () => async (dispatch) => {
 
 export const loaedReviewHL =() => async (dispatch) =>{
     try {
-        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[highlights][$eq]=true&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&populate[2]=Cover&filters[highlights][$eq]=true&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
 
         dispatch({
             type: loadedhl_Review,
@@ -165,7 +165,7 @@ export const loaedReviewHL =() => async (dispatch) =>{
 
 export const loaded_Review =() => async (dispatch) =>{
     try {
-        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&populate[2]=Cover&filters[Catagory][$eq]=Review&filters[content_private][$eq]=false");
 
         dispatch({
             type: loadedReview,
@@ -182,7 +182,7 @@ export const loaded_Review =() => async (dispatch) =>{
 
 export const homehighlight = () => async (dispatch) =>{
     try {
-        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&filters[content_private][$eq]=false&filters[highlights][$eq]=true");
+        const res = await api.get("/posts?populate[0]=users_permissions_user&populate[1]=users_permissions_user.profile&populate[2]=Cover&filters[content_private][$eq]=false&filters[highlights][$eq]=true");
 
         dispatch({
             type: home_highlight,
@@ -199,7 +199,7 @@ export const homehighlight = () => async (dispatch) =>{
 export const countspost = (id) =>async (dispatch) =>{
     try {
 
-        const resget = await api.get(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&filters[content_private][$eq]=false`);
+        const resget = await api.get(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&populate=Cover&filters[content_private][$eq]=false`);
 
 
         const pluspost = parseInt(resget.data.data.attributes.viewpost)+1
@@ -211,7 +211,7 @@ export const countspost = (id) =>async (dispatch) =>{
             }
           });
         console.log(body);
-        const res = await api.put(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile`, body);
+        const res = await api.put(`/posts/${id}?populate=comments.users_permissions_user.profile&populate=users_permissions_user.profile&populate=Cover`, body);
           console.log(res.data.data);
         dispatch({
             type: count_Post,

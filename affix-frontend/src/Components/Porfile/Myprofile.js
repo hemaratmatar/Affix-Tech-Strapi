@@ -15,7 +15,7 @@ const Myprofile = ({auth:{user:{profile}}, post: { id, Catagory,users_permission
               {profile === null ?
                 <img
                   className="h-7 w-7 rounded-full "
-                  src="https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
+                  src="https://res.cloudinary.com/carisoven/image/upload/v1791194219/affix_avatar_default_120abe7f3f.jpg"
                   alt="profile-in-post-list"
                 />
                 :

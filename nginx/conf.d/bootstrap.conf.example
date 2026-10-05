@@ -1,0 +1,46 @@
+# HTTP-only bootstrap conf — use ONCE on a brand-new host before the first
+# Let's Encrypt certificate exists.
+#
+# Usage:
+#   cp nginx/conf.d/affix-tech.conf nginx/conf.d/affix-tech.conf.disabled
+#   cp nginx/conf.d/bootstrap.conf.example nginx/conf.d/affix-tech.conf
+#   docker compose -f docker-compose-production.yml up -d nginx
+#   make certbot-init
+#   rm nginx/conf.d/affix-tech.conf
+#   mv nginx/conf.d/affix-tech.conf.disabled nginx/conf.d/affix-tech.conf
+#   docker compose -f docker-compose-production.yml restart nginx
+#
+# This only proxies plain HTTP so certbot's webroot challenge can be served
+# and so you can sanity-check the stack before TLS is live.
+
+server {
+    listen 80;
+    server_name affix-tech.com www.affix-tech.com;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        proxy_pass http://frontend:80;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+server {
+    listen 80;
+    server_name api.affix-tech.com;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        proxy_pass http://strapi-backend:1337;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}

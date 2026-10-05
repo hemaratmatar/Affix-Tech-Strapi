@@ -18,16 +18,38 @@ build-local:
 
 run-local:
 	ENV=local docker-compose -f docker-compose-production.yml up
-		
+	
 
-### PROD
+### PRODUCTION
+# Env values come from affix-backend/.env.production (git-ignored, never committed).
+# See doc/06-deployment-and-operations.md for the full bootstrap sequence
+# (first boot needs the HTTP-only nginx conf before a TLS cert exists).
 
 build-production:
-	cd affix-frontend && $(MAKE) build-production
-	cd affix-backend && $(MAKE) build-dev	
+	docker compose --env-file ./affix-backend/.env.production -f docker-compose-production.yml build
 
 run-production:
-	ENV=production docker-compose -f docker-compose-production.yml up
-	
+	docker compose --env-file ./affix-backend/.env.production -f docker-compose-production.yml up -d
+
+# One-time (or renewal-forcing) certificate issuance. Requires nginx to
+# already be serving the ACME http-01 challenge path for both domains
+# (see nginx/conf.d/bootstrap.conf.example for the first-ever run).
+certbot-init:
+	docker compose --env-file ./affix-backend/.env.production -f docker-compose-production.yml run --rm certbot \
+		certonly --webroot -w /var/www/certbot \
+		-d affix-tech.com -d www.affix-tech.com \
+		--email ${CERTBOT_EMAIL} --agree-tos --no-eff-email
+	docker compose --env-file ./affix-backend/.env.production -f docker-compose-production.yml run --rm certbot \
+		certonly --webroot -w /var/www/certbot \
+		-d api.affix-tech.com \
+		--email ${CERTBOT_EMAIL} --agree-tos --no-eff-email
+	docker compose --env-file ./affix-backend/.env.production -f docker-compose-production.yml restart nginx
+
+logs-production:
+	docker compose --env-file ./affix-backend/.env.production -f docker-compose-production.yml logs -f
+
+stop-production:
+	docker compose --env-file ./affix-backend/.env.production -f docker-compose-production.yml down
+
 stop:
 	docker-compose down

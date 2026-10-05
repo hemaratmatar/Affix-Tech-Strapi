@@ -14,7 +14,7 @@ const Posthighlight = ({ post: { id, attributes } }) => {
           {attributes.users_permissions_user.data.attributes.profile.data === null ? 
               <img
                   className="object-cover h-10 w-10 rounded-full "
-                  src="https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
+                  src="https://res.cloudinary.com/carisoven/image/upload/v1791194219/affix_avatar_default_120abe7f3f.jpg"
                   alt="profile-in-post-list"
                 />
               :

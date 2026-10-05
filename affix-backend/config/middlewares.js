@@ -23,10 +23,8 @@ module.exports = [
         'http://localhost:1337',
         'https://localhost:3000',
         'https://localhost:1337',
-        'http://app.affix-tech.com',
-        'https://app.affix-tech.com',
-        'http://cloud.affix-tech.com',
-        'https://cloud.affix-tech.com',
+        'https://affix-tech.com',
+        'https://www.affix-tech.com',
         'http://uat.affix-tech.com',
         'https://uat.affix-tech.com'
       ]

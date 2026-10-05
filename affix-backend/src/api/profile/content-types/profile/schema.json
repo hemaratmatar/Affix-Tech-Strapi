@@ -36,7 +36,7 @@
     },
     "imageUrl": {
       "type": "text",
-      "default": "https://res.cloudinary.com/carisoven/image/upload/v1645253457/userprfile/user_default_zvvgv7.jpg"
+      "default": "https://res.cloudinary.com/carisoven/image/upload/v1791194219/affix_avatar_default_120abe7f3f.jpg"
     },
     "user": {
       "type": "relation",
