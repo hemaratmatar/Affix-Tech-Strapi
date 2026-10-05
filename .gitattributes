@@ -1,0 +1,25 @@
+# Normalize line endings for this repo so Git stops guessing (and warning)
+# on every add/checkout. Everything is treated as text and normalized to LF
+# in the repository; Windows checkouts of plain text still render fine in
+# modern editors. Files that MUST stay LF (so they still run correctly
+# inside Linux Docker containers) are pinned explicitly.
+
+* text=auto eol=lf
+
+*.sh       text eol=lf
+*.bash     text eol=lf
+Dockerfile text eol=lf
+Dockerfile.* text eol=lf
+Makefile   text eol=lf
+*.conf     text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.env.example text eol=lf
+
+# Binary files — never touch line endings
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
